@@ -4,12 +4,124 @@ package sota.medichain.medichain;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "medichain/sharing.proto";
+import "medichain/service_user.proto";
+import "medichain/service.proto";
+import "medichain/user.proto";
 
 option go_package = "github.com/sota/medichain/x/medichain/types";
 
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a sharing by index.
+	rpc Sharing(QueryGetSharingRequest) returns (QueryGetSharingResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/sharing/{index}";
+	}
+
+	// Queries a list of sharing items.
+	rpc SharingAll(QueryAllSharingRequest) returns (QueryAllSharingResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/sharing";
+	}
+
+
+	// Queries a serviceUser by index.
+	rpc ServiceUser(QueryGetServiceUserRequest) returns (QueryGetServiceUserResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/serviceUser/{index}";
+	}
+
+	// Queries a list of serviceUser items.
+	rpc ServiceUserAll(QueryAllServiceUserRequest) returns (QueryAllServiceUserResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/serviceUser";
+	}
+
+
+	// Queries a service by index.
+	rpc Service(QueryGetServiceRequest) returns (QueryGetServiceResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/service/{index}";
+	}
+
+	// Queries a list of service items.
+	rpc ServiceAll(QueryAllServiceRequest) returns (QueryAllServiceResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/service";
+	}
+
+
+	// Queries a user by index.
+	rpc User(QueryGetUserRequest) returns (QueryGetUserResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/user/{index}";
+	}
+
+	// Queries a list of user items.
+	rpc UserAll(QueryAllUserRequest) returns (QueryAllUserResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/user";
+	}
+
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetSharingRequest {
+	string index = 1;
+}
+
+message QueryGetSharingResponse {
+	Sharing Sharing = 1;
+}
+
+message QueryAllSharingRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSharingResponse {
+	repeated Sharing Sharing = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetServiceUserRequest {
+	string index = 1;
+}
+
+message QueryGetServiceUserResponse {
+	ServiceUser ServiceUser = 1;
+}
+
+message QueryAllServiceUserRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllServiceUserResponse {
+	repeated ServiceUser ServiceUser = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetServiceRequest {
+	string index = 1;
+}
+
+message QueryGetServiceResponse {
+	Service Service = 1;
+}
+
+message QueryAllServiceRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllServiceResponse {
+	repeated Service Service = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetUserRequest {
+	string index = 1;
+}
+
+message QueryGetUserResponse {
+	User User = 1;
+}
+
+message QueryAllUserRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllUserResponse {
+	repeated User User = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

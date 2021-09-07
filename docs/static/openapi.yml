@@ -19475,6 +19475,694 @@ paths:
           format: uint64
       tags:
         - Query
+  /sota/medichain/medichain/service:
+    get:
+      summary: Queries a list of service items.
+      operationId: SotaMedichainMedichainServiceAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Service:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    index:
+                      type: string
+                    name:
+                      type: string
+                    url:
+                      type: string
+                    class:
+                      type: string
+                    isActive:
+                      type: boolean
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/sota/medichain/medichain/service/{index}':
+    get:
+      summary: Queries a service by index.
+      operationId: SotaMedichainMedichainService
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Service:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  index:
+                    type: string
+                  name:
+                    type: string
+                  url:
+                    type: string
+                  class:
+                    type: string
+                  isActive:
+                    type: boolean
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /sota/medichain/medichain/serviceUser:
+    get:
+      summary: Queries a list of serviceUser items.
+      operationId: SotaMedichainMedichainServiceUserAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              ServiceUser:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    index:
+                      type: string
+                    serviceId:
+                      type: string
+                    userId:
+                      type: string
+                    serviceUserId:
+                      type: string
+                    isActive:
+                      type: boolean
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/sota/medichain/medichain/serviceUser/{index}':
+    get:
+      summary: Queries a serviceUser by index.
+      operationId: SotaMedichainMedichainServiceUser
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              ServiceUser:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  index:
+                    type: string
+                  serviceId:
+                    type: string
+                  userId:
+                    type: string
+                  serviceUserId:
+                    type: string
+                  isActive:
+                    type: boolean
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /sota/medichain/medichain/sharing:
+    get:
+      summary: Queries a list of sharing items.
+      operationId: SotaMedichainMedichainSharingAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Sharing:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    index:
+                      type: string
+                    ownerId:
+                      type: string
+                    viewerId:
+                      type: string
+                    status:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/sota/medichain/medichain/sharing/{index}':
+    get:
+      summary: Queries a sharing by index.
+      operationId: SotaMedichainMedichainSharing
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Sharing:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  index:
+                    type: string
+                  ownerId:
+                    type: string
+                  viewerId:
+                    type: string
+                  status:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /sota/medichain/medichain/user:
+    get:
+      summary: Queries a list of user items.
+      operationId: SotaMedichainMedichainUserAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              User:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    index:
+                      type: string
+                    address:
+                      type: string
+                    isActive:
+                      type: boolean
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/sota/medichain/medichain/user/{index}':
+    get:
+      summary: Queries a user by index.
+      operationId: SotaMedichainMedichainUser
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              User:
+                type: object
+                properties:
+                  creator:
+                    type: string
+                  index:
+                    type: string
+                  address:
+                    type: string
+                  isActive:
+                    type: boolean
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    typeUrl:
+                      type: string
+                    value:
+                      type: string
+                      format: byte
+      parameters:
+        - name: index
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
 definitions:
   cosmos.bank.v1beta1.DenomUnit:
     type: object
@@ -29761,3 +30449,325 @@ definitions:
     description: |-
       Version defines the versioning scheme used to negotiate the IBC verison in
       the connection handshake.
+  sota.medichain.medichain.MsgAcceptSharingResponse:
+    type: object
+  sota.medichain.medichain.MsgCreateServiceResponse:
+    type: object
+  sota.medichain.medichain.MsgCreateServiceUserResponse:
+    type: object
+  sota.medichain.medichain.MsgCreateSharingResponse:
+    type: object
+  sota.medichain.medichain.MsgCreateUserResponse:
+    type: object
+  sota.medichain.medichain.MsgDeleteServiceResponse:
+    type: object
+  sota.medichain.medichain.MsgDeleteServiceUserResponse:
+    type: object
+  sota.medichain.medichain.MsgDeleteSharingResponse:
+    type: object
+  sota.medichain.medichain.MsgDeleteUserResponse:
+    type: object
+  sota.medichain.medichain.MsgRejectSharingResponse:
+    type: object
+  sota.medichain.medichain.MsgUpdateServiceResponse:
+    type: object
+  sota.medichain.medichain.MsgUpdateServiceUserResponse:
+    type: object
+  sota.medichain.medichain.MsgUpdateSharingResponse:
+    type: object
+  sota.medichain.medichain.MsgUpdateUserResponse:
+    type: object
+  sota.medichain.medichain.QueryAllServiceResponse:
+    type: object
+    properties:
+      Service:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            index:
+              type: string
+            name:
+              type: string
+            url:
+              type: string
+            class:
+              type: string
+            isActive:
+              type: boolean
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  sota.medichain.medichain.QueryAllServiceUserResponse:
+    type: object
+    properties:
+      ServiceUser:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            index:
+              type: string
+            serviceId:
+              type: string
+            userId:
+              type: string
+            serviceUserId:
+              type: string
+            isActive:
+              type: boolean
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  sota.medichain.medichain.QueryAllSharingResponse:
+    type: object
+    properties:
+      Sharing:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            index:
+              type: string
+            ownerId:
+              type: string
+            viewerId:
+              type: string
+            status:
+              type: string
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  sota.medichain.medichain.QueryAllUserResponse:
+    type: object
+    properties:
+      User:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            index:
+              type: string
+            address:
+              type: string
+            isActive:
+              type: boolean
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  sota.medichain.medichain.QueryGetServiceResponse:
+    type: object
+    properties:
+      Service:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          name:
+            type: string
+          url:
+            type: string
+          class:
+            type: string
+          isActive:
+            type: boolean
+  sota.medichain.medichain.QueryGetServiceUserResponse:
+    type: object
+    properties:
+      ServiceUser:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          serviceId:
+            type: string
+          userId:
+            type: string
+          serviceUserId:
+            type: string
+          isActive:
+            type: boolean
+  sota.medichain.medichain.QueryGetSharingResponse:
+    type: object
+    properties:
+      Sharing:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          ownerId:
+            type: string
+          viewerId:
+            type: string
+          status:
+            type: string
+  sota.medichain.medichain.QueryGetUserResponse:
+    type: object
+    properties:
+      User:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          address:
+            type: string
+          isActive:
+            type: boolean
+  sota.medichain.medichain.Service:
+    type: object
+    properties:
+      creator:
+        type: string
+      index:
+        type: string
+      name:
+        type: string
+      url:
+        type: string
+      class:
+        type: string
+      isActive:
+        type: boolean
+  sota.medichain.medichain.ServiceUser:
+    type: object
+    properties:
+      creator:
+        type: string
+      index:
+        type: string
+      serviceId:
+        type: string
+      userId:
+        type: string
+      serviceUserId:
+        type: string
+      isActive:
+        type: boolean
+  sota.medichain.medichain.Sharing:
+    type: object
+    properties:
+      creator:
+        type: string
+      index:
+        type: string
+      ownerId:
+        type: string
+      viewerId:
+        type: string
+      status:
+        type: string
+  sota.medichain.medichain.User:
+    type: object
+    properties:
+      creator:
+        type: string
+      index:
+        type: string
+      address:
+        type: string
+      isActive:
+        type: boolean

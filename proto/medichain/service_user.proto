@@ -1,0 +1,15 @@
+syntax = "proto3";
+package sota.medichain.medichain;
+
+option go_package = "github.com/sota/medichain/x/medichain/types";
+
+import "gogoproto/gogo.proto";
+
+message ServiceUser {
+  string creator = 1;
+  string index = 2;
+  string serviceId = 3; 
+  string userId = 4; 
+  string serviceUserId = 5; 
+  bool isActive = 6;
+}

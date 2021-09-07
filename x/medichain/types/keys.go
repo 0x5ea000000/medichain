@@ -24,3 +24,19 @@ const (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	UserKey = "User-value-"
+)
+
+const (
+	ServiceKey = "Service-value-"
+)
+
+const (
+	ServiceUserKey = "ServiceUser-value-"
+)
+
+const (
+	SharingKey = "Sharing-value-"
+)

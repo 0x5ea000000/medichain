@@ -2,12 +2,139 @@ syntax = "proto3";
 package sota.medichain.medichain;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "medichain/sharing.proto";
+import "medichain/service_user.proto";
+import "medichain/service.proto";
+import "medichain/user.proto";
 
 option go_package = "github.com/sota/medichain/x/medichain/types";
 
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc RejectSharing(MsgRejectSharing) returns (MsgRejectSharingResponse);
+  rpc AcceptSharing(MsgAcceptSharing) returns (MsgAcceptSharingResponse);
+  rpc CreateSharing(MsgCreateSharing) returns (MsgCreateSharingResponse);
+  rpc UpdateSharing(MsgUpdateSharing) returns (MsgUpdateSharingResponse);
+  rpc DeleteSharing(MsgDeleteSharing) returns (MsgDeleteSharingResponse);
+  rpc CreateServiceUser(MsgCreateServiceUser) returns (MsgCreateServiceUserResponse);
+  rpc UpdateServiceUser(MsgUpdateServiceUser) returns (MsgUpdateServiceUserResponse);
+  rpc DeleteServiceUser(MsgDeleteServiceUser) returns (MsgDeleteServiceUserResponse);
+  rpc CreateService(MsgCreateService) returns (MsgCreateServiceResponse);
+  rpc UpdateService(MsgUpdateService) returns (MsgUpdateServiceResponse);
+  rpc DeleteService(MsgDeleteService) returns (MsgDeleteServiceResponse);
+  rpc CreateUser(MsgCreateUser) returns (MsgCreateUserResponse);
+  rpc UpdateUser(MsgUpdateUser) returns (MsgUpdateUserResponse);
+  rpc DeleteUser(MsgDeleteUser) returns (MsgDeleteUserResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgRejectSharing {
+  string creator = 1;
+  string sharingId = 2;
+}
+
+message MsgRejectSharingResponse {
+}
+
+message MsgAcceptSharing {
+  string creator = 1;
+  string sharingId = 2;
+}
+
+message MsgAcceptSharingResponse {
+}
+
+message MsgCreateSharing {
+  string creator = 1;
+  string ownerId = 3;
+  string viewerId = 4;
+  string status = 5;
+}
+message MsgCreateSharingResponse { }
+
+message MsgUpdateSharing {
+  string creator = 1;
+  string index = 2;
+  string ownerId = 3;
+  string viewerId = 4;
+  string status = 5;
+}
+message MsgUpdateSharingResponse { }
+
+message MsgDeleteSharing {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteSharingResponse { }
+
+message MsgCreateServiceUser {
+  string creator = 1;
+  string serviceId = 3;
+  string userId = 4;
+  string serviceUserId = 5;
+  bool isActive = 6;
+}
+message MsgCreateServiceUserResponse { }
+
+message MsgUpdateServiceUser {
+  string creator = 1;
+  string index = 2;
+  string serviceId = 3;
+  string userId = 4;
+  string serviceUserId = 5;
+  bool isActive = 6;
+}
+message MsgUpdateServiceUserResponse { }
+
+message MsgDeleteServiceUser {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteServiceUserResponse { }
+
+message MsgCreateService {
+  string creator = 1;
+  string name = 3;
+  string url = 4;
+  string class = 5;
+  bool isActive = 6;
+}
+message MsgCreateServiceResponse { }
+
+message MsgUpdateService {
+  string creator = 1;
+  string index = 2;
+  string name = 3;
+  string url = 4;
+  string class = 5;
+  bool isActive = 6;
+}
+message MsgUpdateServiceResponse { }
+
+message MsgDeleteService {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteServiceResponse { }
+
+message MsgCreateUser {
+  string creator = 1;
+  string address = 3;
+  bool isActive = 4;
+}
+message MsgCreateUserResponse { }
+
+message MsgUpdateUser {
+  string creator = 1;
+  string index = 2;
+  string address = 3;
+  bool isActive = 4;
+}
+message MsgUpdateUserResponse { }
+
+message MsgDeleteUser {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteUserResponse { }
