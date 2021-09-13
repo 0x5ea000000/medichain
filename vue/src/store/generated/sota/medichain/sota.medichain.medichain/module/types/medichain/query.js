@@ -6,6 +6,127 @@ import { ServiceUser } from '../medichain/service_user';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
+const baseQueryCheckSharingRequest = { ownerId: '', viewerId: '' };
+export const QueryCheckSharingRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.ownerId !== '') {
+            writer.uint32(10).string(message.ownerId);
+        }
+        if (message.viewerId !== '') {
+            writer.uint32(18).string(message.viewerId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryCheckSharingRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.ownerId = reader.string();
+                    break;
+                case 2:
+                    message.viewerId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryCheckSharingRequest };
+        if (object.ownerId !== undefined && object.ownerId !== null) {
+            message.ownerId = String(object.ownerId);
+        }
+        else {
+            message.ownerId = '';
+        }
+        if (object.viewerId !== undefined && object.viewerId !== null) {
+            message.viewerId = String(object.viewerId);
+        }
+        else {
+            message.viewerId = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.ownerId !== undefined && (obj.ownerId = message.ownerId);
+        message.viewerId !== undefined && (obj.viewerId = message.viewerId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryCheckSharingRequest };
+        if (object.ownerId !== undefined && object.ownerId !== null) {
+            message.ownerId = object.ownerId;
+        }
+        else {
+            message.ownerId = '';
+        }
+        if (object.viewerId !== undefined && object.viewerId !== null) {
+            message.viewerId = object.viewerId;
+        }
+        else {
+            message.viewerId = '';
+        }
+        return message;
+    }
+};
+const baseQueryCheckSharingResponse = {};
+export const QueryCheckSharingResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.Sharing !== undefined) {
+            Sharing.encode(message.Sharing, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryCheckSharingResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Sharing = Sharing.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryCheckSharingResponse };
+        if (object.Sharing !== undefined && object.Sharing !== null) {
+            message.Sharing = Sharing.fromJSON(object.Sharing);
+        }
+        else {
+            message.Sharing = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.Sharing !== undefined && (obj.Sharing = message.Sharing ? Sharing.toJSON(message.Sharing) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryCheckSharingResponse };
+        if (object.Sharing !== undefined && object.Sharing !== null) {
+            message.Sharing = Sharing.fromPartial(object.Sharing);
+        }
+        else {
+            message.Sharing = undefined;
+        }
+        return message;
+    }
+};
 const baseQueryGetSharingRequest = { index: '' };
 export const QueryGetSharingRequest = {
     encode(message, writer = Writer.create()) {
@@ -925,6 +1046,11 @@ export const QueryAllUserResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    CheckSharing(request) {
+        const data = QueryCheckSharingRequest.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Query', 'CheckSharing', data);
+        return promise.then((data) => QueryCheckSharingResponse.decode(new Reader(data)));
     }
     Sharing(request) {
         const data = QueryGetSharingRequest.encode(request).finish();

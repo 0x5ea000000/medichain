@@ -7,7 +7,7 @@ import (
 
 const (
 	PROVIDER = "provider"
-	VIEW = "view"
+	VIEW     = "view"
 )
 
 var _ sdk.Msg = &MsgCreateService{}

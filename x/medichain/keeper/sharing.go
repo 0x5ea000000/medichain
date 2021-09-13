@@ -50,7 +50,7 @@ func (k Keeper) GetAllSharing(ctx sdk.Context) (list []types.Sharing) {
 	return
 }
 
-func (k Keeper) GetSharingIfShared(ctx sdk.Context, sharing types.Sharing) (val types.Sharing, found bool) {
+func (k Keeper) GetSharingIfExisted(ctx sdk.Context, sharing types.Sharing) (val types.Sharing, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SharingKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 	defer iterator.Close()
@@ -76,7 +76,7 @@ func (k Keeper) ValidateSharing(ctx sdk.Context, sharing *types.Sharing) error {
 		return errors.New(fmt.Sprintf("viewer id not found %s", sharing.ViewerId))
 	}
 
-	_, isFound = k.GetSharingIfShared(ctx, *sharing)
+	_, isFound = k.GetSharingIfExisted(ctx, *sharing)
 	if isFound {
 		return errors.New("owner and viewer sharing record found")
 	}

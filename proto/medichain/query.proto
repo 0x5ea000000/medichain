@@ -15,6 +15,12 @@ option go_package = "github.com/sota/medichain/x/medichain/types";
 service Query {
     // this line is used by starport scaffolding # 2
 
+	// Queries a list of checkSharing items.
+	rpc CheckSharing(QueryCheckSharingRequest) returns (QueryCheckSharingResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/checkSharing";
+	}
+
+
 	// Queries a sharing by index.
 	rpc Sharing(QueryGetSharingRequest) returns (QueryGetSharingResponse) {
 		option (google.api.http).get = "/sota/medichain/medichain/sharing/{index}";
@@ -61,6 +67,15 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryCheckSharingRequest {
+  string ownerId = 1;
+  string viewerId = 2;
+}
+
+message QueryCheckSharingResponse {
+	Sharing Sharing = 1;
+}
+
 message QueryGetSharingRequest {
 	string index = 1;
 }

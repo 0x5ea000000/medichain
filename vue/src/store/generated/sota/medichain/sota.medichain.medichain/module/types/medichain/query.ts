@@ -9,6 +9,15 @@ import { User } from '../medichain/user'
 export const protobufPackage = 'sota.medichain.medichain'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryCheckSharingRequest {
+  ownerId: string
+  viewerId: string
+}
+
+export interface QueryCheckSharingResponse {
+  Sharing: Sharing | undefined
+}
+
 export interface QueryGetSharingRequest {
   index: string
 }
@@ -75,6 +84,133 @@ export interface QueryAllUserRequest {
 export interface QueryAllUserResponse {
   User: User[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryCheckSharingRequest: object = { ownerId: '', viewerId: '' }
+
+export const QueryCheckSharingRequest = {
+  encode(message: QueryCheckSharingRequest, writer: Writer = Writer.create()): Writer {
+    if (message.ownerId !== '') {
+      writer.uint32(10).string(message.ownerId)
+    }
+    if (message.viewerId !== '') {
+      writer.uint32(18).string(message.viewerId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryCheckSharingRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryCheckSharingRequest } as QueryCheckSharingRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.ownerId = reader.string()
+          break
+        case 2:
+          message.viewerId = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryCheckSharingRequest {
+    const message = { ...baseQueryCheckSharingRequest } as QueryCheckSharingRequest
+    if (object.ownerId !== undefined && object.ownerId !== null) {
+      message.ownerId = String(object.ownerId)
+    } else {
+      message.ownerId = ''
+    }
+    if (object.viewerId !== undefined && object.viewerId !== null) {
+      message.viewerId = String(object.viewerId)
+    } else {
+      message.viewerId = ''
+    }
+    return message
+  },
+
+  toJSON(message: QueryCheckSharingRequest): unknown {
+    const obj: any = {}
+    message.ownerId !== undefined && (obj.ownerId = message.ownerId)
+    message.viewerId !== undefined && (obj.viewerId = message.viewerId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryCheckSharingRequest>): QueryCheckSharingRequest {
+    const message = { ...baseQueryCheckSharingRequest } as QueryCheckSharingRequest
+    if (object.ownerId !== undefined && object.ownerId !== null) {
+      message.ownerId = object.ownerId
+    } else {
+      message.ownerId = ''
+    }
+    if (object.viewerId !== undefined && object.viewerId !== null) {
+      message.viewerId = object.viewerId
+    } else {
+      message.viewerId = ''
+    }
+    return message
+  }
+}
+
+const baseQueryCheckSharingResponse: object = {}
+
+export const QueryCheckSharingResponse = {
+  encode(message: QueryCheckSharingResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Sharing !== undefined) {
+      Sharing.encode(message.Sharing, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryCheckSharingResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryCheckSharingResponse } as QueryCheckSharingResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Sharing = Sharing.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryCheckSharingResponse {
+    const message = { ...baseQueryCheckSharingResponse } as QueryCheckSharingResponse
+    if (object.Sharing !== undefined && object.Sharing !== null) {
+      message.Sharing = Sharing.fromJSON(object.Sharing)
+    } else {
+      message.Sharing = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryCheckSharingResponse): unknown {
+    const obj: any = {}
+    message.Sharing !== undefined && (obj.Sharing = message.Sharing ? Sharing.toJSON(message.Sharing) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryCheckSharingResponse>): QueryCheckSharingResponse {
+    const message = { ...baseQueryCheckSharingResponse } as QueryCheckSharingResponse
+    if (object.Sharing !== undefined && object.Sharing !== null) {
+      message.Sharing = Sharing.fromPartial(object.Sharing)
+    } else {
+      message.Sharing = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetSharingRequest: object = { index: '' }
@@ -1055,6 +1191,8 @@ export const QueryAllUserResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a list of checkSharing items. */
+  CheckSharing(request: QueryCheckSharingRequest): Promise<QueryCheckSharingResponse>
   /** Queries a sharing by index. */
   Sharing(request: QueryGetSharingRequest): Promise<QueryGetSharingResponse>
   /** Queries a list of sharing items. */
@@ -1078,6 +1216,12 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CheckSharing(request: QueryCheckSharingRequest): Promise<QueryCheckSharingResponse> {
+    const data = QueryCheckSharingRequest.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Query', 'CheckSharing', data)
+    return promise.then((data) => QueryCheckSharingResponse.decode(new Reader(data)))
+  }
+
   Sharing(request: QueryGetSharingRequest): Promise<QueryGetSharingResponse> {
     const data = QueryGetSharingRequest.encode(request).finish()
     const promise = this.rpc.request('sota.medichain.medichain.Query', 'Sharing', data)

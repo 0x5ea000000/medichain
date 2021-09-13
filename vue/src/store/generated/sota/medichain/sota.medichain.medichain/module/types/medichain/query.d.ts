@@ -6,6 +6,13 @@ import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryCheckSharingRequest {
+    ownerId: string;
+    viewerId: string;
+}
+export interface QueryCheckSharingResponse {
+    Sharing: Sharing | undefined;
+}
 export interface QueryGetSharingRequest {
     index: string;
 }
@@ -58,6 +65,20 @@ export interface QueryAllUserResponse {
     User: User[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryCheckSharingRequest: {
+    encode(message: QueryCheckSharingRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryCheckSharingRequest;
+    fromJSON(object: any): QueryCheckSharingRequest;
+    toJSON(message: QueryCheckSharingRequest): unknown;
+    fromPartial(object: DeepPartial<QueryCheckSharingRequest>): QueryCheckSharingRequest;
+};
+export declare const QueryCheckSharingResponse: {
+    encode(message: QueryCheckSharingResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryCheckSharingResponse;
+    fromJSON(object: any): QueryCheckSharingResponse;
+    toJSON(message: QueryCheckSharingResponse): unknown;
+    fromPartial(object: DeepPartial<QueryCheckSharingResponse>): QueryCheckSharingResponse;
+};
 export declare const QueryGetSharingRequest: {
     encode(message: QueryGetSharingRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetSharingRequest;
@@ -172,6 +193,8 @@ export declare const QueryAllUserResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a list of checkSharing items. */
+    CheckSharing(request: QueryCheckSharingRequest): Promise<QueryCheckSharingResponse>;
     /** Queries a sharing by index. */
     Sharing(request: QueryGetSharingRequest): Promise<QueryGetSharingResponse>;
     /** Queries a list of sharing items. */
@@ -192,6 +215,7 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CheckSharing(request: QueryCheckSharingRequest): Promise<QueryCheckSharingResponse>;
     Sharing(request: QueryGetSharingRequest): Promise<QueryGetSharingResponse>;
     SharingAll(request: QueryAllSharingRequest): Promise<QueryAllSharingResponse>;
     ServiceUser(request: QueryGetServiceUserRequest): Promise<QueryGetServiceUserResponse>;

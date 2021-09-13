@@ -30,6 +30,102 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # 3
+type QueryCheckSharingRequest struct {
+	OwnerId  string `protobuf:"bytes,1,opt,name=ownerId,proto3" json:"ownerId,omitempty"`
+	ViewerId string `protobuf:"bytes,2,opt,name=viewerId,proto3" json:"viewerId,omitempty"`
+}
+
+func (m *QueryCheckSharingRequest) Reset()         { *m = QueryCheckSharingRequest{} }
+func (m *QueryCheckSharingRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryCheckSharingRequest) ProtoMessage()    {}
+func (*QueryCheckSharingRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_899d138cea26ca9b, []int{0}
+}
+func (m *QueryCheckSharingRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryCheckSharingRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryCheckSharingRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryCheckSharingRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryCheckSharingRequest.Merge(m, src)
+}
+func (m *QueryCheckSharingRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryCheckSharingRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryCheckSharingRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryCheckSharingRequest proto.InternalMessageInfo
+
+func (m *QueryCheckSharingRequest) GetOwnerId() string {
+	if m != nil {
+		return m.OwnerId
+	}
+	return ""
+}
+
+func (m *QueryCheckSharingRequest) GetViewerId() string {
+	if m != nil {
+		return m.ViewerId
+	}
+	return ""
+}
+
+type QueryCheckSharingResponse struct {
+	Sharing *Sharing `protobuf:"bytes,1,opt,name=Sharing,proto3" json:"Sharing,omitempty"`
+}
+
+func (m *QueryCheckSharingResponse) Reset()         { *m = QueryCheckSharingResponse{} }
+func (m *QueryCheckSharingResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryCheckSharingResponse) ProtoMessage()    {}
+func (*QueryCheckSharingResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_899d138cea26ca9b, []int{1}
+}
+func (m *QueryCheckSharingResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryCheckSharingResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryCheckSharingResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryCheckSharingResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryCheckSharingResponse.Merge(m, src)
+}
+func (m *QueryCheckSharingResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryCheckSharingResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryCheckSharingResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryCheckSharingResponse proto.InternalMessageInfo
+
+func (m *QueryCheckSharingResponse) GetSharing() *Sharing {
+	if m != nil {
+		return m.Sharing
+	}
+	return nil
+}
+
 type QueryGetSharingRequest struct {
 	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
 }
@@ -38,7 +134,7 @@ func (m *QueryGetSharingRequest) Reset()         { *m = QueryGetSharingRequest{}
 func (m *QueryGetSharingRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetSharingRequest) ProtoMessage()    {}
 func (*QueryGetSharingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{0}
+	return fileDescriptor_899d138cea26ca9b, []int{2}
 }
 func (m *QueryGetSharingRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -82,7 +178,7 @@ func (m *QueryGetSharingResponse) Reset()         { *m = QueryGetSharingResponse
 func (m *QueryGetSharingResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetSharingResponse) ProtoMessage()    {}
 func (*QueryGetSharingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{1}
+	return fileDescriptor_899d138cea26ca9b, []int{3}
 }
 func (m *QueryGetSharingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -126,7 +222,7 @@ func (m *QueryAllSharingRequest) Reset()         { *m = QueryAllSharingRequest{}
 func (m *QueryAllSharingRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllSharingRequest) ProtoMessage()    {}
 func (*QueryAllSharingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{2}
+	return fileDescriptor_899d138cea26ca9b, []int{4}
 }
 func (m *QueryAllSharingRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -171,7 +267,7 @@ func (m *QueryAllSharingResponse) Reset()         { *m = QueryAllSharingResponse
 func (m *QueryAllSharingResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllSharingResponse) ProtoMessage()    {}
 func (*QueryAllSharingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{3}
+	return fileDescriptor_899d138cea26ca9b, []int{5}
 }
 func (m *QueryAllSharingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -222,7 +318,7 @@ func (m *QueryGetServiceUserRequest) Reset()         { *m = QueryGetServiceUserR
 func (m *QueryGetServiceUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetServiceUserRequest) ProtoMessage()    {}
 func (*QueryGetServiceUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{4}
+	return fileDescriptor_899d138cea26ca9b, []int{6}
 }
 func (m *QueryGetServiceUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -266,7 +362,7 @@ func (m *QueryGetServiceUserResponse) Reset()         { *m = QueryGetServiceUser
 func (m *QueryGetServiceUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetServiceUserResponse) ProtoMessage()    {}
 func (*QueryGetServiceUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{5}
+	return fileDescriptor_899d138cea26ca9b, []int{7}
 }
 func (m *QueryGetServiceUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -310,7 +406,7 @@ func (m *QueryAllServiceUserRequest) Reset()         { *m = QueryAllServiceUserR
 func (m *QueryAllServiceUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllServiceUserRequest) ProtoMessage()    {}
 func (*QueryAllServiceUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{6}
+	return fileDescriptor_899d138cea26ca9b, []int{8}
 }
 func (m *QueryAllServiceUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -355,7 +451,7 @@ func (m *QueryAllServiceUserResponse) Reset()         { *m = QueryAllServiceUser
 func (m *QueryAllServiceUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllServiceUserResponse) ProtoMessage()    {}
 func (*QueryAllServiceUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{7}
+	return fileDescriptor_899d138cea26ca9b, []int{9}
 }
 func (m *QueryAllServiceUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -406,7 +502,7 @@ func (m *QueryGetServiceRequest) Reset()         { *m = QueryGetServiceRequest{}
 func (m *QueryGetServiceRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetServiceRequest) ProtoMessage()    {}
 func (*QueryGetServiceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{8}
+	return fileDescriptor_899d138cea26ca9b, []int{10}
 }
 func (m *QueryGetServiceRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -450,7 +546,7 @@ func (m *QueryGetServiceResponse) Reset()         { *m = QueryGetServiceResponse
 func (m *QueryGetServiceResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetServiceResponse) ProtoMessage()    {}
 func (*QueryGetServiceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{9}
+	return fileDescriptor_899d138cea26ca9b, []int{11}
 }
 func (m *QueryGetServiceResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -494,7 +590,7 @@ func (m *QueryAllServiceRequest) Reset()         { *m = QueryAllServiceRequest{}
 func (m *QueryAllServiceRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllServiceRequest) ProtoMessage()    {}
 func (*QueryAllServiceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{10}
+	return fileDescriptor_899d138cea26ca9b, []int{12}
 }
 func (m *QueryAllServiceRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -539,7 +635,7 @@ func (m *QueryAllServiceResponse) Reset()         { *m = QueryAllServiceResponse
 func (m *QueryAllServiceResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllServiceResponse) ProtoMessage()    {}
 func (*QueryAllServiceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{11}
+	return fileDescriptor_899d138cea26ca9b, []int{13}
 }
 func (m *QueryAllServiceResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -590,7 +686,7 @@ func (m *QueryGetUserRequest) Reset()         { *m = QueryGetUserRequest{} }
 func (m *QueryGetUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetUserRequest) ProtoMessage()    {}
 func (*QueryGetUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{12}
+	return fileDescriptor_899d138cea26ca9b, []int{14}
 }
 func (m *QueryGetUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -634,7 +730,7 @@ func (m *QueryGetUserResponse) Reset()         { *m = QueryGetUserResponse{} }
 func (m *QueryGetUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetUserResponse) ProtoMessage()    {}
 func (*QueryGetUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{13}
+	return fileDescriptor_899d138cea26ca9b, []int{15}
 }
 func (m *QueryGetUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -678,7 +774,7 @@ func (m *QueryAllUserRequest) Reset()         { *m = QueryAllUserRequest{} }
 func (m *QueryAllUserRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllUserRequest) ProtoMessage()    {}
 func (*QueryAllUserRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{14}
+	return fileDescriptor_899d138cea26ca9b, []int{16}
 }
 func (m *QueryAllUserRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -723,7 +819,7 @@ func (m *QueryAllUserResponse) Reset()         { *m = QueryAllUserResponse{} }
 func (m *QueryAllUserResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllUserResponse) ProtoMessage()    {}
 func (*QueryAllUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_899d138cea26ca9b, []int{15}
+	return fileDescriptor_899d138cea26ca9b, []int{17}
 }
 func (m *QueryAllUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -767,6 +863,8 @@ func (m *QueryAllUserResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
+	proto.RegisterType((*QueryCheckSharingRequest)(nil), "sota.medichain.medichain.QueryCheckSharingRequest")
+	proto.RegisterType((*QueryCheckSharingResponse)(nil), "sota.medichain.medichain.QueryCheckSharingResponse")
 	proto.RegisterType((*QueryGetSharingRequest)(nil), "sota.medichain.medichain.QueryGetSharingRequest")
 	proto.RegisterType((*QueryGetSharingResponse)(nil), "sota.medichain.medichain.QueryGetSharingResponse")
 	proto.RegisterType((*QueryAllSharingRequest)(nil), "sota.medichain.medichain.QueryAllSharingRequest")
@@ -788,52 +886,57 @@ func init() {
 func init() { proto.RegisterFile("medichain/query.proto", fileDescriptor_899d138cea26ca9b) }
 
 var fileDescriptor_899d138cea26ca9b = []byte{
-	// 714 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x96, 0x4f, 0x6b, 0x13, 0x41,
-	0x18, 0xc6, 0x3b, 0x8d, 0xb5, 0x38, 0x05, 0x0f, 0x63, 0xb5, 0x25, 0x96, 0xa5, 0x5d, 0x69, 0xda,
-	0x1a, 0x32, 0xdb, 0xc4, 0xf6, 0xe4, 0x29, 0x82, 0x06, 0x3c, 0x69, 0x44, 0x0f, 0x82, 0xe8, 0x26,
-	0x19, 0x37, 0x0b, 0x9b, 0xdd, 0x74, 0x67, 0x53, 0x5a, 0xc4, 0x8b, 0x9f, 0xa0, 0x50, 0x3c, 0x29,
-	0x88, 0x77, 0x41, 0xfc, 0x16, 0x1e, 0x0b, 0x5e, 0x3c, 0x4a, 0xe2, 0x07, 0x91, 0xcc, 0xcc, 0x66,
-	0x67, 0xb3, 0x49, 0x76, 0x56, 0xd2, 0x5b, 0xba, 0x33, 0xcf, 0x3b, 0xbf, 0x79, 0xde, 0x3f, 0x53,
-	0x78, 0xb3, 0x43, 0x5a, 0x76, 0xb3, 0x6d, 0xda, 0xae, 0x71, 0xd4, 0x23, 0xfe, 0x29, 0xee, 0xfa,
-	0x5e, 0xe0, 0xa1, 0x75, 0xea, 0x05, 0x26, 0x1e, 0xad, 0x45, 0xbf, 0xf2, 0x1b, 0x96, 0xe7, 0x59,
-	0x0e, 0x31, 0xcc, 0xae, 0x6d, 0x98, 0xae, 0xeb, 0x05, 0x66, 0x60, 0x7b, 0x2e, 0xe5, 0xba, 0xfc,
-	0xdd, 0xa6, 0x47, 0x3b, 0x1e, 0x35, 0x1a, 0x26, 0x25, 0x3c, 0xa0, 0x71, 0x5c, 0x6e, 0x90, 0xc0,
-	0x2c, 0x1b, 0x5d, 0xd3, 0xb2, 0x5d, 0xb6, 0x59, 0xec, 0x5d, 0x8b, 0x8e, 0xa6, 0x6d, 0xd3, 0xb7,
-	0x5d, 0x4b, 0x2c, 0x6c, 0x48, 0x0b, 0xc4, 0x3f, 0xb6, 0x9b, 0xe4, 0x75, 0x8f, 0x12, 0x7f, 0x82,
-	0x8c, 0xaf, 0x8a, 0x85, 0xd5, 0x68, 0x21, 0xda, 0xae, 0x63, 0x78, 0xeb, 0xe9, 0x90, 0xa3, 0x46,
-	0x82, 0x67, 0xfc, 0x94, 0x3a, 0x39, 0xea, 0x11, 0x1a, 0xa0, 0x55, 0xb8, 0x64, 0xbb, 0x2d, 0x72,
-	0xb2, 0x0e, 0x36, 0xc1, 0xee, 0xb5, 0x3a, 0xff, 0x43, 0x7f, 0x01, 0xd7, 0x12, 0xfb, 0x69, 0xd7,
-	0x73, 0x29, 0x41, 0xf7, 0xe1, 0xb2, 0xf8, 0xc4, 0x24, 0x2b, 0x95, 0x2d, 0x3c, 0xcd, 0x26, 0x1c,
-	0x6a, 0x43, 0x85, 0xfe, 0x46, 0x70, 0x54, 0x1d, 0x67, 0x8c, 0xe3, 0x11, 0x84, 0x91, 0x37, 0x22,
-	0x72, 0x01, 0x73, 0x23, 0xf1, 0xd0, 0x48, 0xcc, 0x33, 0x23, 0x8c, 0xc4, 0x4f, 0x4c, 0x8b, 0x08,
-	0x6d, 0x5d, 0x52, 0xea, 0x5f, 0x80, 0x40, 0x97, 0x8f, 0x98, 0x84, 0x9e, 0xcb, 0x86, 0x8e, 0x6a,
-	0x31, 0xc0, 0x45, 0x06, 0xb8, 0x93, 0x0a, 0xc8, 0x4f, 0x8e, 0x11, 0x56, 0x60, 0x7e, 0xe4, 0x2d,
-	0x4f, 0xdd, 0x73, 0x4a, 0xfc, 0xd9, 0xf9, 0x78, 0x0b, 0x6f, 0x4f, 0xd4, 0x88, 0x8b, 0xd5, 0xe0,
-	0x8a, 0xf4, 0x59, 0xb8, 0xb7, 0x3d, 0xe3, 0x72, 0x52, 0x0c, 0x59, 0xa9, 0xb7, 0x04, 0xdb, 0xd0,
-	0xbc, 0x24, 0xdb, 0xbc, 0x72, 0xf4, 0x1d, 0x88, 0xeb, 0x8c, 0x1f, 0x33, 0xed, 0x3a, 0xb9, 0xff,
-	0xbb, 0xce, 0xfc, 0x72, 0x26, 0xf7, 0x0f, 0x8f, 0xaf, 0xde, 0x3f, 0xe1, 0x7e, 0xa9, 0x08, 0xf9,
-	0x27, 0x85, 0xfe, 0x11, 0xda, 0x50, 0x11, 0xeb, 0x9f, 0x38, 0xc7, 0xa5, 0xf4, 0xcf, 0x2c, 0xf4,
-	0x5c, 0x36, 0xf4, 0xf9, 0xe5, 0xa2, 0x08, 0x6f, 0x84, 0xde, 0xa6, 0x37, 0xce, 0x63, 0xb8, 0x1a,
-	0xdf, 0x2c, 0xae, 0x52, 0x81, 0x57, 0xa4, 0x56, 0xd1, 0xa6, 0xdf, 0x83, 0xa9, 0xd8, 0x5e, 0xfd,
-	0x95, 0x38, 0xb8, 0xea, 0x38, 0x97, 0xd1, 0x15, 0xe7, 0x40, 0xb0, 0x8e, 0xe2, 0x27, 0x58, 0x73,
-	0xaa, 0xac, 0x73, 0x73, 0xbb, 0xf2, 0x09, 0xc2, 0x25, 0x46, 0x85, 0xbe, 0x82, 0xd1, 0xf8, 0x44,
-	0xfb, 0xd3, 0x21, 0x26, 0xbf, 0x33, 0xf9, 0x72, 0x06, 0x05, 0xc7, 0xd0, 0xcb, 0x1f, 0x7e, 0xfd,
-	0x3d, 0x5f, 0x2c, 0xa2, 0x3d, 0x63, 0x28, 0x35, 0xa2, 0x87, 0x2d, 0xf1, 0x64, 0x1a, 0xef, 0x58,
-	0xb6, 0xdf, 0xa3, 0xcf, 0x00, 0x42, 0x11, 0xa6, 0xea, 0x38, 0xa9, 0x98, 0x89, 0x67, 0x28, 0x15,
-	0x33, 0xf9, 0xaa, 0xe8, 0x7b, 0x0c, 0xf3, 0x0e, 0xda, 0x4a, 0xc5, 0x44, 0x3f, 0x40, 0x6c, 0xb2,
-	0xa1, 0x03, 0x05, 0x53, 0x12, 0x63, 0x38, 0x7f, 0x98, 0x51, 0x25, 0x38, 0x0f, 0x19, 0xa7, 0x81,
-	0x4a, 0x33, 0x38, 0x23, 0xd9, 0xc8, 0xd2, 0x6f, 0x00, 0x5e, 0x97, 0xc2, 0x0d, 0x6d, 0x3d, 0x50,
-	0x30, 0x29, 0x3b, 0xf6, 0xe4, 0xc7, 0x40, 0x2f, 0x31, 0xec, 0x1d, 0xb4, 0xad, 0x84, 0xcd, 0xab,
-	0x54, 0x8c, 0x9c, 0x7d, 0x65, 0xa3, 0xb2, 0x54, 0x69, 0x7c, 0x28, 0x2a, 0x55, 0x29, 0x97, 0xc4,
-	0xab, 0x94, 0x7f, 0x53, 0xad, 0xd2, 0x6c, 0x98, 0xc9, 0xd9, 0xad, 0x54, 0xa5, 0xc2, 0xb6, 0x8f,
-	0x80, 0x0f, 0x1c, 0x54, 0x4a, 0x77, 0x43, 0x4e, 0x30, 0x56, 0xdd, 0x2e, 0x90, 0x30, 0x43, 0xda,
-	0x45, 0x85, 0xe9, 0x48, 0x3d, 0xb9, 0x12, 0xcf, 0x00, 0x5c, 0x0e, 0x4b, 0xb0, 0x94, 0xee, 0x40,
-	0x16, 0xb4, 0xb1, 0x91, 0xab, 0x17, 0x18, 0xda, 0x26, 0xd2, 0x66, 0xa3, 0x3d, 0x78, 0xf8, 0xb3,
-	0xaf, 0x81, 0x8b, 0xbe, 0x06, 0xfe, 0xf4, 0x35, 0x70, 0x36, 0xd0, 0x16, 0x2e, 0x06, 0xda, 0xc2,
-	0xef, 0x81, 0xb6, 0xf0, 0xb2, 0x68, 0xd9, 0x41, 0xbb, 0xd7, 0xc0, 0x4d, 0xaf, 0x33, 0x1e, 0xe3,
-	0x44, 0xfa, 0x1d, 0x9c, 0x76, 0x09, 0x6d, 0x5c, 0x65, 0xff, 0xa5, 0xdf, 0xfb, 0x17, 0x00, 0x00,
-	0xff, 0xff, 0x36, 0x73, 0x6b, 0x71, 0x88, 0x0c, 0x00, 0x00,
+	// 787 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x97, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0xc7, 0xbb, 0x0d, 0xa5, 0xb0, 0x45, 0x1c, 0x96, 0x42, 0x83, 0xa9, 0xac, 0xd6, 0xa8, 0x5f,
+	0x54, 0xb1, 0x9b, 0xb4, 0x3d, 0x71, 0x2a, 0x08, 0x2a, 0x38, 0x95, 0x22, 0x10, 0x42, 0x42, 0xe0,
+	0x24, 0x4b, 0x62, 0xe1, 0xda, 0xa9, 0xed, 0xf4, 0x43, 0x88, 0x0b, 0x4f, 0x50, 0xa9, 0xe2, 0x86,
+	0x84, 0x38, 0x71, 0x41, 0x42, 0x3c, 0x04, 0x12, 0xc7, 0x4a, 0x5c, 0x38, 0xa2, 0x86, 0x07, 0x41,
+	0xd9, 0x1d, 0xc7, 0xeb, 0x38, 0x89, 0xd7, 0x28, 0xbd, 0xd9, 0xde, 0xf9, 0xcf, 0xfe, 0x76, 0x3e,
+	0x76, 0x12, 0x7c, 0x75, 0x87, 0x56, 0xad, 0x4a, 0xdd, 0xb4, 0x1c, 0x63, 0xb7, 0x49, 0xbd, 0x43,
+	0xbd, 0xe1, 0xb9, 0x81, 0x4b, 0xf2, 0xbe, 0x1b, 0x98, 0x7a, 0x67, 0x2d, 0x7a, 0x52, 0xa6, 0x6b,
+	0xae, 0x5b, 0xb3, 0xa9, 0x61, 0x36, 0x2c, 0xc3, 0x74, 0x1c, 0x37, 0x30, 0x03, 0xcb, 0x75, 0x7c,
+	0xae, 0x53, 0x6e, 0x55, 0x5c, 0x7f, 0xc7, 0xf5, 0x8d, 0xb2, 0xe9, 0x53, 0xee, 0xd0, 0xd8, 0x2b,
+	0x96, 0x69, 0x60, 0x16, 0x8d, 0x86, 0x59, 0xb3, 0x1c, 0x66, 0x0c, 0xb6, 0x53, 0xd1, 0xd6, 0x7e,
+	0xdd, 0xf4, 0x2c, 0xa7, 0x06, 0x0b, 0xd3, 0xc2, 0x02, 0xf5, 0xf6, 0xac, 0x0a, 0x7d, 0xd9, 0xf4,
+	0xa9, 0xd7, 0x43, 0xc6, 0x57, 0x61, 0x61, 0x32, 0x5a, 0x88, 0xcc, 0xb5, 0x2d, 0x9c, 0x7f, 0xd4,
+	0xe6, 0xb8, 0x5b, 0xa7, 0x95, 0x37, 0x8f, 0xf9, 0x3e, 0xdb, 0x74, 0xb7, 0x49, 0xfd, 0x80, 0xe4,
+	0xf1, 0xb8, 0xbb, 0xef, 0x50, 0xef, 0x41, 0x35, 0x8f, 0x66, 0xd0, 0xe2, 0xc5, 0xed, 0xf0, 0x95,
+	0x28, 0xf8, 0xc2, 0x9e, 0x45, 0xf7, 0xd9, 0xd2, 0x28, 0x5b, 0xea, 0xbc, 0x6b, 0xcf, 0xf0, 0xf5,
+	0x1e, 0x1e, 0xfd, 0x86, 0xeb, 0xf8, 0x94, 0xdc, 0xc6, 0xe3, 0xf0, 0x89, 0xb9, 0x9c, 0x28, 0xcd,
+	0xea, 0xfd, 0x42, 0xa9, 0x87, 0xda, 0x50, 0xa1, 0xe9, 0xf8, 0x1a, 0xf3, 0xbc, 0x49, 0x83, 0x2e,
+	0xd2, 0x49, 0x3c, 0x66, 0x39, 0x55, 0x7a, 0x00, 0x9c, 0xfc, 0x45, 0x7b, 0x8a, 0xa7, 0x12, 0xf6,
+	0xc3, 0xe0, 0x78, 0x05, 0x1c, 0x1b, 0xb6, 0xdd, 0xc5, 0x71, 0x1f, 0xe3, 0x28, 0x8f, 0xe0, 0x79,
+	0x5e, 0xe7, 0x49, 0xd7, 0xdb, 0x49, 0xd7, 0x79, 0x15, 0x41, 0xd2, 0xf5, 0x2d, 0xb3, 0x46, 0x41,
+	0xbb, 0x2d, 0x28, 0xb5, 0x4f, 0x08, 0xd0, 0xc5, 0x2d, 0x7a, 0xa1, 0xe7, 0xb2, 0xa1, 0x93, 0xcd,
+	0x18, 0xe0, 0x28, 0x03, 0x5c, 0x48, 0x05, 0xe4, 0x3b, 0xc7, 0x08, 0x4b, 0x58, 0xe9, 0xc4, 0x96,
+	0x97, 0xd9, 0x13, 0x9f, 0x7a, 0x83, 0xf3, 0xf1, 0x1a, 0xdf, 0xe8, 0xa9, 0x81, 0x83, 0x6d, 0xe2,
+	0x09, 0xe1, 0x33, 0x44, 0x6f, 0x6e, 0xc0, 0xe1, 0x04, 0x1f, 0xa2, 0x52, 0xab, 0x02, 0x5b, 0x3b,
+	0x78, 0x49, 0xb6, 0x61, 0xe5, 0xe8, 0x1b, 0x82, 0xe3, 0x74, 0x6f, 0xd3, 0xef, 0x38, 0xb9, 0xff,
+	0x3b, 0xce, 0xf0, 0x72, 0x26, 0xf6, 0x0f, 0xf7, 0x2f, 0xdf, 0x3f, 0xa1, 0xbd, 0x50, 0x84, 0xfc,
+	0x93, 0x44, 0xff, 0x80, 0x36, 0x54, 0xc4, 0xfa, 0x27, 0xce, 0x71, 0x26, 0xfd, 0x33, 0x08, 0x3d,
+	0x97, 0x0d, 0x7d, 0x78, 0xb9, 0x58, 0xc6, 0x57, 0xc2, 0xd8, 0xa6, 0x37, 0xce, 0x43, 0x3c, 0x19,
+	0x37, 0x86, 0xa3, 0x94, 0xf0, 0x39, 0xa1, 0x55, 0xd4, 0xfe, 0xe7, 0x60, 0x2a, 0x66, 0xab, 0xbd,
+	0x80, 0x8d, 0x37, 0x6c, 0xfb, 0x2c, 0xba, 0xe2, 0x18, 0x01, 0x6b, 0xc7, 0x7f, 0x82, 0x35, 0x27,
+	0xcb, 0x3a, 0xb4, 0x68, 0x97, 0x7e, 0x4c, 0xe0, 0x31, 0x46, 0x45, 0xbe, 0x20, 0x7c, 0x49, 0x9c,
+	0x4c, 0xa4, 0xd4, 0x9f, 0xa4, 0xdf, 0x60, 0x54, 0x56, 0x33, 0x69, 0x38, 0x8f, 0xa6, 0xbf, 0xff,
+	0xf5, 0xf7, 0x78, 0x74, 0x91, 0xcc, 0x1b, 0x6d, 0xb1, 0x11, 0x4d, 0xe3, 0xe8, 0xa9, 0x22, 0x82,
+	0x7d, 0x46, 0x9d, 0x8b, 0x9e, 0xac, 0xa4, 0x6c, 0x98, 0x98, 0x88, 0x4a, 0x31, 0x83, 0x02, 0x00,
+	0x8b, 0x0c, 0x70, 0x99, 0x2c, 0xf5, 0x07, 0x84, 0x1f, 0x22, 0xc6, 0x5b, 0x56, 0x97, 0xef, 0xc8,
+	0x47, 0x84, 0x31, 0xb8, 0xd9, 0xb0, 0xed, 0x54, 0xcc, 0xc4, 0xc0, 0x4c, 0xc5, 0x4c, 0xce, 0x3f,
+	0x6d, 0x89, 0x61, 0xde, 0x24, 0xb3, 0xa9, 0x98, 0xe4, 0x3b, 0x8a, 0xdd, 0xc1, 0x64, 0x4d, 0x22,
+	0x28, 0x89, 0x81, 0xa1, 0xac, 0x67, 0x54, 0x01, 0xe7, 0x3a, 0xe3, 0x34, 0x48, 0x61, 0x00, 0x67,
+	0x24, 0xeb, 0x84, 0xf4, 0x2b, 0xc2, 0x97, 0x05, 0x77, 0xed, 0xb0, 0xae, 0x49, 0x04, 0x29, 0x3b,
+	0x76, 0xef, 0xb1, 0xa5, 0x15, 0x18, 0xf6, 0x02, 0x99, 0x93, 0xc2, 0xe6, 0x55, 0x0a, 0x97, 0xe3,
+	0x8a, 0x74, 0xa0, 0xb2, 0x54, 0x69, 0xfc, 0xfa, 0x96, 0xaa, 0x52, 0x2e, 0x89, 0x57, 0x29, 0xff,
+	0x26, 0x5b, 0xa5, 0xd9, 0x30, 0x93, 0x53, 0x46, 0xaa, 0x4a, 0x21, 0x6c, 0x1f, 0x10, 0xbf, 0x1a,
+	0x49, 0x21, 0x3d, 0x1a, 0x62, 0x82, 0x75, 0x59, 0x73, 0xf9, 0x0b, 0xa8, 0x29, 0x56, 0xe2, 0x11,
+	0xc2, 0xe3, 0x61, 0x09, 0x16, 0xd2, 0x23, 0x90, 0x05, 0xad, 0x6b, 0x38, 0x68, 0xf3, 0x0c, 0x6d,
+	0x86, 0xa8, 0x83, 0xd1, 0xee, 0xdc, 0xfb, 0x79, 0xaa, 0xa2, 0x93, 0x53, 0x15, 0xfd, 0x39, 0x55,
+	0xd1, 0x51, 0x4b, 0x1d, 0x39, 0x69, 0xa9, 0x23, 0xbf, 0x5b, 0xea, 0xc8, 0xf3, 0xe5, 0x9a, 0x15,
+	0xd4, 0x9b, 0x65, 0xbd, 0xe2, 0xee, 0x74, 0xfb, 0x38, 0x10, 0x9e, 0x83, 0xc3, 0x06, 0xf5, 0xcb,
+	0xe7, 0xd9, 0x7f, 0x9f, 0xd5, 0x7f, 0x01, 0x00, 0x00, 0xff, 0xff, 0xf3, 0x61, 0xcb, 0xc3, 0xde,
+	0x0d, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -848,6 +951,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
+	// Queries a list of checkSharing items.
+	CheckSharing(ctx context.Context, in *QueryCheckSharingRequest, opts ...grpc.CallOption) (*QueryCheckSharingResponse, error)
 	// Queries a sharing by index.
 	Sharing(ctx context.Context, in *QueryGetSharingRequest, opts ...grpc.CallOption) (*QueryGetSharingResponse, error)
 	// Queries a list of sharing items.
@@ -872,6 +977,15 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
+}
+
+func (c *queryClient) CheckSharing(ctx context.Context, in *QueryCheckSharingRequest, opts ...grpc.CallOption) (*QueryCheckSharingResponse, error) {
+	out := new(QueryCheckSharingResponse)
+	err := c.cc.Invoke(ctx, "/sota.medichain.medichain.Query/CheckSharing", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *queryClient) Sharing(ctx context.Context, in *QueryGetSharingRequest, opts ...grpc.CallOption) (*QueryGetSharingResponse, error) {
@@ -948,6 +1062,8 @@ func (c *queryClient) UserAll(ctx context.Context, in *QueryAllUserRequest, opts
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
+	// Queries a list of checkSharing items.
+	CheckSharing(context.Context, *QueryCheckSharingRequest) (*QueryCheckSharingResponse, error)
 	// Queries a sharing by index.
 	Sharing(context.Context, *QueryGetSharingRequest) (*QueryGetSharingResponse, error)
 	// Queries a list of sharing items.
@@ -970,6 +1086,9 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
+func (*UnimplementedQueryServer) CheckSharing(ctx context.Context, req *QueryCheckSharingRequest) (*QueryCheckSharingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckSharing not implemented")
+}
 func (*UnimplementedQueryServer) Sharing(ctx context.Context, req *QueryGetSharingRequest) (*QueryGetSharingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Sharing not implemented")
 }
@@ -997,6 +1116,24 @@ func (*UnimplementedQueryServer) UserAll(ctx context.Context, req *QueryAllUserR
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
+}
+
+func _Query_CheckSharing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCheckSharingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CheckSharing(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sota.medichain.medichain.Query/CheckSharing",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CheckSharing(ctx, req.(*QueryCheckSharingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_Sharing_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -1148,6 +1285,10 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CheckSharing",
+			Handler:    _Query_CheckSharing_Handler,
+		},
+		{
 			MethodName: "Sharing",
 			Handler:    _Query_Sharing_Handler,
 		},
@@ -1182,6 +1323,78 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "medichain/query.proto",
+}
+
+func (m *QueryCheckSharingRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryCheckSharingRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryCheckSharingRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ViewerId) > 0 {
+		i -= len(m.ViewerId)
+		copy(dAtA[i:], m.ViewerId)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ViewerId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.OwnerId) > 0 {
+		i -= len(m.OwnerId)
+		copy(dAtA[i:], m.OwnerId)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.OwnerId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryCheckSharingResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryCheckSharingResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryCheckSharingResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Sharing != nil {
+		{
+			size, err := m.Sharing.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *QueryGetSharingRequest) Marshal() (dAtA []byte, err error) {
@@ -1791,6 +2004,36 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *QueryCheckSharingRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.OwnerId)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.ViewerId)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryCheckSharingResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Sharing != nil {
+		l = m.Sharing.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
 func (m *QueryGetSharingRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -2028,6 +2271,206 @@ func sovQuery(x uint64) (n int) {
 }
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *QueryCheckSharingRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryCheckSharingRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryCheckSharingRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OwnerId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OwnerId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ViewerId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ViewerId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryCheckSharingResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryCheckSharingResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryCheckSharingResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sharing", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Sharing == nil {
+				m.Sharing = &Sharing{}
+			}
+			if err := m.Sharing.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *QueryGetSharingRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

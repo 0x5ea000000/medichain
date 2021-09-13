@@ -64,6 +64,9 @@ export interface MedichainQueryAllUserResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface MedichainQueryCheckSharingResponse {
+    Sharing?: MedichainSharing;
+}
 export interface MedichainQueryGetServiceResponse {
     Service?: MedichainService;
 }
@@ -106,9 +109,7 @@ export interface MedichainUser {
     isActive?: boolean;
 }
 export interface ProtobufAny {
-    typeUrl?: string;
-    /** @format byte */
-    value?: string;
+    "@type"?: string;
 }
 export interface RpcStatus {
     /** @format int32 */
@@ -224,6 +225,18 @@ export declare class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export declare class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryCheckSharing
+     * @summary Queries a list of checkSharing items.
+     * @request GET:/sota/medichain/medichain/checkSharing
+     */
+    queryCheckSharing: (query?: {
+        ownerId?: string;
+        viewerId?: string;
+    }, params?: RequestParams) => Promise<HttpResponse<MedichainQueryCheckSharingResponse, RpcStatus>>;
     /**
      * No description
      *

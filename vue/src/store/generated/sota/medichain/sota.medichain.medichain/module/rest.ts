@@ -97,6 +97,10 @@ export interface MedichainQueryAllUserResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface MedichainQueryCheckSharingResponse {
+  Sharing?: MedichainSharing;
+}
+
 export interface MedichainQueryGetServiceResponse {
   Service?: MedichainService;
 }
@@ -147,10 +151,7 @@ export interface MedichainUser {
 }
 
 export interface ProtobufAny {
-  typeUrl?: string;
-
-  /** @format byte */
-  value?: string;
+  "@type"?: string;
 }
 
 export interface RpcStatus {
@@ -412,6 +413,23 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCheckSharing
+   * @summary Queries a list of checkSharing items.
+   * @request GET:/sota/medichain/medichain/checkSharing
+   */
+  queryCheckSharing = (query?: { ownerId?: string; viewerId?: string }, params: RequestParams = {}) =>
+    this.request<MedichainQueryCheckSharingResponse, RpcStatus>({
+      path: `/sota/medichain/medichain/checkSharing`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *
