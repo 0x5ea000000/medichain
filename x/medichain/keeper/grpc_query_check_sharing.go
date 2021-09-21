@@ -28,7 +28,13 @@ func (k Keeper) CheckSharing(goCtx context.Context, req *types.QueryCheckSharing
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
+	owner, isFound := k.GetServiceUser(ctx, sharing.OwnerId)
+	if !isFound {
+		return nil, status.Error(codes.NotFound, "not found")
+	}
+
 	return &types.QueryCheckSharingResponse{
 		Sharing: &res,
+		Owner: &owner,
 	}, nil
 }

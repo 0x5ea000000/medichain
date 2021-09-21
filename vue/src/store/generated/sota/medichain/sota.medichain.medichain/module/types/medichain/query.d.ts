@@ -1,7 +1,7 @@
 import { Reader, Writer } from 'protobufjs/minimal';
 import { Sharing } from '../medichain/sharing';
-import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { ServiceUser } from '../medichain/service_user';
+import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
@@ -12,6 +12,7 @@ export interface QueryCheckSharingRequest {
 }
 export interface QueryCheckSharingResponse {
     Sharing: Sharing | undefined;
+    Owner: ServiceUser | undefined;
 }
 export interface QueryGetSharingRequest {
     index: string;

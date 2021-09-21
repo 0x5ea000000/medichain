@@ -74,6 +74,7 @@ message QueryCheckSharingRequest {
 
 message QueryCheckSharingResponse {
 	Sharing Sharing = 1;
+	ServiceUser Owner = 2;
 }
 
 message QueryGetSharingRequest {

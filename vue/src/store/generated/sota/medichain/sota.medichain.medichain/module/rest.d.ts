@@ -66,6 +66,7 @@ export interface MedichainQueryAllUserResponse {
 }
 export interface MedichainQueryCheckSharingResponse {
     Sharing?: MedichainSharing;
+    Owner?: MedichainServiceUser;
 }
 export interface MedichainQueryGetServiceResponse {
     Service?: MedichainService;

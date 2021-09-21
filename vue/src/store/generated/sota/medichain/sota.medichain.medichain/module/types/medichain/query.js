@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { Reader, Writer } from 'protobufjs/minimal';
 import { Sharing } from '../medichain/sharing';
-import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { ServiceUser } from '../medichain/service_user';
+import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
@@ -82,6 +82,9 @@ export const QueryCheckSharingResponse = {
         if (message.Sharing !== undefined) {
             Sharing.encode(message.Sharing, writer.uint32(10).fork()).ldelim();
         }
+        if (message.Owner !== undefined) {
+            ServiceUser.encode(message.Owner, writer.uint32(18).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -93,6 +96,9 @@ export const QueryCheckSharingResponse = {
             switch (tag >>> 3) {
                 case 1:
                     message.Sharing = Sharing.decode(reader, reader.uint32());
+                    break;
+                case 2:
+                    message.Owner = ServiceUser.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -109,11 +115,18 @@ export const QueryCheckSharingResponse = {
         else {
             message.Sharing = undefined;
         }
+        if (object.Owner !== undefined && object.Owner !== null) {
+            message.Owner = ServiceUser.fromJSON(object.Owner);
+        }
+        else {
+            message.Owner = undefined;
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.Sharing !== undefined && (obj.Sharing = message.Sharing ? Sharing.toJSON(message.Sharing) : undefined);
+        message.Owner !== undefined && (obj.Owner = message.Owner ? ServiceUser.toJSON(message.Owner) : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -123,6 +136,12 @@ export const QueryCheckSharingResponse = {
         }
         else {
             message.Sharing = undefined;
+        }
+        if (object.Owner !== undefined && object.Owner !== null) {
+            message.Owner = ServiceUser.fromPartial(object.Owner);
+        }
+        else {
+            message.Owner = undefined;
         }
         return message;
     }
