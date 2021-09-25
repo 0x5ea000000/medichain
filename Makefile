@@ -22,3 +22,15 @@ go.sum: go.mod
 
 test:
 	@go test -mod=readonly $(PACKAGES)
+
+run:
+	@medichaind start
+
+build-and-push-image: build-image push-image
+
+build-image:
+	@DOCKER_BUILDKIT=1 docker build . --target=release -t supermedicalchain/medichain:pre-release
+
+push-image:
+	@docker tag supermedicalchain/medichain:pre-release supermedicalchain/medichain${TAG}
+	@docker push supermedicalchain/medichain${TAG}

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.service.name }}-deployment
+  labels:
+    chart: {{ .Values.service.name }}
+  {{- $spliter := ":" -}}
+  {{- if not .Values.services.sish.request.domain  -}}
+  {{- $spliter = "" -}}
+  {{- end }}
+spec:
+  replicas: {{ .Values.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: "{{ .Values.service.name }}-selector"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Values.service.name }}-selector"
+    spec:
+      containers:
+      - name: {{ .Values.service.name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ["ssh", "{{ .Values.services.sish.domain }}"]
+        args: ["-oStrictHostKeyChecking=no","-p {{ .Values.services.sish.port }}", "-R {{ .Values.services.sish.request.domain -}}{{ $spliter }}{{- .Values.services.sish.request.port | default 80 -}}:{{- .Values.services.sish.from.domain -}}:{{- .Values.services.sish.from.port | default 80 -}}"]
+{{/*        livenessProbe:*/}}
+{{/*          httpGet:*/}}
+{{/*            host: {{ .Values.services.sish.request.domain -}}.{{ .Values.services.sish.domain }}*/}}
+{{/*            port: {{ .Values.services.sish.request.port | default 80 }}*/}}
+{{/*          failureThreshold: {{ .Values.livenessProbe.failureThreshold}}*/}}
+{{/*          periodSeconds: {{ .Values.livenessProbe.periodSeconds}}*/}}
+{{/*        startupProbe:*/}}
+{{/*          httpGet:*/}}
+{{/*            host: {{ .Values.services.sish.request.domain -}}.{{ .Values.services.sish.domain }}*/}}
+{{/*            port: {{ .Values.services.sish.request.port | default 80 }}*/}}
+{{/*          failureThreshold: {{ .Values.startupProbe.failureThreshold | default 10}}*/}}
+{{/*          periodSeconds: {{ .Values.startupProbe.periodSeconds | default 6}}*/}}

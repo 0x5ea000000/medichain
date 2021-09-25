@@ -1,0 +1,19 @@
+version: "3.7"
+networks:
+  medical-chain-server:
+    name: aaa
+services:
+  medicalchain:
+    build:
+      context: ../..
+      dockerfile: dev.Dockerfile
+      target: dev
+    volumes:
+      - "../../:/src"
+    command:
+      - /bin/sh
+      - -c
+      - |
+        air
+    networks:
+      - medical-chain-server

@@ -1,0 +1,28 @@
+replicaCount: 1
+revisionHistoryLimit: 1
+image:
+  repository: supermedicalchain/chain
+  tag: ${TAG}
+  pullPolicy: Always
+  resources:
+    requests:
+      cpu: 200m
+      memory: 100Mi
+    limits:
+      cpu: 400m
+      memory: 300Mi
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+service:
+  name: chain
+services:
+  checkBody: ${CHECK_BODY}
+  disableTracing: ${DISABLE_TRACING}
+  disableProfiler: ${DISABLE_PROFILER}
+  version: ${VERSION}
+  grpcPort: ${GRPC_PORT}
+  pprofPort: ${PPROF_PORT}
+  disableStats: ${DISABLE_STATS}
+  dbUri: ${DB_URI}
+  cleanDB: ${CLEAN_DB}

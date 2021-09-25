@@ -1,0 +1,23 @@
+replicaCount: 1
+revisionHistoryLimit: 1
+image:
+  repository: kroniak/ssh-client
+  tag: latest
+  pullPolicy: Always
+startupProbe:
+  failureThreshold:
+  periodSeconds:
+livenessProbe:
+  failureThreshold: 1
+  periodSeconds: 10
+service:
+  name: auth-tunnel
+services:
+  sish:
+    domain: ${DOMAIN}
+    port: ${SSH_PORT}
+    request:
+      domain: ${SUB_DOMAIN}
+      port: ${REQUEST_PORT}
+    from:
+      domain: ${FROM_DOMAIN}

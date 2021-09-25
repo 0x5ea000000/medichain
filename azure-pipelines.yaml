@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger:
+  branches:
+    include:
+    - main
+    - dev
+    - releases/*
+  batch: true
+name: $(SourceBranchName)_$(Date:ddMMyyyy)$(Rev:.r)
+jobs:
+- job: BuildImage
+  displayName: Build Cosmos Blockchain Medichain Docker Image
+  pool:
+    name: Builder
+  steps:
+  - checkout: self
+  - task: CmdLine@2
+    displayName: Prebuild
+    inputs:
+      script: |
+        docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
+        make build-and-push-image
+      workingDirectory: $(System.DefaultWorkingDirectory)
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: Cosmos Blockchain Medichain'
+    inputs:
+      PathtoPublish: $(System.DefaultWorkingDirectory)/deploy
+      ArtifactName: server
