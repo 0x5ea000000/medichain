@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'sota.medichain.medichain';
-const baseUser = { creator: '', index: '', address: '', isActive: false };
+const baseUser = { creator: '', index: '', pubKey: '', isActive: false };
 export const User = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -10,8 +10,8 @@ export const User = {
         if (message.index !== '') {
             writer.uint32(18).string(message.index);
         }
-        if (message.address !== '') {
-            writer.uint32(26).string(message.address);
+        if (message.pubKey !== '') {
+            writer.uint32(26).string(message.pubKey);
         }
         if (message.isActive === true) {
             writer.uint32(32).bool(message.isActive);
@@ -32,7 +32,7 @@ export const User = {
                     message.index = reader.string();
                     break;
                 case 3:
-                    message.address = reader.string();
+                    message.pubKey = reader.string();
                     break;
                 case 4:
                     message.isActive = reader.bool();
@@ -58,11 +58,11 @@ export const User = {
         else {
             message.index = '';
         }
-        if (object.address !== undefined && object.address !== null) {
-            message.address = String(object.address);
+        if (object.pubKey !== undefined && object.pubKey !== null) {
+            message.pubKey = String(object.pubKey);
         }
         else {
-            message.address = '';
+            message.pubKey = '';
         }
         if (object.isActive !== undefined && object.isActive !== null) {
             message.isActive = Boolean(object.isActive);
@@ -76,7 +76,7 @@ export const User = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.index !== undefined && (obj.index = message.index);
-        message.address !== undefined && (obj.address = message.address);
+        message.pubKey !== undefined && (obj.pubKey = message.pubKey);
         message.isActive !== undefined && (obj.isActive = message.isActive);
         return obj;
     },
@@ -94,11 +94,11 @@ export const User = {
         else {
             message.index = '';
         }
-        if (object.address !== undefined && object.address !== null) {
-            message.address = object.address;
+        if (object.pubKey !== undefined && object.pubKey !== null) {
+            message.pubKey = object.pubKey;
         }
         else {
-            message.address = '';
+            message.pubKey = '';
         }
         if (object.isActive !== undefined && object.isActive !== null) {
             message.isActive = object.isActive;

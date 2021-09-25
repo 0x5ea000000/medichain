@@ -88,7 +88,7 @@ export interface MsgDeleteServiceResponse {
 }
 export interface MsgCreateUser {
     creator: string;
-    address: string;
+    pubKey: string;
     isActive: boolean;
 }
 export interface MsgCreateUserResponse {
@@ -96,7 +96,7 @@ export interface MsgCreateUserResponse {
 export interface MsgUpdateUser {
     creator: string;
     index: string;
-    address: string;
+    pubKey: string;
     isActive: boolean;
 }
 export interface MsgUpdateUserResponse {

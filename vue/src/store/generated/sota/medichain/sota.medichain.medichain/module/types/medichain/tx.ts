@@ -102,7 +102,7 @@ export interface MsgDeleteServiceResponse {}
 
 export interface MsgCreateUser {
   creator: string
-  address: string
+  pubKey: string
   isActive: boolean
 }
 
@@ -111,7 +111,7 @@ export interface MsgCreateUserResponse {}
 export interface MsgUpdateUser {
   creator: string
   index: string
-  address: string
+  pubKey: string
   isActive: boolean
 }
 
@@ -1657,15 +1657,15 @@ export const MsgDeleteServiceResponse = {
   }
 }
 
-const baseMsgCreateUser: object = { creator: '', address: '', isActive: false }
+const baseMsgCreateUser: object = { creator: '', pubKey: '', isActive: false }
 
 export const MsgCreateUser = {
   encode(message: MsgCreateUser, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.address !== '') {
-      writer.uint32(26).string(message.address)
+    if (message.pubKey !== '') {
+      writer.uint32(26).string(message.pubKey)
     }
     if (message.isActive === true) {
       writer.uint32(32).bool(message.isActive)
@@ -1684,7 +1684,7 @@ export const MsgCreateUser = {
           message.creator = reader.string()
           break
         case 3:
-          message.address = reader.string()
+          message.pubKey = reader.string()
           break
         case 4:
           message.isActive = reader.bool()
@@ -1704,10 +1704,10 @@ export const MsgCreateUser = {
     } else {
       message.creator = ''
     }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = String(object.address)
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = String(object.pubKey)
     } else {
-      message.address = ''
+      message.pubKey = ''
     }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = Boolean(object.isActive)
@@ -1720,7 +1720,7 @@ export const MsgCreateUser = {
   toJSON(message: MsgCreateUser): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.address !== undefined && (obj.address = message.address)
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey)
     message.isActive !== undefined && (obj.isActive = message.isActive)
     return obj
   },
@@ -1732,10 +1732,10 @@ export const MsgCreateUser = {
     } else {
       message.creator = ''
     }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = object.pubKey
     } else {
-      message.address = ''
+      message.pubKey = ''
     }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = object.isActive
@@ -1784,7 +1784,7 @@ export const MsgCreateUserResponse = {
   }
 }
 
-const baseMsgUpdateUser: object = { creator: '', index: '', address: '', isActive: false }
+const baseMsgUpdateUser: object = { creator: '', index: '', pubKey: '', isActive: false }
 
 export const MsgUpdateUser = {
   encode(message: MsgUpdateUser, writer: Writer = Writer.create()): Writer {
@@ -1794,8 +1794,8 @@ export const MsgUpdateUser = {
     if (message.index !== '') {
       writer.uint32(18).string(message.index)
     }
-    if (message.address !== '') {
-      writer.uint32(26).string(message.address)
+    if (message.pubKey !== '') {
+      writer.uint32(26).string(message.pubKey)
     }
     if (message.isActive === true) {
       writer.uint32(32).bool(message.isActive)
@@ -1817,7 +1817,7 @@ export const MsgUpdateUser = {
           message.index = reader.string()
           break
         case 3:
-          message.address = reader.string()
+          message.pubKey = reader.string()
           break
         case 4:
           message.isActive = reader.bool()
@@ -1842,10 +1842,10 @@ export const MsgUpdateUser = {
     } else {
       message.index = ''
     }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = String(object.address)
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = String(object.pubKey)
     } else {
-      message.address = ''
+      message.pubKey = ''
     }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = Boolean(object.isActive)
@@ -1859,7 +1859,7 @@ export const MsgUpdateUser = {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
     message.index !== undefined && (obj.index = message.index)
-    message.address !== undefined && (obj.address = message.address)
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey)
     message.isActive !== undefined && (obj.isActive = message.isActive)
     return obj
   },
@@ -1876,10 +1876,10 @@ export const MsgUpdateUser = {
     } else {
       message.index = ''
     }
-    if (object.address !== undefined && object.address !== null) {
-      message.address = object.address
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = object.pubKey
     } else {
-      message.address = ''
+      message.pubKey = ''
     }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = object.isActive

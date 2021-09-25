@@ -1,16 +1,18 @@
 package types
 
 import (
+	"encoding/base64"
+	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 var _ sdk.Msg = &MsgCreateUser{}
 
-func NewMsgCreateUser(creator string, address string, isActive bool) *MsgCreateUser {
+func NewMsgCreateUser(creator string, pubKey string, isActive bool) *MsgCreateUser {
 	return &MsgCreateUser{
 		Creator:  creator,
-		Address:  address,
+		PubKey:  pubKey,
 		IsActive: isActive,
 	}
 }
@@ -41,20 +43,28 @@ func (msg *MsgCreateUser) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
-	_, err = sdk.AccAddressFromBech32(msg.Address)
+
+	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid user address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}
+
+	pubKey := secp256k1.PubKey{Key: pubKeyBz}
+	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
+	}
+
 	return nil
 }
 
 var _ sdk.Msg = &MsgUpdateUser{}
 
-func NewMsgUpdateUser(creator string, index string, address string, isActive bool) *MsgUpdateUser {
+func NewMsgUpdateUser(creator string, index string, pubKey string, isActive bool) *MsgUpdateUser {
 	return &MsgUpdateUser{
 		Creator:  creator,
 		Index:    index,
-		Address:  address,
+		PubKey:  pubKey,
 		IsActive: isActive,
 	}
 }
@@ -85,10 +95,18 @@ func (msg *MsgUpdateUser) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
-	_, err = sdk.AccAddressFromBech32(msg.Address)
+
+	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid user address (%s)", err)
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}
+
+	pubKey := secp256k1.PubKey{Key: pubKeyBz}
+	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
+	}
+
 	return nil
 }
 

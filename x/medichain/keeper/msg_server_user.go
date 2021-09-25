@@ -28,7 +28,7 @@ func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (
 	var user = types.User{
 		Index:    indexStr,
 		Creator:  msg.Creator,
-		Address:  msg.Address,
+		PubKey:  msg.PubKey,
 		IsActive: msg.IsActive,
 	}
 
@@ -56,7 +56,7 @@ func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (
 	var user = types.User{
 		Index:    msg.Index,
 		Creator:  msg.Creator,
-		Address:  msg.Address,
+		PubKey:  msg.PubKey,
 		IsActive: msg.IsActive,
 	}
 

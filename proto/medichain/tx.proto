@@ -120,7 +120,7 @@ message MsgDeleteServiceResponse { }
 
 message MsgCreateUser {
   string creator = 1;
-  string address = 3;
+  string pubKey = 3;
   bool isActive = 4;
 }
 message MsgCreateUserResponse { }
@@ -128,7 +128,7 @@ message MsgCreateUserResponse { }
 message MsgUpdateUser {
   string creator = 1;
   string index = 2;
-  string address = 3;
+  string pubKey = 3;
   bool isActive = 4;
 }
 message MsgUpdateUserResponse { }

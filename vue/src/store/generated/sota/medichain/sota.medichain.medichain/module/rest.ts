@@ -147,7 +147,7 @@ export interface MedichainSharing {
 export interface MedichainUser {
   creator?: string;
   index?: string;
-  address?: string;
+  pubKey?: string;
   isActive?: boolean;
 }
 

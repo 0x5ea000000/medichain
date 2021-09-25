@@ -2,7 +2,9 @@ package keeper
 
 import (
 	"context"
+	"encoding/base64"
 	"fmt"
+	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -27,8 +29,19 @@ func (k msgServer) AcceptSharing(goCtx context.Context, msg *types.MsgAcceptShar
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user id not found %s", msg.SharingId))
 	}
 
+
+	keybz, err := base64.StdEncoding.DecodeString(userFound.PubKey)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("cannot decode user pubkey %s", userFound.PubKey))
+	}
+	pubKey := secp256k1.PubKey{Key: keybz}
+
+	addr, err := sdk.Bech32ifyAddressBytes("medichain", pubKey.Address().Bytes())
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("cannot get user address %s", userFound.PubKey))
+	}
 	// Checks if the the msg sender is the same as the current owner
-	if msg.Creator != userFound.Address {
+	if msg.Creator != addr {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 

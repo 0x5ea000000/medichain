@@ -3,7 +3,7 @@ export declare const protobufPackage = "sota.medichain.medichain";
 export interface User {
     creator: string;
     index: string;
-    address: string;
+    pubKey: string;
     isActive: boolean;
 }
 export declare const User: {

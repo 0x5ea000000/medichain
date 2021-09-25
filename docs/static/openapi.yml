@@ -19697,7 +19697,7 @@ paths:
                       type: string
                     index:
                       type: string
-                    address:
+                    pubKey:
                       type: string
                     isActive:
                       type: boolean
@@ -19812,7 +19812,7 @@ paths:
                     type: string
                   index:
                     type: string
-                  address:
+                  pubKey:
                     type: string
                   isActive:
                     type: boolean
@@ -30180,7 +30180,7 @@ definitions:
               type: string
             index:
               type: string
-            address:
+            pubKey:
               type: string
             isActive:
               type: boolean
@@ -30302,7 +30302,7 @@ definitions:
             type: string
           index:
             type: string
-          address:
+          pubKey:
             type: string
           isActive:
             type: boolean
@@ -30356,7 +30356,7 @@ definitions:
         type: string
       index:
         type: string
-      address:
+      pubKey:
         type: string
       isActive:
         type: boolean
