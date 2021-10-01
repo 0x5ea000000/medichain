@@ -52,7 +52,7 @@ spec:
             /bin/sh << 'EOF'
             medichaind init {{ .Values.services.node.moniker | default "first-node" }} --chain-id {{ .Values.services.node.chainID | default "medichain" }} 
             echo '{{ .Values.services.genesis.mnemonic }}' | medichaind keys add {{ .Values.services.genesis.account }} --hd-path "m/44'/118'/0'/0" --recover --interactive=false
-            medichaind add-genesis-account {{ .Values.services.genesis.address }} {{ .Values.services.genesis.amount }}
+            medichaind add-genesis-account {{ .Values.services.genesis.account }} {{ .Values.services.genesis.amount }}
             medichaind keys list
             medichaind gentx {{ .Values.services.genesis.account }} 100000000stake --chain-id {{ .Values.services.node.chainID | default "medichain" }}
             medichaind collect-gentxs
