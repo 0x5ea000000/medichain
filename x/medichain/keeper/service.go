@@ -47,3 +47,18 @@ func (k Keeper) GetAllService(ctx sdk.Context) (list []types.Service) {
 
 	return
 }
+
+func (k Keeper) GetServiceIfExisted(ctx sdk.Context, service types.Service) (val types.Service, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ServiceKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubKey == service.PubKey {
+			return val, true
+		}
+	}
+
+	return val, false
+}

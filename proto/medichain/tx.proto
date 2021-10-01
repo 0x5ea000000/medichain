@@ -97,7 +97,7 @@ message MsgCreateService {
   string creator = 1;
   string name = 3;
   string url = 4;
-  string class = 5;
+  string pubKey = 5;
   bool isActive = 6;
 }
 message MsgCreateServiceResponse { }
@@ -107,7 +107,7 @@ message MsgUpdateService {
   string index = 2;
   string name = 3;
   string url = 4;
-  string class = 5;
+  string pubKey = 5;
   bool isActive = 6;
 }
 message MsgUpdateServiceResponse { }

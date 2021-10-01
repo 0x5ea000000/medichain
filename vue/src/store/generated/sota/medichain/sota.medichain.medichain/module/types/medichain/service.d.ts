@@ -5,7 +5,7 @@ export interface Service {
     index: string;
     name: string;
     url: string;
-    class: string;
+    pubKey: string;
     isActive: boolean;
 }
 export declare const Service: {

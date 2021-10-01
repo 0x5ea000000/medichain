@@ -1,6 +1,8 @@
 package types
 
 import (
+	"encoding/base64"
+	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -12,12 +14,12 @@ const (
 
 var _ sdk.Msg = &MsgCreateService{}
 
-func NewMsgCreateService(creator string, name string, url string, class string, isActive bool) *MsgCreateService {
+func NewMsgCreateService(creator string, name string, url string, pubKey string, isActive bool) *MsgCreateService {
 	return &MsgCreateService{
 		Creator:  creator,
 		Name:     name,
 		Url:      url,
-		Class:    class,
+		PubKey:   pubKey,
 		IsActive: isActive,
 	}
 }
@@ -48,22 +50,30 @@ func (msg *MsgCreateService) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
-	isValid := validateClass(msg.Class)
-	if !isValid {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid class (%s)", msg.Class)
+
+	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}
+
+	pubKey := secp256k1.PubKey{Key: pubKeyBz}
+	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
+	}
+
 	return nil
 }
 
 var _ sdk.Msg = &MsgUpdateService{}
 
-func NewMsgUpdateService(creator string, index string, name string, url string, class string, isActive bool) *MsgUpdateService {
+func NewMsgUpdateService(creator string, index string, name string, url string, pubKey string, isActive bool) *MsgUpdateService {
 	return &MsgUpdateService{
 		Creator:  creator,
 		Index:    index,
 		Name:     name,
 		Url:      url,
-		Class:    class,
+		PubKey:   pubKey,
 		IsActive: isActive,
 	}
 }
@@ -94,10 +104,18 @@ func (msg *MsgUpdateService) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
-	isValid := validateClass(msg.Class)
-	if !isValid {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid class (%s)", msg.Class)
+
+	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}
+
+	pubKey := secp256k1.PubKey{Key: pubKeyBz}
+	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
+	}
+
 	return nil
 }
 
@@ -136,14 +154,4 @@ func (msg *MsgDeleteService) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 	return nil
-}
-
-func validateClass(class string) bool {
-	switch class {
-	case PROVIDER, VIEW:
-		return true
-	default:
-		return false
-	}
-
 }

@@ -65,7 +65,7 @@ export interface MsgCreateService {
     creator: string;
     name: string;
     url: string;
-    class: string;
+    pubKey: string;
     isActive: boolean;
 }
 export interface MsgCreateServiceResponse {
@@ -75,7 +75,7 @@ export interface MsgUpdateService {
     index: string;
     name: string;
     url: string;
-    class: string;
+    pubKey: string;
     isActive: boolean;
 }
 export interface MsgUpdateServiceResponse {

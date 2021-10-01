@@ -47,3 +47,18 @@ func (k Keeper) GetAllUser(ctx sdk.Context) (list []types.User) {
 
 	return
 }
+
+func (k Keeper) GetUserIfExisted(ctx sdk.Context, user types.User) (val types.User, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.UserKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubKey == user.PubKey {
+			return val, true
+		}
+	}
+
+	return val, false
+}

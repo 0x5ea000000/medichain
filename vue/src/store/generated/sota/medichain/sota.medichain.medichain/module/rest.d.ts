@@ -85,7 +85,7 @@ export interface MedichainService {
     index?: string;
     name?: string;
     url?: string;
-    class?: string;
+    pubKey?: string;
     isActive?: boolean;
 }
 export interface MedichainServiceUser {

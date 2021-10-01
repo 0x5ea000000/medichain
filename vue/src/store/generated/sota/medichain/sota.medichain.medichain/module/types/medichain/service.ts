@@ -8,11 +8,11 @@ export interface Service {
   index: string
   name: string
   url: string
-  class: string
+  pubKey: string
   isActive: boolean
 }
 
-const baseService: object = { creator: '', index: '', name: '', url: '', class: '', isActive: false }
+const baseService: object = { creator: '', index: '', name: '', url: '', pubKey: '', isActive: false }
 
 export const Service = {
   encode(message: Service, writer: Writer = Writer.create()): Writer {
@@ -28,8 +28,8 @@ export const Service = {
     if (message.url !== '') {
       writer.uint32(34).string(message.url)
     }
-    if (message.class !== '') {
-      writer.uint32(42).string(message.class)
+    if (message.pubKey !== '') {
+      writer.uint32(42).string(message.pubKey)
     }
     if (message.isActive === true) {
       writer.uint32(48).bool(message.isActive)
@@ -57,7 +57,7 @@ export const Service = {
           message.url = reader.string()
           break
         case 5:
-          message.class = reader.string()
+          message.pubKey = reader.string()
           break
         case 6:
           message.isActive = reader.bool()
@@ -92,10 +92,10 @@ export const Service = {
     } else {
       message.url = ''
     }
-    if (object.class !== undefined && object.class !== null) {
-      message.class = String(object.class)
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = String(object.pubKey)
     } else {
-      message.class = ''
+      message.pubKey = ''
     }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = Boolean(object.isActive)
@@ -111,7 +111,7 @@ export const Service = {
     message.index !== undefined && (obj.index = message.index)
     message.name !== undefined && (obj.name = message.name)
     message.url !== undefined && (obj.url = message.url)
-    message.class !== undefined && (obj.class = message.class)
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey)
     message.isActive !== undefined && (obj.isActive = message.isActive)
     return obj
   },
@@ -138,10 +138,10 @@ export const Service = {
     } else {
       message.url = ''
     }
-    if (object.class !== undefined && object.class !== null) {
-      message.class = object.class
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = object.pubKey
     } else {
-      message.class = ''
+      message.pubKey = ''
     }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = object.isActive
