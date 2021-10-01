@@ -28,4 +28,4 @@ jobs:
     displayName: 'Publish Artifact: Cosmos Blockchain Medichain'
     inputs:
       PathtoPublish: $(System.DefaultWorkingDirectory)/deploy
-      ArtifactName: server
+      ArtifactName: chain
