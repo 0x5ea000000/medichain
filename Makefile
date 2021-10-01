@@ -23,6 +23,7 @@ go.sum: go.mod
 test:
 	@go test -mod=readonly $(PACKAGES)
 
+
 run:
 	@medichaind start
 
