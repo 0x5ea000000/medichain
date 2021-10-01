@@ -11,7 +11,7 @@ livenessProbe:
   failureThreshold: 1
   periodSeconds: 10
 service:
-  name: auth-tunnel
+  name: medichain-tunnel-gprc
 services:
   sish:
     domain: ${DOMAIN}
@@ -21,3 +21,4 @@ services:
       port: ${REQUEST_PORT}
     from:
       domain: ${FROM_DOMAIN}
+      port: ${FROM_PORT}

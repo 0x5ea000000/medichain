@@ -1,0 +1,24 @@
+replicaCount: 1
+revisionHistoryLimit: 1
+image:
+  repository: kroniak/ssh-client
+  tag: latest
+  pullPolicy: Always
+startupProbe:
+  failureThreshold:
+  periodSeconds:
+livenessProbe:
+  failureThreshold: 1
+  periodSeconds: 10
+service:
+  name: medichain-tunnel-gprc
+services:
+  sish:
+    domain: uetbc.xyz
+    port: 22222
+    request:
+      domain: 
+      port: 9090
+    from:
+      domain: medichain
+      port: 9090

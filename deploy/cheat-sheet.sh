@@ -5,13 +5,16 @@ rm -Rf ~/.medichain
 medichaind init test-node --chain-id my-test-chain
 medichaind keys import validator1 ./validator1.priv
 #validator1
-medichaind add-genesis-account medichain129dulx4ryrx9revaljg84q34kekdqxj9prgsd9 10000000000000token,100000000000stake
+medichaind add-genesis-account medichain1knn0gxztj48rx827k6j86mcgqfkruqj4fmdrps 10000000000000token,100000000000stake
 #validator2
 medichaind add-genesis-account medichain1dmh86ctqvcprf3zkvguckt7rv2u462jevfawxp 10000000000000token,100000000000stake
 
 
+echo ${MNEMONIC} | medichaind keys add 1231123 --recover --interactive=false 
 
-medichaind gentx my_validator 100000000stake --chain-id my-test-chain
+kubectl create cm --from-file=
+
+medichaind gentx validator1 100000000stake --chain-id my-test-chain
 medichaind collect-gentxs
 medichaind start
 
@@ -55,3 +58,19 @@ useless axis uphold aisle wealth place style transfer prize tumble scissors wrec
 It is the only way to recover your account if you ever forget your password.
 
 major pride rotate material level suffer animal ozone guess praise garbage quote dove earth smile morning awkward rebel country pitch foil delay need wet
+
+
+
+- name: validator1
+  type: local
+  address: medichain1knn0gxztj48rx827k6j86mcgqfkruqj4fmdrps
+  pubkey: medichainpub1addwnpepq284rc4ukzpyr38f3nucy4lscmsu0u0ryqm4k0thfuwwdl7cfcvcukt2xqz
+  mnemonic: ""
+  threshold: 0
+  pubkeys: []
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+hotel sword swarm scissors desk chase illegal idea noise humble track orient spare nurse dad insect agent prison learn polar talk soccer sadness above

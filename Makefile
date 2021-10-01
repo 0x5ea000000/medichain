@@ -34,3 +34,4 @@ build-image:
 push-image:
 	@docker tag supermedicalchain/medichain:pre-release supermedicalchain/medichain${TAG}
 	@docker push supermedicalchain/medichain${TAG}
+

@@ -1,7 +1,7 @@
 replicaCount: 1
 revisionHistoryLimit: 1
 image:
-  repository: supermedicalchain/chain
+  repository: supermedicalchain/medichain
   tag: ${TAG}
   pullPolicy: Always
   resources:
@@ -15,14 +15,17 @@ livenessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10
 service:
-  name: chain
+  name: medichain
 services:
-  checkBody: ${CHECK_BODY}
-  disableTracing: ${DISABLE_TRACING}
-  disableProfiler: ${DISABLE_PROFILER}
-  version: ${VERSION}
   grpcPort: ${GRPC_PORT}
+  rpcPort: ${RPC_PORT}
   pprofPort: ${PPROF_PORT}
-  disableStats: ${DISABLE_STATS}
-  dbUri: ${DB_URI}
-  cleanDB: ${CLEAN_DB}
+  httpPort: ${HTTP_PORT}
+  node:
+    moniker: ${MONIKER}
+    chainID: ${CHAIN_ID}
+  genesis:
+    account: ${ACCOUNT}
+    amount: ${AMOUNT}
+    mnemonic: ${MNEMONIC}
+    address: ${ADDRESS}

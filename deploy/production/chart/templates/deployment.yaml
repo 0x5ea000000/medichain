@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.service.name }}-deployment
   labels:
     chart: {{ .Values.service.name }}
-
 spec:
   replicas: {{ .Values.replicaCount | default 1 }}
   selector:
@@ -19,6 +18,13 @@ spec:
       - name: {{ .Values.service.name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: ["/bin/sh"]
+        args: 
+          - "-c"
+          - "medichaind start --rpc.laddr tcp://127.0.0.1:{{ .Values.services.rpcPort }} --rpc.pprof_laddr tcp://127.0.0.1:{{ .Values.services.pprofPort }} --grpc.address 0.0.0.0:{{ .Values.services.grpcPort }}"
+        volumeMounts:
+          - mountPath: "/home/tendermint/.medichain"
+            name: config
         resources:
           requests:
             cpu: {{ .Values.image.resources.requests.cpu }}
@@ -26,53 +32,35 @@ spec:
           limits:
             cpu: {{ .Values.image.resources.limits.cpu }}
             memory: {{ .Values.image.resources.limits.memory }}
-        readinessProbe:
-            exec:
-              command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.services.grpcPort | default "80" }}"]
-        livenessProbe:
-            exec:
-              command: ["/bin/grpc_health_probe", "-addr=:{{ .Values.services.grpcPort | default "80" }}"]
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds}}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds}}
         ports:
-          - containerPort: {{ .Values.services.grpcPort | default "80" }}
-            name: "{{ .Values.service.name |initials }}-grpc"
-          - containerPort: {{ .Values.services.pprofPort | default "3000" }}
-            name: "{{ .Values.service.name | initials }}-prof"
-        env:
-          - name: CHECK_BODY
-            value: {{ .Values.services.checkBody | default true | quote }}
-          - name: DISABLE_TRACING
-            value: {{ .Values.services.disableTracing | default false | quote }}
-          - name: DISABLE_PROFILER
-            value: {{ .Values.services.disableProfiler | default false | quote }}
-          - name: VERSION
-            value: {{ .Values.services.version | default "v1.0.0" | quote }}
-          - name: GRPC_PORT
-            value: {{ .Values.services.grpcPort | default "80" | quote }}
-          - name: PPROF_PORT
-            value: {{ .Values.services.pprofPort | default "3000" | quote }}
-          - name: DISABLE_STATS
-            value: {{ .Values.services.disableStats | default false | quote }}
-          - name: DB_URI
-            value: {{ .Values.services.dbUri | default "postgresql://root:root@cockroach-auth-cockroachdb:26257/defaultdb?sslmode=disable" | quote }}
+          - containerPort: {{ .Values.services.grpcPort | default "9090" }}
+            name: "{{ .Values.service.name | initials }}-grpc"
+          - containerPort: {{ .Values.services.rpcPort | default "26657" }}
+            name: "{{ .Values.service.name | initials }}-rpc"
+          - containerPort: {{ .Values.services.httpPort | default "1317" }}
+            name: "{{ .Values.service.name | initials }}-http"
+          - containerPort: {{ .Values.services.pprofPort | default "8000" }}
+            name: "{{ .Values.service.name | initials }}-pprof"
       initContainers:
       - name: "init-{{ .Values.service.name }}"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        command: ["/bin/sh"]
-        args: ["-c", "medichaind init {{ .Values.services.node.moniker | default "first-node" }} --chain-id {{ .Values.services.node.chainID | default "medichain" }} && \
-        "]
-        env:
-          - name: DISABLE_TRACING
-            value: {{ .Values.services.disableTracing | default false | quote }}
-          - name: DISABLE_PROFILER
-            value: {{ .Values.services.disableProfiler | default false | quote }}
-          - name: VERSION
-            value: {{ .Values.services.version | default "v1.0.0" | quote }}
-          - name: DISABLE_STATS
-            value: {{ .Values.services.disableStats | default false | quote }}
-          - name: DB_URI
-            value: {{ .Values.services.dbUri | default "postgresql://root:root@cockroach-auth-cockroachdb:26257/defaultdb?sslmode=disable" | quote }}
-          - name: CLEAN_DB
-            value: {{ .Values.services.cleanDB | default "false" | quote }}
+        command:
+          - sh
+          - "-c"
+          - |
+            /bin/sh << 'EOF'
+            medichaind init {{ .Values.services.node.moniker | default "first-node" }} --chain-id {{ .Values.services.node.chainID | default "medichain" }} 
+            echo '{{ .Values.services.genesis.mnemonic }}' | medichaind keys add {{ .Values.services.genesis.account }} --recover --interactive=false
+            medichaind add-genesis-account {{ .Values.services.genesis.address }} {{ .Values.services.genesis.amount }}
+            medichaind keys list
+            medichaind gentx {{ .Values.services.genesis.account }} 100000000stake --chain-id {{ .Values.services.node.chainID | default "medichain" }}
+            medichaind collect-gentxs
+            EOF
+        volumeMounts:
+          - mountPath: "/home/tendermint/.medichain"
+            name: config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ .Values.service.name }}-pvc
