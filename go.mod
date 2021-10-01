@@ -4,7 +4,6 @@ go 1.16
 
 require (
 	github.com/cosmos/cosmos-sdk v0.42.6
-	github.com/cosmos/gex v0.0.0-20210705185702-4fe91b23964b // indirect
 	github.com/gogo/protobuf v1.3.3
 	github.com/golang/protobuf v1.5.2
 	github.com/google/go-cmp v0.5.6 // indirect
