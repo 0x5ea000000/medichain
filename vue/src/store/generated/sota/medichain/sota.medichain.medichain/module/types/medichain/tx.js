@@ -1,5 +1,9 @@
 /* eslint-disable */
 import { Reader, Writer } from 'protobufjs/minimal';
+import { Sharing } from '../medichain/sharing';
+import { ServiceUser } from '../medichain/service_user';
+import { Service } from '../medichain/service';
+import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
 const baseMsgRejectSharing = { creator: '', sharingId: '' };
 export const MsgRejectSharing = {
@@ -315,7 +319,10 @@ export const MsgCreateSharing = {
 };
 const baseMsgCreateSharingResponse = {};
 export const MsgCreateSharingResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.Sharing !== undefined) {
+            Sharing.encode(message.Sharing, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -325,6 +332,9 @@ export const MsgCreateSharingResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.Sharing = Sharing.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -332,16 +342,29 @@ export const MsgCreateSharingResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgCreateSharingResponse };
+        if (object.Sharing !== undefined && object.Sharing !== null) {
+            message.Sharing = Sharing.fromJSON(object.Sharing);
+        }
+        else {
+            message.Sharing = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.Sharing !== undefined && (obj.Sharing = message.Sharing ? Sharing.toJSON(message.Sharing) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgCreateSharingResponse };
+        if (object.Sharing !== undefined && object.Sharing !== null) {
+            message.Sharing = Sharing.fromPartial(object.Sharing);
+        }
+        else {
+            message.Sharing = undefined;
+        }
         return message;
     }
 };
@@ -474,7 +497,10 @@ export const MsgUpdateSharing = {
 };
 const baseMsgUpdateSharingResponse = {};
 export const MsgUpdateSharingResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.Sharing !== undefined) {
+            Sharing.encode(message.Sharing, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -484,6 +510,9 @@ export const MsgUpdateSharingResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.Sharing = Sharing.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -491,16 +520,29 @@ export const MsgUpdateSharingResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgUpdateSharingResponse };
+        if (object.Sharing !== undefined && object.Sharing !== null) {
+            message.Sharing = Sharing.fromJSON(object.Sharing);
+        }
+        else {
+            message.Sharing = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.Sharing !== undefined && (obj.Sharing = message.Sharing ? Sharing.toJSON(message.Sharing) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgUpdateSharingResponse };
+        if (object.Sharing !== undefined && object.Sharing !== null) {
+            message.Sharing = Sharing.fromPartial(object.Sharing);
+        }
+        else {
+            message.Sharing = undefined;
+        }
         return message;
     }
 };
@@ -735,7 +777,10 @@ export const MsgCreateServiceUser = {
 };
 const baseMsgCreateServiceUserResponse = {};
 export const MsgCreateServiceUserResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.ServiceUser !== undefined) {
+            ServiceUser.encode(message.ServiceUser, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -745,6 +790,9 @@ export const MsgCreateServiceUserResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.ServiceUser = ServiceUser.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -752,16 +800,29 @@ export const MsgCreateServiceUserResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgCreateServiceUserResponse };
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            message.ServiceUser = ServiceUser.fromJSON(object.ServiceUser);
+        }
+        else {
+            message.ServiceUser = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.ServiceUser !== undefined && (obj.ServiceUser = message.ServiceUser ? ServiceUser.toJSON(message.ServiceUser) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgCreateServiceUserResponse };
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            message.ServiceUser = ServiceUser.fromPartial(object.ServiceUser);
+        }
+        else {
+            message.ServiceUser = undefined;
+        }
         return message;
     }
 };
@@ -913,7 +974,10 @@ export const MsgUpdateServiceUser = {
 };
 const baseMsgUpdateServiceUserResponse = {};
 export const MsgUpdateServiceUserResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.ServiceUser !== undefined) {
+            ServiceUser.encode(message.ServiceUser, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -923,6 +987,9 @@ export const MsgUpdateServiceUserResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.ServiceUser = ServiceUser.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -930,16 +997,29 @@ export const MsgUpdateServiceUserResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgUpdateServiceUserResponse };
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            message.ServiceUser = ServiceUser.fromJSON(object.ServiceUser);
+        }
+        else {
+            message.ServiceUser = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.ServiceUser !== undefined && (obj.ServiceUser = message.ServiceUser ? ServiceUser.toJSON(message.ServiceUser) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgUpdateServiceUserResponse };
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            message.ServiceUser = ServiceUser.fromPartial(object.ServiceUser);
+        }
+        else {
+            message.ServiceUser = undefined;
+        }
         return message;
     }
 };
@@ -1174,7 +1254,10 @@ export const MsgCreateService = {
 };
 const baseMsgCreateServiceResponse = {};
 export const MsgCreateServiceResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.Service !== undefined) {
+            Service.encode(message.Service, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -1184,6 +1267,9 @@ export const MsgCreateServiceResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.Service = Service.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1191,16 +1277,29 @@ export const MsgCreateServiceResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgCreateServiceResponse };
+        if (object.Service !== undefined && object.Service !== null) {
+            message.Service = Service.fromJSON(object.Service);
+        }
+        else {
+            message.Service = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.Service !== undefined && (obj.Service = message.Service ? Service.toJSON(message.Service) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgCreateServiceResponse };
+        if (object.Service !== undefined && object.Service !== null) {
+            message.Service = Service.fromPartial(object.Service);
+        }
+        else {
+            message.Service = undefined;
+        }
         return message;
     }
 };
@@ -1352,7 +1451,10 @@ export const MsgUpdateService = {
 };
 const baseMsgUpdateServiceResponse = {};
 export const MsgUpdateServiceResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.Service !== undefined) {
+            Service.encode(message.Service, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -1362,6 +1464,9 @@ export const MsgUpdateServiceResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.Service = Service.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1369,16 +1474,29 @@ export const MsgUpdateServiceResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgUpdateServiceResponse };
+        if (object.Service !== undefined && object.Service !== null) {
+            message.Service = Service.fromJSON(object.Service);
+        }
+        else {
+            message.Service = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.Service !== undefined && (obj.Service = message.Service ? Service.toJSON(message.Service) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgUpdateServiceResponse };
+        if (object.Service !== undefined && object.Service !== null) {
+            message.Service = Service.fromPartial(object.Service);
+        }
+        else {
+            message.Service = undefined;
+        }
         return message;
     }
 };
@@ -1575,7 +1693,10 @@ export const MsgCreateUser = {
 };
 const baseMsgCreateUserResponse = {};
 export const MsgCreateUserResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.User !== undefined) {
+            User.encode(message.User, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -1585,6 +1706,9 @@ export const MsgCreateUserResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.User = User.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1592,16 +1716,29 @@ export const MsgCreateUserResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgCreateUserResponse };
+        if (object.User !== undefined && object.User !== null) {
+            message.User = User.fromJSON(object.User);
+        }
+        else {
+            message.User = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.User !== undefined && (obj.User = message.User ? User.toJSON(message.User) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgCreateUserResponse };
+        if (object.User !== undefined && object.User !== null) {
+            message.User = User.fromPartial(object.User);
+        }
+        else {
+            message.User = undefined;
+        }
         return message;
     }
 };
@@ -1715,7 +1852,10 @@ export const MsgUpdateUser = {
 };
 const baseMsgUpdateUserResponse = {};
 export const MsgUpdateUserResponse = {
-    encode(_, writer = Writer.create()) {
+    encode(message, writer = Writer.create()) {
+        if (message.User !== undefined) {
+            User.encode(message.User, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -1725,6 +1865,9 @@ export const MsgUpdateUserResponse = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.User = User.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1732,16 +1875,29 @@ export const MsgUpdateUserResponse = {
         }
         return message;
     },
-    fromJSON(_) {
+    fromJSON(object) {
         const message = { ...baseMsgUpdateUserResponse };
+        if (object.User !== undefined && object.User !== null) {
+            message.User = User.fromJSON(object.User);
+        }
+        else {
+            message.User = undefined;
+        }
         return message;
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.User !== undefined && (obj.User = message.User ? User.toJSON(message.User) : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = { ...baseMsgUpdateUserResponse };
+        if (object.User !== undefined && object.User !== null) {
+            message.User = User.fromPartial(object.User);
+        }
+        else {
+            message.User = undefined;
+        }
         return message;
     }
 };

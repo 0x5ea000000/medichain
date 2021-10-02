@@ -11,13 +11,21 @@
 
 export type MedichainMsgAcceptSharingResponse = object;
 
-export type MedichainMsgCreateServiceResponse = object;
+export interface MedichainMsgCreateServiceResponse {
+  Service?: MedichainService;
+}
 
-export type MedichainMsgCreateServiceUserResponse = object;
+export interface MedichainMsgCreateServiceUserResponse {
+  ServiceUser?: MedichainServiceUser;
+}
 
-export type MedichainMsgCreateSharingResponse = object;
+export interface MedichainMsgCreateSharingResponse {
+  Sharing?: MedichainSharing;
+}
 
-export type MedichainMsgCreateUserResponse = object;
+export interface MedichainMsgCreateUserResponse {
+  User?: MedichainUser;
+}
 
 export type MedichainMsgDeleteServiceResponse = object;
 
@@ -29,13 +37,21 @@ export type MedichainMsgDeleteUserResponse = object;
 
 export type MedichainMsgRejectSharingResponse = object;
 
-export type MedichainMsgUpdateServiceResponse = object;
+export interface MedichainMsgUpdateServiceResponse {
+  Service?: MedichainService;
+}
 
-export type MedichainMsgUpdateServiceUserResponse = object;
+export interface MedichainMsgUpdateServiceUserResponse {
+  ServiceUser?: MedichainServiceUser;
+}
 
-export type MedichainMsgUpdateSharingResponse = object;
+export interface MedichainMsgUpdateSharingResponse {
+  Sharing?: MedichainSharing;
+}
 
-export type MedichainMsgUpdateUserResponse = object;
+export interface MedichainMsgUpdateUserResponse {
+  User?: MedichainUser;
+}
 
 export interface MedichainQueryAllServiceResponse {
   Service?: MedichainService[];
@@ -120,6 +136,10 @@ export interface MedichainQueryGetSharingResponse {
 
 export interface MedichainQueryGetUserResponse {
   User?: MedichainUser;
+}
+
+export interface MedichainQueryUserServiceResponse {
+  ServiceUser?: MedichainServiceUser[];
 }
 
 export interface MedichainService {
@@ -612,6 +632,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     this.request<MedichainQueryGetUserResponse, RpcStatus>({
       path: `/sota/medichain/medichain/user/${index}`,
       method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryUserService
+   * @summary Queries a list of userService items.
+   * @request GET:/sota/medichain/medichain/userService
+   */
+  queryUserService = (query?: { userId?: string }, params: RequestParams = {}) =>
+    this.request<MedichainQueryUserServiceResponse, RpcStatus>({
+      path: `/sota/medichain/medichain/userService`,
+      method: "GET",
+      query: query,
       format: "json",
       ...params,
     });

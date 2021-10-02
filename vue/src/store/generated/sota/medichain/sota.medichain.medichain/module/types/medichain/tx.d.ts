@@ -1,4 +1,8 @@
 import { Reader, Writer } from 'protobufjs/minimal';
+import { Sharing } from '../medichain/sharing';
+import { ServiceUser } from '../medichain/service_user';
+import { Service } from '../medichain/service';
+import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** this line is used by starport scaffolding # proto/tx/message */
 export interface MsgRejectSharing {
@@ -20,6 +24,7 @@ export interface MsgCreateSharing {
     status: string;
 }
 export interface MsgCreateSharingResponse {
+    Sharing: Sharing | undefined;
 }
 export interface MsgUpdateSharing {
     creator: string;
@@ -29,6 +34,7 @@ export interface MsgUpdateSharing {
     status: string;
 }
 export interface MsgUpdateSharingResponse {
+    Sharing: Sharing | undefined;
 }
 export interface MsgDeleteSharing {
     creator: string;
@@ -44,6 +50,7 @@ export interface MsgCreateServiceUser {
     isActive: boolean;
 }
 export interface MsgCreateServiceUserResponse {
+    ServiceUser: ServiceUser | undefined;
 }
 export interface MsgUpdateServiceUser {
     creator: string;
@@ -54,6 +61,7 @@ export interface MsgUpdateServiceUser {
     isActive: boolean;
 }
 export interface MsgUpdateServiceUserResponse {
+    ServiceUser: ServiceUser | undefined;
 }
 export interface MsgDeleteServiceUser {
     creator: string;
@@ -69,6 +77,7 @@ export interface MsgCreateService {
     isActive: boolean;
 }
 export interface MsgCreateServiceResponse {
+    Service: Service | undefined;
 }
 export interface MsgUpdateService {
     creator: string;
@@ -79,6 +88,7 @@ export interface MsgUpdateService {
     isActive: boolean;
 }
 export interface MsgUpdateServiceResponse {
+    Service: Service | undefined;
 }
 export interface MsgDeleteService {
     creator: string;
@@ -92,6 +102,7 @@ export interface MsgCreateUser {
     isActive: boolean;
 }
 export interface MsgCreateUserResponse {
+    User: User | undefined;
 }
 export interface MsgUpdateUser {
     creator: string;
@@ -100,6 +111,7 @@ export interface MsgUpdateUser {
     isActive: boolean;
 }
 export interface MsgUpdateUserResponse {
+    User: User | undefined;
 }
 export interface MsgDeleteUser {
     creator: string;
@@ -143,11 +155,11 @@ export declare const MsgCreateSharing: {
     fromPartial(object: DeepPartial<MsgCreateSharing>): MsgCreateSharing;
 };
 export declare const MsgCreateSharingResponse: {
-    encode(_: MsgCreateSharingResponse, writer?: Writer): Writer;
+    encode(message: MsgCreateSharingResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateSharingResponse;
-    fromJSON(_: any): MsgCreateSharingResponse;
-    toJSON(_: MsgCreateSharingResponse): unknown;
-    fromPartial(_: DeepPartial<MsgCreateSharingResponse>): MsgCreateSharingResponse;
+    fromJSON(object: any): MsgCreateSharingResponse;
+    toJSON(message: MsgCreateSharingResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateSharingResponse>): MsgCreateSharingResponse;
 };
 export declare const MsgUpdateSharing: {
     encode(message: MsgUpdateSharing, writer?: Writer): Writer;
@@ -157,11 +169,11 @@ export declare const MsgUpdateSharing: {
     fromPartial(object: DeepPartial<MsgUpdateSharing>): MsgUpdateSharing;
 };
 export declare const MsgUpdateSharingResponse: {
-    encode(_: MsgUpdateSharingResponse, writer?: Writer): Writer;
+    encode(message: MsgUpdateSharingResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgUpdateSharingResponse;
-    fromJSON(_: any): MsgUpdateSharingResponse;
-    toJSON(_: MsgUpdateSharingResponse): unknown;
-    fromPartial(_: DeepPartial<MsgUpdateSharingResponse>): MsgUpdateSharingResponse;
+    fromJSON(object: any): MsgUpdateSharingResponse;
+    toJSON(message: MsgUpdateSharingResponse): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateSharingResponse>): MsgUpdateSharingResponse;
 };
 export declare const MsgDeleteSharing: {
     encode(message: MsgDeleteSharing, writer?: Writer): Writer;
@@ -185,11 +197,11 @@ export declare const MsgCreateServiceUser: {
     fromPartial(object: DeepPartial<MsgCreateServiceUser>): MsgCreateServiceUser;
 };
 export declare const MsgCreateServiceUserResponse: {
-    encode(_: MsgCreateServiceUserResponse, writer?: Writer): Writer;
+    encode(message: MsgCreateServiceUserResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateServiceUserResponse;
-    fromJSON(_: any): MsgCreateServiceUserResponse;
-    toJSON(_: MsgCreateServiceUserResponse): unknown;
-    fromPartial(_: DeepPartial<MsgCreateServiceUserResponse>): MsgCreateServiceUserResponse;
+    fromJSON(object: any): MsgCreateServiceUserResponse;
+    toJSON(message: MsgCreateServiceUserResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateServiceUserResponse>): MsgCreateServiceUserResponse;
 };
 export declare const MsgUpdateServiceUser: {
     encode(message: MsgUpdateServiceUser, writer?: Writer): Writer;
@@ -199,11 +211,11 @@ export declare const MsgUpdateServiceUser: {
     fromPartial(object: DeepPartial<MsgUpdateServiceUser>): MsgUpdateServiceUser;
 };
 export declare const MsgUpdateServiceUserResponse: {
-    encode(_: MsgUpdateServiceUserResponse, writer?: Writer): Writer;
+    encode(message: MsgUpdateServiceUserResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgUpdateServiceUserResponse;
-    fromJSON(_: any): MsgUpdateServiceUserResponse;
-    toJSON(_: MsgUpdateServiceUserResponse): unknown;
-    fromPartial(_: DeepPartial<MsgUpdateServiceUserResponse>): MsgUpdateServiceUserResponse;
+    fromJSON(object: any): MsgUpdateServiceUserResponse;
+    toJSON(message: MsgUpdateServiceUserResponse): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateServiceUserResponse>): MsgUpdateServiceUserResponse;
 };
 export declare const MsgDeleteServiceUser: {
     encode(message: MsgDeleteServiceUser, writer?: Writer): Writer;
@@ -227,11 +239,11 @@ export declare const MsgCreateService: {
     fromPartial(object: DeepPartial<MsgCreateService>): MsgCreateService;
 };
 export declare const MsgCreateServiceResponse: {
-    encode(_: MsgCreateServiceResponse, writer?: Writer): Writer;
+    encode(message: MsgCreateServiceResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateServiceResponse;
-    fromJSON(_: any): MsgCreateServiceResponse;
-    toJSON(_: MsgCreateServiceResponse): unknown;
-    fromPartial(_: DeepPartial<MsgCreateServiceResponse>): MsgCreateServiceResponse;
+    fromJSON(object: any): MsgCreateServiceResponse;
+    toJSON(message: MsgCreateServiceResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateServiceResponse>): MsgCreateServiceResponse;
 };
 export declare const MsgUpdateService: {
     encode(message: MsgUpdateService, writer?: Writer): Writer;
@@ -241,11 +253,11 @@ export declare const MsgUpdateService: {
     fromPartial(object: DeepPartial<MsgUpdateService>): MsgUpdateService;
 };
 export declare const MsgUpdateServiceResponse: {
-    encode(_: MsgUpdateServiceResponse, writer?: Writer): Writer;
+    encode(message: MsgUpdateServiceResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgUpdateServiceResponse;
-    fromJSON(_: any): MsgUpdateServiceResponse;
-    toJSON(_: MsgUpdateServiceResponse): unknown;
-    fromPartial(_: DeepPartial<MsgUpdateServiceResponse>): MsgUpdateServiceResponse;
+    fromJSON(object: any): MsgUpdateServiceResponse;
+    toJSON(message: MsgUpdateServiceResponse): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateServiceResponse>): MsgUpdateServiceResponse;
 };
 export declare const MsgDeleteService: {
     encode(message: MsgDeleteService, writer?: Writer): Writer;
@@ -269,11 +281,11 @@ export declare const MsgCreateUser: {
     fromPartial(object: DeepPartial<MsgCreateUser>): MsgCreateUser;
 };
 export declare const MsgCreateUserResponse: {
-    encode(_: MsgCreateUserResponse, writer?: Writer): Writer;
+    encode(message: MsgCreateUserResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateUserResponse;
-    fromJSON(_: any): MsgCreateUserResponse;
-    toJSON(_: MsgCreateUserResponse): unknown;
-    fromPartial(_: DeepPartial<MsgCreateUserResponse>): MsgCreateUserResponse;
+    fromJSON(object: any): MsgCreateUserResponse;
+    toJSON(message: MsgCreateUserResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateUserResponse>): MsgCreateUserResponse;
 };
 export declare const MsgUpdateUser: {
     encode(message: MsgUpdateUser, writer?: Writer): Writer;
@@ -283,11 +295,11 @@ export declare const MsgUpdateUser: {
     fromPartial(object: DeepPartial<MsgUpdateUser>): MsgUpdateUser;
 };
 export declare const MsgUpdateUserResponse: {
-    encode(_: MsgUpdateUserResponse, writer?: Writer): Writer;
+    encode(message: MsgUpdateUserResponse, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgUpdateUserResponse;
-    fromJSON(_: any): MsgUpdateUserResponse;
-    toJSON(_: MsgUpdateUserResponse): unknown;
-    fromPartial(_: DeepPartial<MsgUpdateUserResponse>): MsgUpdateUserResponse;
+    fromJSON(object: any): MsgUpdateUserResponse;
+    toJSON(message: MsgUpdateUserResponse): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateUserResponse>): MsgUpdateUserResponse;
 };
 export declare const MsgDeleteUser: {
     encode(message: MsgDeleteUser, writer?: Writer): Writer;

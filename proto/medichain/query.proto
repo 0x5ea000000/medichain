@@ -15,6 +15,12 @@ option go_package = "github.com/sota/medichain/x/medichain/types";
 service Query {
     // this line is used by starport scaffolding # 2
 
+	// Queries a list of userService items.
+	rpc UserService(QueryUserServiceRequest) returns (QueryUserServiceResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/userService";
+	}
+
+
 	// Queries a list of checkServiceUser items.
 	rpc CheckServiceUser(QueryCheckServiceUserRequest) returns (QueryCheckServiceUserResponse) {
 		option (google.api.http).get = "/sota/medichain/medichain/checkServiceUser";
@@ -73,6 +79,14 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryUserServiceRequest {
+  string userId = 1;
+}
+
+message QueryUserServiceResponse {
+	repeated ServiceUser ServiceUser = 1;
+}
+
 message QueryCheckServiceUserRequest {;
 	string serviceId = 1;
 	string userId = 2;

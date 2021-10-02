@@ -282,5 +282,20 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryUserService
+         * @summary Queries a list of userService items.
+         * @request GET:/sota/medichain/medichain/userService
+         */
+        this.queryUserService = (query, params = {}) => this.request({
+            path: `/sota/medichain/medichain/userService`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
     }
 }

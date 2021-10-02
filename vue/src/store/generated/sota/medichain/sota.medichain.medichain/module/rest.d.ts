@@ -1,17 +1,33 @@
 export declare type MedichainMsgAcceptSharingResponse = object;
-export declare type MedichainMsgCreateServiceResponse = object;
-export declare type MedichainMsgCreateServiceUserResponse = object;
-export declare type MedichainMsgCreateSharingResponse = object;
-export declare type MedichainMsgCreateUserResponse = object;
+export interface MedichainMsgCreateServiceResponse {
+    Service?: MedichainService;
+}
+export interface MedichainMsgCreateServiceUserResponse {
+    ServiceUser?: MedichainServiceUser;
+}
+export interface MedichainMsgCreateSharingResponse {
+    Sharing?: MedichainSharing;
+}
+export interface MedichainMsgCreateUserResponse {
+    User?: MedichainUser;
+}
 export declare type MedichainMsgDeleteServiceResponse = object;
 export declare type MedichainMsgDeleteServiceUserResponse = object;
 export declare type MedichainMsgDeleteSharingResponse = object;
 export declare type MedichainMsgDeleteUserResponse = object;
 export declare type MedichainMsgRejectSharingResponse = object;
-export declare type MedichainMsgUpdateServiceResponse = object;
-export declare type MedichainMsgUpdateServiceUserResponse = object;
-export declare type MedichainMsgUpdateSharingResponse = object;
-export declare type MedichainMsgUpdateUserResponse = object;
+export interface MedichainMsgUpdateServiceResponse {
+    Service?: MedichainService;
+}
+export interface MedichainMsgUpdateServiceUserResponse {
+    ServiceUser?: MedichainServiceUser;
+}
+export interface MedichainMsgUpdateSharingResponse {
+    Sharing?: MedichainSharing;
+}
+export interface MedichainMsgUpdateUserResponse {
+    User?: MedichainUser;
+}
 export interface MedichainQueryAllServiceResponse {
     Service?: MedichainService[];
     /**
@@ -82,6 +98,9 @@ export interface MedichainQueryGetSharingResponse {
 }
 export interface MedichainQueryGetUserResponse {
     User?: MedichainUser;
+}
+export interface MedichainQueryUserServiceResponse {
+    ServiceUser?: MedichainServiceUser[];
 }
 export interface MedichainService {
     creator?: string;
@@ -345,5 +364,16 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/sota/medichain/medichain/user/{index}
      */
     queryUser: (index: string, params?: RequestParams) => Promise<HttpResponse<MedichainQueryGetUserResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryUserService
+     * @summary Queries a list of userService items.
+     * @request GET:/sota/medichain/medichain/userService
+     */
+    queryUserService: (query?: {
+        userId?: string;
+    }, params?: RequestParams) => Promise<HttpResponse<MedichainQueryUserServiceResponse, RpcStatus>>;
 }
 export {};

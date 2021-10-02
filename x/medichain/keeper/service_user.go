@@ -65,6 +65,22 @@ func (k Keeper) GetServiceUserIfLinked(ctx sdk.Context, serviceUser types.Servic
 	return val, false
 }
 
+func (k Keeper) GetUserServiceLinked(ctx sdk.Context, userId string) (list []*types.ServiceUser) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ServiceUserKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.ServiceUser
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.UserId == userId {
+			list = append(list, &val)
+		}
+	}
+
+	return list
+}
+
 func (k Keeper) ValidateServiceUser(ctx sdk.Context, serviceUser *types.ServiceUser) error {
 	_, isFound := k.GetUser(ctx, serviceUser.UserId)
 	if !isFound {

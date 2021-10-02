@@ -11,7 +11,7 @@ option go_package = "github.com/sota/medichain/x/medichain/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+  // this line is used by starport scaffolding # proto/tx/rpc
   rpc RejectSharing(MsgRejectSharing) returns (MsgRejectSharingResponse);
   rpc AcceptSharing(MsgAcceptSharing) returns (MsgAcceptSharingResponse);
   rpc CreateSharing(MsgCreateSharing) returns (MsgCreateSharingResponse);
@@ -51,7 +51,9 @@ message MsgCreateSharing {
   string viewerId = 4;
   string status = 5;
 }
-message MsgCreateSharingResponse { }
+message MsgCreateSharingResponse {
+  Sharing Sharing = 1;
+}
 
 message MsgUpdateSharing {
   string creator = 1;
@@ -60,13 +62,15 @@ message MsgUpdateSharing {
   string viewerId = 4;
   string status = 5;
 }
-message MsgUpdateSharingResponse { }
+message MsgUpdateSharingResponse {
+  Sharing Sharing = 1;
+}
 
 message MsgDeleteSharing {
   string creator = 1;
   string index = 2;
 }
-message MsgDeleteSharingResponse { }
+message MsgDeleteSharingResponse {}
 
 message MsgCreateServiceUser {
   string creator = 1;
@@ -75,7 +79,9 @@ message MsgCreateServiceUser {
   string serviceUserId = 5;
   bool isActive = 6;
 }
-message MsgCreateServiceUserResponse { }
+message MsgCreateServiceUserResponse {
+  ServiceUser ServiceUser = 1;
+}
 
 message MsgUpdateServiceUser {
   string creator = 1;
@@ -85,13 +91,15 @@ message MsgUpdateServiceUser {
   string serviceUserId = 5;
   bool isActive = 6;
 }
-message MsgUpdateServiceUserResponse { }
+message MsgUpdateServiceUserResponse {
+  ServiceUser ServiceUser = 1;
+}
 
 message MsgDeleteServiceUser {
   string creator = 1;
   string index = 2;
 }
-message MsgDeleteServiceUserResponse { }
+message MsgDeleteServiceUserResponse {}
 
 message MsgCreateService {
   string creator = 1;
@@ -100,7 +108,9 @@ message MsgCreateService {
   string pubKey = 5;
   bool isActive = 6;
 }
-message MsgCreateServiceResponse { }
+message MsgCreateServiceResponse {
+  Service Service = 1;
+}
 
 message MsgUpdateService {
   string creator = 1;
@@ -110,20 +120,24 @@ message MsgUpdateService {
   string pubKey = 5;
   bool isActive = 6;
 }
-message MsgUpdateServiceResponse { }
+message MsgUpdateServiceResponse {
+  Service Service = 1;
+}
 
 message MsgDeleteService {
   string creator = 1;
   string index = 2;
 }
-message MsgDeleteServiceResponse { }
+message MsgDeleteServiceResponse {}
 
 message MsgCreateUser {
   string creator = 1;
   string pubKey = 3;
   bool isActive = 4;
 }
-message MsgCreateUserResponse { }
+message MsgCreateUserResponse {
+  User User = 1;
+}
 
 message MsgUpdateUser {
   string creator = 1;
@@ -131,10 +145,12 @@ message MsgUpdateUser {
   string pubKey = 3;
   bool isActive = 4;
 }
-message MsgUpdateUserResponse { }
+message MsgUpdateUserResponse {
+  User User = 1;
+}
 
 message MsgDeleteUser {
   string creator = 1;
   string index = 2;
 }
-message MsgDeleteUserResponse { }
+message MsgDeleteUserResponse {}

@@ -9,6 +9,14 @@ import { User } from '../medichain/user'
 export const protobufPackage = 'sota.medichain.medichain'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryUserServiceRequest {
+  userId: string
+}
+
+export interface QueryUserServiceResponse {
+  ServiceUser: ServiceUser[]
+}
+
 export interface QueryCheckServiceUserRequest {
   serviceId: string
   userId: string
@@ -94,6 +102,123 @@ export interface QueryAllUserRequest {
 export interface QueryAllUserResponse {
   User: User[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryUserServiceRequest: object = { userId: '' }
+
+export const QueryUserServiceRequest = {
+  encode(message: QueryUserServiceRequest, writer: Writer = Writer.create()): Writer {
+    if (message.userId !== '') {
+      writer.uint32(10).string(message.userId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryUserServiceRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryUserServiceRequest } as QueryUserServiceRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.userId = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryUserServiceRequest {
+    const message = { ...baseQueryUserServiceRequest } as QueryUserServiceRequest
+    if (object.userId !== undefined && object.userId !== null) {
+      message.userId = String(object.userId)
+    } else {
+      message.userId = ''
+    }
+    return message
+  },
+
+  toJSON(message: QueryUserServiceRequest): unknown {
+    const obj: any = {}
+    message.userId !== undefined && (obj.userId = message.userId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryUserServiceRequest>): QueryUserServiceRequest {
+    const message = { ...baseQueryUserServiceRequest } as QueryUserServiceRequest
+    if (object.userId !== undefined && object.userId !== null) {
+      message.userId = object.userId
+    } else {
+      message.userId = ''
+    }
+    return message
+  }
+}
+
+const baseQueryUserServiceResponse: object = {}
+
+export const QueryUserServiceResponse = {
+  encode(message: QueryUserServiceResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.ServiceUser) {
+      ServiceUser.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryUserServiceResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryUserServiceResponse } as QueryUserServiceResponse
+    message.ServiceUser = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.ServiceUser.push(ServiceUser.decode(reader, reader.uint32()))
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryUserServiceResponse {
+    const message = { ...baseQueryUserServiceResponse } as QueryUserServiceResponse
+    message.ServiceUser = []
+    if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+      for (const e of object.ServiceUser) {
+        message.ServiceUser.push(ServiceUser.fromJSON(e))
+      }
+    }
+    return message
+  },
+
+  toJSON(message: QueryUserServiceResponse): unknown {
+    const obj: any = {}
+    if (message.ServiceUser) {
+      obj.ServiceUser = message.ServiceUser.map((e) => (e ? ServiceUser.toJSON(e) : undefined))
+    } else {
+      obj.ServiceUser = []
+    }
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryUserServiceResponse>): QueryUserServiceResponse {
+    const message = { ...baseQueryUserServiceResponse } as QueryUserServiceResponse
+    message.ServiceUser = []
+    if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+      for (const e of object.ServiceUser) {
+        message.ServiceUser.push(ServiceUser.fromPartial(e))
+      }
+    }
+    return message
+  }
 }
 
 const baseQueryCheckServiceUserRequest: object = { serviceId: '', userId: '' }
@@ -1345,6 +1470,8 @@ export const QueryAllUserResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a list of userService items. */
+  UserService(request: QueryUserServiceRequest): Promise<QueryUserServiceResponse>
   /** Queries a list of checkServiceUser items. */
   CheckServiceUser(request: QueryCheckServiceUserRequest): Promise<QueryCheckServiceUserResponse>
   /** Queries a list of checkSharing items. */
@@ -1372,6 +1499,12 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  UserService(request: QueryUserServiceRequest): Promise<QueryUserServiceResponse> {
+    const data = QueryUserServiceRequest.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Query', 'UserService', data)
+    return promise.then((data) => QueryUserServiceResponse.decode(new Reader(data)))
+  }
+
   CheckServiceUser(request: QueryCheckServiceUserRequest): Promise<QueryCheckServiceUserResponse> {
     const data = QueryCheckServiceUserRequest.encode(request).finish()
     const promise = this.rpc.request('sota.medichain.medichain.Query', 'CheckServiceUser', data)

@@ -1,5 +1,9 @@
 /* eslint-disable */
 import { Reader, Writer } from 'protobufjs/minimal'
+import { Sharing } from '../medichain/sharing'
+import { ServiceUser } from '../medichain/service_user'
+import { Service } from '../medichain/service'
+import { User } from '../medichain/user'
 
 export const protobufPackage = 'sota.medichain.medichain'
 
@@ -25,7 +29,9 @@ export interface MsgCreateSharing {
   status: string
 }
 
-export interface MsgCreateSharingResponse {}
+export interface MsgCreateSharingResponse {
+  Sharing: Sharing | undefined
+}
 
 export interface MsgUpdateSharing {
   creator: string
@@ -35,7 +41,9 @@ export interface MsgUpdateSharing {
   status: string
 }
 
-export interface MsgUpdateSharingResponse {}
+export interface MsgUpdateSharingResponse {
+  Sharing: Sharing | undefined
+}
 
 export interface MsgDeleteSharing {
   creator: string
@@ -52,7 +60,9 @@ export interface MsgCreateServiceUser {
   isActive: boolean
 }
 
-export interface MsgCreateServiceUserResponse {}
+export interface MsgCreateServiceUserResponse {
+  ServiceUser: ServiceUser | undefined
+}
 
 export interface MsgUpdateServiceUser {
   creator: string
@@ -63,7 +73,9 @@ export interface MsgUpdateServiceUser {
   isActive: boolean
 }
 
-export interface MsgUpdateServiceUserResponse {}
+export interface MsgUpdateServiceUserResponse {
+  ServiceUser: ServiceUser | undefined
+}
 
 export interface MsgDeleteServiceUser {
   creator: string
@@ -80,7 +92,9 @@ export interface MsgCreateService {
   isActive: boolean
 }
 
-export interface MsgCreateServiceResponse {}
+export interface MsgCreateServiceResponse {
+  Service: Service | undefined
+}
 
 export interface MsgUpdateService {
   creator: string
@@ -91,7 +105,9 @@ export interface MsgUpdateService {
   isActive: boolean
 }
 
-export interface MsgUpdateServiceResponse {}
+export interface MsgUpdateServiceResponse {
+  Service: Service | undefined
+}
 
 export interface MsgDeleteService {
   creator: string
@@ -106,7 +122,9 @@ export interface MsgCreateUser {
   isActive: boolean
 }
 
-export interface MsgCreateUserResponse {}
+export interface MsgCreateUserResponse {
+  User: User | undefined
+}
 
 export interface MsgUpdateUser {
   creator: string
@@ -115,7 +133,9 @@ export interface MsgUpdateUser {
   isActive: boolean
 }
 
-export interface MsgUpdateUserResponse {}
+export interface MsgUpdateUserResponse {
+  User: User | undefined
+}
 
 export interface MsgDeleteUser {
   creator: string
@@ -453,7 +473,10 @@ export const MsgCreateSharing = {
 const baseMsgCreateSharingResponse: object = {}
 
 export const MsgCreateSharingResponse = {
-  encode(_: MsgCreateSharingResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgCreateSharingResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Sharing !== undefined) {
+      Sharing.encode(message.Sharing, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -464,6 +487,9 @@ export const MsgCreateSharingResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.Sharing = Sharing.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -472,18 +498,29 @@ export const MsgCreateSharingResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgCreateSharingResponse {
+  fromJSON(object: any): MsgCreateSharingResponse {
     const message = { ...baseMsgCreateSharingResponse } as MsgCreateSharingResponse
+    if (object.Sharing !== undefined && object.Sharing !== null) {
+      message.Sharing = Sharing.fromJSON(object.Sharing)
+    } else {
+      message.Sharing = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgCreateSharingResponse): unknown {
+  toJSON(message: MsgCreateSharingResponse): unknown {
     const obj: any = {}
+    message.Sharing !== undefined && (obj.Sharing = message.Sharing ? Sharing.toJSON(message.Sharing) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgCreateSharingResponse>): MsgCreateSharingResponse {
+  fromPartial(object: DeepPartial<MsgCreateSharingResponse>): MsgCreateSharingResponse {
     const message = { ...baseMsgCreateSharingResponse } as MsgCreateSharingResponse
+    if (object.Sharing !== undefined && object.Sharing !== null) {
+      message.Sharing = Sharing.fromPartial(object.Sharing)
+    } else {
+      message.Sharing = undefined
+    }
     return message
   }
 }
@@ -614,7 +651,10 @@ export const MsgUpdateSharing = {
 const baseMsgUpdateSharingResponse: object = {}
 
 export const MsgUpdateSharingResponse = {
-  encode(_: MsgUpdateSharingResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgUpdateSharingResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Sharing !== undefined) {
+      Sharing.encode(message.Sharing, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -625,6 +665,9 @@ export const MsgUpdateSharingResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.Sharing = Sharing.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -633,18 +676,29 @@ export const MsgUpdateSharingResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgUpdateSharingResponse {
+  fromJSON(object: any): MsgUpdateSharingResponse {
     const message = { ...baseMsgUpdateSharingResponse } as MsgUpdateSharingResponse
+    if (object.Sharing !== undefined && object.Sharing !== null) {
+      message.Sharing = Sharing.fromJSON(object.Sharing)
+    } else {
+      message.Sharing = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgUpdateSharingResponse): unknown {
+  toJSON(message: MsgUpdateSharingResponse): unknown {
     const obj: any = {}
+    message.Sharing !== undefined && (obj.Sharing = message.Sharing ? Sharing.toJSON(message.Sharing) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgUpdateSharingResponse>): MsgUpdateSharingResponse {
+  fromPartial(object: DeepPartial<MsgUpdateSharingResponse>): MsgUpdateSharingResponse {
     const message = { ...baseMsgUpdateSharingResponse } as MsgUpdateSharingResponse
+    if (object.Sharing !== undefined && object.Sharing !== null) {
+      message.Sharing = Sharing.fromPartial(object.Sharing)
+    } else {
+      message.Sharing = undefined
+    }
     return message
   }
 }
@@ -885,7 +939,10 @@ export const MsgCreateServiceUser = {
 const baseMsgCreateServiceUserResponse: object = {}
 
 export const MsgCreateServiceUserResponse = {
-  encode(_: MsgCreateServiceUserResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgCreateServiceUserResponse, writer: Writer = Writer.create()): Writer {
+    if (message.ServiceUser !== undefined) {
+      ServiceUser.encode(message.ServiceUser, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -896,6 +953,9 @@ export const MsgCreateServiceUserResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.ServiceUser = ServiceUser.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -904,18 +964,29 @@ export const MsgCreateServiceUserResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgCreateServiceUserResponse {
+  fromJSON(object: any): MsgCreateServiceUserResponse {
     const message = { ...baseMsgCreateServiceUserResponse } as MsgCreateServiceUserResponse
+    if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+      message.ServiceUser = ServiceUser.fromJSON(object.ServiceUser)
+    } else {
+      message.ServiceUser = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgCreateServiceUserResponse): unknown {
+  toJSON(message: MsgCreateServiceUserResponse): unknown {
     const obj: any = {}
+    message.ServiceUser !== undefined && (obj.ServiceUser = message.ServiceUser ? ServiceUser.toJSON(message.ServiceUser) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgCreateServiceUserResponse>): MsgCreateServiceUserResponse {
+  fromPartial(object: DeepPartial<MsgCreateServiceUserResponse>): MsgCreateServiceUserResponse {
     const message = { ...baseMsgCreateServiceUserResponse } as MsgCreateServiceUserResponse
+    if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+      message.ServiceUser = ServiceUser.fromPartial(object.ServiceUser)
+    } else {
+      message.ServiceUser = undefined
+    }
     return message
   }
 }
@@ -1063,7 +1134,10 @@ export const MsgUpdateServiceUser = {
 const baseMsgUpdateServiceUserResponse: object = {}
 
 export const MsgUpdateServiceUserResponse = {
-  encode(_: MsgUpdateServiceUserResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgUpdateServiceUserResponse, writer: Writer = Writer.create()): Writer {
+    if (message.ServiceUser !== undefined) {
+      ServiceUser.encode(message.ServiceUser, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -1074,6 +1148,9 @@ export const MsgUpdateServiceUserResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.ServiceUser = ServiceUser.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -1082,18 +1159,29 @@ export const MsgUpdateServiceUserResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgUpdateServiceUserResponse {
+  fromJSON(object: any): MsgUpdateServiceUserResponse {
     const message = { ...baseMsgUpdateServiceUserResponse } as MsgUpdateServiceUserResponse
+    if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+      message.ServiceUser = ServiceUser.fromJSON(object.ServiceUser)
+    } else {
+      message.ServiceUser = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgUpdateServiceUserResponse): unknown {
+  toJSON(message: MsgUpdateServiceUserResponse): unknown {
     const obj: any = {}
+    message.ServiceUser !== undefined && (obj.ServiceUser = message.ServiceUser ? ServiceUser.toJSON(message.ServiceUser) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgUpdateServiceUserResponse>): MsgUpdateServiceUserResponse {
+  fromPartial(object: DeepPartial<MsgUpdateServiceUserResponse>): MsgUpdateServiceUserResponse {
     const message = { ...baseMsgUpdateServiceUserResponse } as MsgUpdateServiceUserResponse
+    if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+      message.ServiceUser = ServiceUser.fromPartial(object.ServiceUser)
+    } else {
+      message.ServiceUser = undefined
+    }
     return message
   }
 }
@@ -1334,7 +1422,10 @@ export const MsgCreateService = {
 const baseMsgCreateServiceResponse: object = {}
 
 export const MsgCreateServiceResponse = {
-  encode(_: MsgCreateServiceResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgCreateServiceResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Service !== undefined) {
+      Service.encode(message.Service, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -1345,6 +1436,9 @@ export const MsgCreateServiceResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.Service = Service.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -1353,18 +1447,29 @@ export const MsgCreateServiceResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgCreateServiceResponse {
+  fromJSON(object: any): MsgCreateServiceResponse {
     const message = { ...baseMsgCreateServiceResponse } as MsgCreateServiceResponse
+    if (object.Service !== undefined && object.Service !== null) {
+      message.Service = Service.fromJSON(object.Service)
+    } else {
+      message.Service = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgCreateServiceResponse): unknown {
+  toJSON(message: MsgCreateServiceResponse): unknown {
     const obj: any = {}
+    message.Service !== undefined && (obj.Service = message.Service ? Service.toJSON(message.Service) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgCreateServiceResponse>): MsgCreateServiceResponse {
+  fromPartial(object: DeepPartial<MsgCreateServiceResponse>): MsgCreateServiceResponse {
     const message = { ...baseMsgCreateServiceResponse } as MsgCreateServiceResponse
+    if (object.Service !== undefined && object.Service !== null) {
+      message.Service = Service.fromPartial(object.Service)
+    } else {
+      message.Service = undefined
+    }
     return message
   }
 }
@@ -1512,7 +1617,10 @@ export const MsgUpdateService = {
 const baseMsgUpdateServiceResponse: object = {}
 
 export const MsgUpdateServiceResponse = {
-  encode(_: MsgUpdateServiceResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgUpdateServiceResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Service !== undefined) {
+      Service.encode(message.Service, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -1523,6 +1631,9 @@ export const MsgUpdateServiceResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.Service = Service.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -1531,18 +1642,29 @@ export const MsgUpdateServiceResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgUpdateServiceResponse {
+  fromJSON(object: any): MsgUpdateServiceResponse {
     const message = { ...baseMsgUpdateServiceResponse } as MsgUpdateServiceResponse
+    if (object.Service !== undefined && object.Service !== null) {
+      message.Service = Service.fromJSON(object.Service)
+    } else {
+      message.Service = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgUpdateServiceResponse): unknown {
+  toJSON(message: MsgUpdateServiceResponse): unknown {
     const obj: any = {}
+    message.Service !== undefined && (obj.Service = message.Service ? Service.toJSON(message.Service) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgUpdateServiceResponse>): MsgUpdateServiceResponse {
+  fromPartial(object: DeepPartial<MsgUpdateServiceResponse>): MsgUpdateServiceResponse {
     const message = { ...baseMsgUpdateServiceResponse } as MsgUpdateServiceResponse
+    if (object.Service !== undefined && object.Service !== null) {
+      message.Service = Service.fromPartial(object.Service)
+    } else {
+      message.Service = undefined
+    }
     return message
   }
 }
@@ -1749,7 +1871,10 @@ export const MsgCreateUser = {
 const baseMsgCreateUserResponse: object = {}
 
 export const MsgCreateUserResponse = {
-  encode(_: MsgCreateUserResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgCreateUserResponse, writer: Writer = Writer.create()): Writer {
+    if (message.User !== undefined) {
+      User.encode(message.User, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -1760,6 +1885,9 @@ export const MsgCreateUserResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.User = User.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -1768,18 +1896,29 @@ export const MsgCreateUserResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgCreateUserResponse {
+  fromJSON(object: any): MsgCreateUserResponse {
     const message = { ...baseMsgCreateUserResponse } as MsgCreateUserResponse
+    if (object.User !== undefined && object.User !== null) {
+      message.User = User.fromJSON(object.User)
+    } else {
+      message.User = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgCreateUserResponse): unknown {
+  toJSON(message: MsgCreateUserResponse): unknown {
     const obj: any = {}
+    message.User !== undefined && (obj.User = message.User ? User.toJSON(message.User) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgCreateUserResponse>): MsgCreateUserResponse {
+  fromPartial(object: DeepPartial<MsgCreateUserResponse>): MsgCreateUserResponse {
     const message = { ...baseMsgCreateUserResponse } as MsgCreateUserResponse
+    if (object.User !== undefined && object.User !== null) {
+      message.User = User.fromPartial(object.User)
+    } else {
+      message.User = undefined
+    }
     return message
   }
 }
@@ -1893,7 +2032,10 @@ export const MsgUpdateUser = {
 const baseMsgUpdateUserResponse: object = {}
 
 export const MsgUpdateUserResponse = {
-  encode(_: MsgUpdateUserResponse, writer: Writer = Writer.create()): Writer {
+  encode(message: MsgUpdateUserResponse, writer: Writer = Writer.create()): Writer {
+    if (message.User !== undefined) {
+      User.encode(message.User, writer.uint32(10).fork()).ldelim()
+    }
     return writer
   },
 
@@ -1904,6 +2046,9 @@ export const MsgUpdateUserResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 1:
+          message.User = User.decode(reader, reader.uint32())
+          break
         default:
           reader.skipType(tag & 7)
           break
@@ -1912,18 +2057,29 @@ export const MsgUpdateUserResponse = {
     return message
   },
 
-  fromJSON(_: any): MsgUpdateUserResponse {
+  fromJSON(object: any): MsgUpdateUserResponse {
     const message = { ...baseMsgUpdateUserResponse } as MsgUpdateUserResponse
+    if (object.User !== undefined && object.User !== null) {
+      message.User = User.fromJSON(object.User)
+    } else {
+      message.User = undefined
+    }
     return message
   },
 
-  toJSON(_: MsgUpdateUserResponse): unknown {
+  toJSON(message: MsgUpdateUserResponse): unknown {
     const obj: any = {}
+    message.User !== undefined && (obj.User = message.User ? User.toJSON(message.User) : undefined)
     return obj
   },
 
-  fromPartial(_: DeepPartial<MsgUpdateUserResponse>): MsgUpdateUserResponse {
+  fromPartial(object: DeepPartial<MsgUpdateUserResponse>): MsgUpdateUserResponse {
     const message = { ...baseMsgUpdateUserResponse } as MsgUpdateUserResponse
+    if (object.User !== undefined && object.User !== null) {
+      message.User = User.fromPartial(object.User)
+    } else {
+      message.User = undefined
+    }
     return message
   }
 }

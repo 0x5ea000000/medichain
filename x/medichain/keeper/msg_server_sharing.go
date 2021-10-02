@@ -43,7 +43,7 @@ func (k msgServer) CreateSharing(goCtx context.Context, msg *types.MsgCreateShar
 		ctx,
 		sharing,
 	)
-	return &types.MsgCreateSharingResponse{}, nil
+	return &types.MsgCreateSharingResponse{Sharing: &sharing}, nil
 }
 
 func (k msgServer) UpdateSharing(goCtx context.Context, msg *types.MsgUpdateSharing) (*types.MsgUpdateSharingResponse, error) {
@@ -76,7 +76,7 @@ func (k msgServer) UpdateSharing(goCtx context.Context, msg *types.MsgUpdateShar
 
 	k.SetSharing(ctx, sharing)
 
-	return &types.MsgUpdateSharingResponse{}, nil
+	return &types.MsgUpdateSharingResponse{Sharing: &sharing}, nil
 }
 
 func (k msgServer) DeleteSharing(goCtx context.Context, msg *types.MsgDeleteSharing) (*types.MsgDeleteSharingResponse, error) {

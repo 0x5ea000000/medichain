@@ -43,7 +43,7 @@ func (k msgServer) CreateService(goCtx context.Context, msg *types.MsgCreateServ
 		ctx,
 		service,
 	)
-	return &types.MsgCreateServiceResponse{}, nil
+	return &types.MsgCreateServiceResponse{Service: &service}, nil
 }
 
 func (k msgServer) UpdateService(goCtx context.Context, msg *types.MsgUpdateService) (*types.MsgUpdateServiceResponse, error) {
@@ -76,7 +76,7 @@ func (k msgServer) UpdateService(goCtx context.Context, msg *types.MsgUpdateServ
 
 	k.SetService(ctx, service)
 
-	return &types.MsgUpdateServiceResponse{}, nil
+	return &types.MsgUpdateServiceResponse{Service: &service}, nil
 }
 
 func (k msgServer) DeleteService(goCtx context.Context, msg *types.MsgDeleteService) (*types.MsgDeleteServiceResponse, error) {

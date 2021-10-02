@@ -41,7 +41,7 @@ func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (
 		ctx,
 		user,
 	)
-	return &types.MsgCreateUserResponse{}, nil
+	return &types.MsgCreateUserResponse{User: &user}, nil
 }
 
 func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (*types.MsgUpdateUserResponse, error) {
@@ -72,7 +72,7 @@ func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (
 
 	k.SetUser(ctx, user)
 
-	return &types.MsgUpdateUserResponse{}, nil
+	return &types.MsgUpdateUserResponse{User: &user}, nil
 }
 
 func (k msgServer) DeleteUser(goCtx context.Context, msg *types.MsgDeleteUser) (*types.MsgDeleteUserResponse, error) {

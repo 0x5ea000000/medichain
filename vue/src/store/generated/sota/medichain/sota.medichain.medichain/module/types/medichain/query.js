@@ -6,6 +6,114 @@ import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/paginati
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
+const baseQueryUserServiceRequest = { userId: '' };
+export const QueryUserServiceRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.userId !== '') {
+            writer.uint32(10).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryUserServiceRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.userId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryUserServiceRequest };
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = String(object.userId);
+        }
+        else {
+            message.userId = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.userId !== undefined && (obj.userId = message.userId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryUserServiceRequest };
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = object.userId;
+        }
+        else {
+            message.userId = '';
+        }
+        return message;
+    }
+};
+const baseQueryUserServiceResponse = {};
+export const QueryUserServiceResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.ServiceUser) {
+            ServiceUser.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryUserServiceResponse };
+        message.ServiceUser = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.ServiceUser.push(ServiceUser.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryUserServiceResponse };
+        message.ServiceUser = [];
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            for (const e of object.ServiceUser) {
+                message.ServiceUser.push(ServiceUser.fromJSON(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.ServiceUser) {
+            obj.ServiceUser = message.ServiceUser.map((e) => (e ? ServiceUser.toJSON(e) : undefined));
+        }
+        else {
+            obj.ServiceUser = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryUserServiceResponse };
+        message.ServiceUser = [];
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            for (const e of object.ServiceUser) {
+                message.ServiceUser.push(ServiceUser.fromPartial(e));
+            }
+        }
+        return message;
+    }
+};
 const baseQueryCheckServiceUserRequest = { serviceId: '', userId: '' };
 export const QueryCheckServiceUserRequest = {
     encode(message, writer = Writer.create()) {
@@ -1186,6 +1294,11 @@ export const QueryAllUserResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    UserService(request) {
+        const data = QueryUserServiceRequest.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Query', 'UserService', data);
+        return promise.then((data) => QueryUserServiceResponse.decode(new Reader(data)));
     }
     CheckServiceUser(request) {
         const data = QueryCheckServiceUserRequest.encode(request).finish();

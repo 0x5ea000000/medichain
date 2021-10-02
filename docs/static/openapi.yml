@@ -19895,6 +19895,58 @@ paths:
           type: string
       tags:
         - Query
+  /sota/medichain/medichain/userService:
+    get:
+      summary: Queries a list of userService items.
+      operationId: SotaMedichainMedichainUserService
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              ServiceUser:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    index:
+                      type: string
+                    serviceId:
+                      type: string
+                    userId:
+                      type: string
+                    serviceUserId:
+                      type: string
+                    isActive:
+                      type: boolean
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: userId
+          in: query
+          required: false
+          type: string
+      tags:
+        - Query
 definitions:
   cosmos.bank.v1beta1.DenomUnit:
     type: object
@@ -30065,12 +30117,70 @@ definitions:
     type: object
   sota.medichain.medichain.MsgCreateServiceResponse:
     type: object
+    properties:
+      Service:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          name:
+            type: string
+          url:
+            type: string
+          pubKey:
+            type: string
+          isActive:
+            type: boolean
   sota.medichain.medichain.MsgCreateServiceUserResponse:
     type: object
+    properties:
+      ServiceUser:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          serviceId:
+            type: string
+          userId:
+            type: string
+          serviceUserId:
+            type: string
+          isActive:
+            type: boolean
   sota.medichain.medichain.MsgCreateSharingResponse:
     type: object
+    properties:
+      Sharing:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          ownerId:
+            type: string
+          viewerId:
+            type: string
+          status:
+            type: string
   sota.medichain.medichain.MsgCreateUserResponse:
     type: object
+    properties:
+      User:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          pubKey:
+            type: string
+          isActive:
+            type: boolean
   sota.medichain.medichain.MsgDeleteServiceResponse:
     type: object
   sota.medichain.medichain.MsgDeleteServiceUserResponse:
@@ -30083,12 +30193,70 @@ definitions:
     type: object
   sota.medichain.medichain.MsgUpdateServiceResponse:
     type: object
+    properties:
+      Service:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          name:
+            type: string
+          url:
+            type: string
+          pubKey:
+            type: string
+          isActive:
+            type: boolean
   sota.medichain.medichain.MsgUpdateServiceUserResponse:
     type: object
+    properties:
+      ServiceUser:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          serviceId:
+            type: string
+          userId:
+            type: string
+          serviceUserId:
+            type: string
+          isActive:
+            type: boolean
   sota.medichain.medichain.MsgUpdateSharingResponse:
     type: object
+    properties:
+      Sharing:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          ownerId:
+            type: string
+          viewerId:
+            type: string
+          status:
+            type: string
   sota.medichain.medichain.MsgUpdateUserResponse:
     type: object
+    properties:
+      User:
+        type: object
+        properties:
+          creator:
+            type: string
+          index:
+            type: string
+          pubKey:
+            type: string
+          isActive:
+            type: boolean
   sota.medichain.medichain.QueryAllServiceResponse:
     type: object
     properties:
@@ -30378,6 +30546,26 @@ definitions:
             type: string
           isActive:
             type: boolean
+  sota.medichain.medichain.QueryUserServiceResponse:
+    type: object
+    properties:
+      ServiceUser:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            index:
+              type: string
+            serviceId:
+              type: string
+            userId:
+              type: string
+            serviceUserId:
+              type: string
+            isActive:
+              type: boolean
   sota.medichain.medichain.Service:
     type: object
     properties:
