@@ -51,7 +51,7 @@ func (msg *MsgCreateService) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
+	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}
@@ -105,7 +105,7 @@ func (msg *MsgUpdateService) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
+	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}

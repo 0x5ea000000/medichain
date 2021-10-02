@@ -11,14 +11,14 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdCheckSharing() *cobra.Command {
+func CmdCheckServiceUser() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "check-sharing [ownerId] [viewerId]",
-		Short: "Query checkSharing",
+		Use:   "check-service-user [serviceId] [userId]",
+		Short: "Query check_service_user",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			reqOwnerId := string(args[0])
-			reqViewerId := string(args[1])
+			reqServiceId := string(args[0])
+			reqUserId := string(args[1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -27,12 +27,12 @@ func CmdCheckSharing() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryCheckSharingRequest{
-				OwnerId:  string(reqOwnerId),
-				ViewerId: string(reqViewerId),
+			params := &types.QueryCheckServiceUserRequest{
+				ServiceId: reqServiceId,
+				UserId:    reqUserId,
 			}
 
-			res, err := queryClient.CheckSharing(cmd.Context(), params)
+			res, err := queryClient.CheckServiceUser(cmd.Context(), params)
 			if err != nil {
 				return err
 			}

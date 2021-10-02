@@ -1,11 +1,18 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { Sharing } from '../medichain/sharing';
 import { ServiceUser } from '../medichain/service_user';
+import { Sharing } from '../medichain/sharing';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryCheckServiceUserRequest {
+    serviceId: string;
+    userId: string;
+}
+export interface QueryCheckServiceUserResponse {
+    ServiceUser: ServiceUser | undefined;
+}
 export interface QueryCheckSharingRequest {
     ownerId: string;
     viewerId: string;
@@ -66,6 +73,20 @@ export interface QueryAllUserResponse {
     User: User[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryCheckServiceUserRequest: {
+    encode(message: QueryCheckServiceUserRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryCheckServiceUserRequest;
+    fromJSON(object: any): QueryCheckServiceUserRequest;
+    toJSON(message: QueryCheckServiceUserRequest): unknown;
+    fromPartial(object: DeepPartial<QueryCheckServiceUserRequest>): QueryCheckServiceUserRequest;
+};
+export declare const QueryCheckServiceUserResponse: {
+    encode(message: QueryCheckServiceUserResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryCheckServiceUserResponse;
+    fromJSON(object: any): QueryCheckServiceUserResponse;
+    toJSON(message: QueryCheckServiceUserResponse): unknown;
+    fromPartial(object: DeepPartial<QueryCheckServiceUserResponse>): QueryCheckServiceUserResponse;
+};
 export declare const QueryCheckSharingRequest: {
     encode(message: QueryCheckSharingRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryCheckSharingRequest;
@@ -194,6 +215,8 @@ export declare const QueryAllUserResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a list of checkServiceUser items. */
+    CheckServiceUser(request: QueryCheckServiceUserRequest): Promise<QueryCheckServiceUserResponse>;
     /** Queries a list of checkSharing items. */
     CheckSharing(request: QueryCheckSharingRequest): Promise<QueryCheckSharingResponse>;
     /** Queries a sharing by index. */
@@ -216,6 +239,7 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CheckServiceUser(request: QueryCheckServiceUserRequest): Promise<QueryCheckServiceUserResponse>;
     CheckSharing(request: QueryCheckSharingRequest): Promise<QueryCheckSharingResponse>;
     Sharing(request: QueryGetSharingRequest): Promise<QueryGetSharingResponse>;
     SharingAll(request: QueryAllSharingRequest): Promise<QueryAllSharingResponse>;

@@ -34,7 +34,7 @@ func (k msgServer) CreateService(goCtx context.Context, msg *types.MsgCreateServ
 		IsActive: msg.IsActive,
 	}
 
-	_, found :=k.GetServiceIfExisted(ctx, service)
+	_, found := k.GetServiceIfExisted(ctx, service)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "service pubKey existed")
 	}
@@ -69,7 +69,7 @@ func (k msgServer) UpdateService(goCtx context.Context, msg *types.MsgUpdateServ
 		IsActive: msg.IsActive,
 	}
 
-	_, found :=k.GetServiceIfExisted(ctx, service)
+	_, found := k.GetServiceIfExisted(ctx, service)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "service pubKey existed")
 	}

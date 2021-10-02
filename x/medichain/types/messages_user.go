@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgCreateUser{}
 func NewMsgCreateUser(creator string, pubKey string, isActive bool) *MsgCreateUser {
 	return &MsgCreateUser{
 		Creator:  creator,
-		PubKey:  pubKey,
+		PubKey:   pubKey,
 		IsActive: isActive,
 	}
 }
@@ -44,7 +44,7 @@ func (msg *MsgCreateUser) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
+	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}
@@ -64,7 +64,7 @@ func NewMsgUpdateUser(creator string, index string, pubKey string, isActive bool
 	return &MsgUpdateUser{
 		Creator:  creator,
 		Index:    index,
-		PubKey:  pubKey,
+		PubKey:   pubKey,
 		IsActive: isActive,
 	}
 }
@@ -96,7 +96,7 @@ func (msg *MsgUpdateUser) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	pubKeyBz, err:= base64.StdEncoding.DecodeString(msg.PubKey)
+	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "cannot decode pubKey (%s)", err)
 	}

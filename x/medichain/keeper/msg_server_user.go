@@ -28,11 +28,11 @@ func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (
 	var user = types.User{
 		Index:    indexStr,
 		Creator:  msg.Creator,
-		PubKey:  msg.PubKey,
+		PubKey:   msg.PubKey,
 		IsActive: msg.IsActive,
 	}
 
-	_, found :=k.GetUserIfExisted(ctx, user)
+	_, found := k.GetUserIfExisted(ctx, user)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "user pubKey existed")
 	}
@@ -61,11 +61,11 @@ func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (
 	var user = types.User{
 		Index:    msg.Index,
 		Creator:  msg.Creator,
-		PubKey:  msg.PubKey,
+		PubKey:   msg.PubKey,
 		IsActive: msg.IsActive,
 	}
 
-	_, found :=k.GetUserIfExisted(ctx, user)
+	_, found := k.GetUserIfExisted(ctx, user)
 	if found {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "user pubKey existed")
 	}

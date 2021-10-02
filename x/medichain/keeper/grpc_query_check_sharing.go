@@ -35,6 +35,6 @@ func (k Keeper) CheckSharing(goCtx context.Context, req *types.QueryCheckSharing
 
 	return &types.QueryCheckSharingResponse{
 		Sharing: &res,
-		Owner: &owner,
+		Owner:   &owner,
 	}, nil
 }

@@ -140,6 +140,21 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryCheckServiceUser
+         * @summary Queries a list of checkServiceUser items.
+         * @request GET:/sota/medichain/medichain/checkServiceUser
+         */
+        this.queryCheckServiceUser = (query, params = {}) => this.request({
+            path: `/sota/medichain/medichain/checkServiceUser`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryCheckSharing
          * @summary Queries a list of checkSharing items.
          * @request GET:/sota/medichain/medichain/checkSharing

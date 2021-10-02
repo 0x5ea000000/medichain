@@ -64,6 +64,9 @@ export interface MedichainQueryAllUserResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface MedichainQueryCheckServiceUserResponse {
+    ServiceUser?: MedichainServiceUser;
+}
 export interface MedichainQueryCheckSharingResponse {
     Sharing?: MedichainSharing;
     Owner?: MedichainServiceUser;
@@ -226,6 +229,18 @@ export declare class HttpClient<SecurityDataType = unknown> {
  * @version version not set
  */
 export declare class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryCheckServiceUser
+     * @summary Queries a list of checkServiceUser items.
+     * @request GET:/sota/medichain/medichain/checkServiceUser
+     */
+    queryCheckServiceUser: (query?: {
+        serviceId?: string;
+        userId?: string;
+    }, params?: RequestParams) => Promise<HttpResponse<MedichainQueryCheckServiceUserResponse, RpcStatus>>;
     /**
      * No description
      *

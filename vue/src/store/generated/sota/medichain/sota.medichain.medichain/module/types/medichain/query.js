@@ -1,11 +1,132 @@
 /* eslint-disable */
 import { Reader, Writer } from 'protobufjs/minimal';
-import { Sharing } from '../medichain/sharing';
 import { ServiceUser } from '../medichain/service_user';
+import { Sharing } from '../medichain/sharing';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
+const baseQueryCheckServiceUserRequest = { serviceId: '', userId: '' };
+export const QueryCheckServiceUserRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.serviceId !== '') {
+            writer.uint32(10).string(message.serviceId);
+        }
+        if (message.userId !== '') {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryCheckServiceUserRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.serviceId = reader.string();
+                    break;
+                case 2:
+                    message.userId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryCheckServiceUserRequest };
+        if (object.serviceId !== undefined && object.serviceId !== null) {
+            message.serviceId = String(object.serviceId);
+        }
+        else {
+            message.serviceId = '';
+        }
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = String(object.userId);
+        }
+        else {
+            message.userId = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.serviceId !== undefined && (obj.serviceId = message.serviceId);
+        message.userId !== undefined && (obj.userId = message.userId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryCheckServiceUserRequest };
+        if (object.serviceId !== undefined && object.serviceId !== null) {
+            message.serviceId = object.serviceId;
+        }
+        else {
+            message.serviceId = '';
+        }
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = object.userId;
+        }
+        else {
+            message.userId = '';
+        }
+        return message;
+    }
+};
+const baseQueryCheckServiceUserResponse = {};
+export const QueryCheckServiceUserResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.ServiceUser !== undefined) {
+            ServiceUser.encode(message.ServiceUser, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryCheckServiceUserResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.ServiceUser = ServiceUser.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryCheckServiceUserResponse };
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            message.ServiceUser = ServiceUser.fromJSON(object.ServiceUser);
+        }
+        else {
+            message.ServiceUser = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.ServiceUser !== undefined && (obj.ServiceUser = message.ServiceUser ? ServiceUser.toJSON(message.ServiceUser) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryCheckServiceUserResponse };
+        if (object.ServiceUser !== undefined && object.ServiceUser !== null) {
+            message.ServiceUser = ServiceUser.fromPartial(object.ServiceUser);
+        }
+        else {
+            message.ServiceUser = undefined;
+        }
+        return message;
+    }
+};
 const baseQueryCheckSharingRequest = { ownerId: '', viewerId: '' };
 export const QueryCheckSharingRequest = {
     encode(message, writer = Writer.create()) {
@@ -1065,6 +1186,11 @@ export const QueryAllUserResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    CheckServiceUser(request) {
+        const data = QueryCheckServiceUserRequest.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Query', 'CheckServiceUser', data);
+        return promise.then((data) => QueryCheckServiceUserResponse.decode(new Reader(data)));
     }
     CheckSharing(request) {
         const data = QueryCheckSharingRequest.encode(request).finish();
