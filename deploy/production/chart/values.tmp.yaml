@@ -28,4 +28,3 @@ services:
     account: ${ACCOUNT}
     amount: ${AMOUNT}
     mnemonic: ${MNEMONIC}
-    address: ${ADDRESS}

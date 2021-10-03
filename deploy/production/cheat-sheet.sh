@@ -65,5 +65,5 @@ helm install medichain-tunnel -f medichain-tunnel.values.yaml --namespace=${PROJ
 kubectl -n=${PROJECT_NAME} describe pod medichain-tunnel
 kubectl  -n=${PROJECT_NAME} get pods,statefulsets,services,ingresses
 kubectl -n=${PROJECT_NAME} logs -l app=auth-tunnel-selector --all-containers=true -f
-kubectl --namespace=${PROJECT_NAME} exec --stdin --tty medichain-tunnel-deployment-7f77bd7fd6-j4w2t -- /bin/sh
+kubectl --namespace=${PROJECT_NAME} exec --stdin --tty medichain-deployment-6d87f99684-r528q -c medichain -- /bin/sh
 medicalchain-deployment-84c4958779-xg79c
