@@ -36,7 +36,6 @@ func CmdCheckServiceUser() *cobra.Command {
 			if err != nil {
 				return err
 			}
-
 			return clientCtx.PrintProto(res)
 		},
 	}

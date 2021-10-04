@@ -2,7 +2,7 @@ replicaCount: 1
 revisionHistoryLimit: 1
 image:
   repository: supermedicalchain/medichain
-  tag: dev_25092021.3
+  tag: dev_01102021.2
   pullPolicy: Always
   resources:
     requests:
@@ -16,16 +16,16 @@ livenessProbe:
   periodSeconds: 10
 service:
   name: medichain
+initBlochain: false
 services:
   grpcPort: 9090
   rpcPort: 26657
   pprofPort: 8000
   httpPort: 1317
   node:
-    moniker: test
-    chainID: medichain
+    moniker: medichain
+    chainID: test-chain
   genesis:
     account: validator1
-    amount: 10000000000000token,1000000000000000000stake
-    mnemonic: hotel sword swarm scissors desk chase illegal idea noise humble track orient spare nurse dad insect agent prison learn polar talk soccer sadness above
-    address: medichain1tgvmktene2mxwe2hx2lhqakkera0yvrcey9kak
+    amount: 10000000000000token,100000000000stake
+    mnemonic: hotel

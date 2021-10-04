@@ -41,6 +41,7 @@ spec:
             name: "{{ .Values.service.name | initials }}-http"
           - containerPort: {{ .Values.services.pprofPort | default "8000" }}
             name: "{{ .Values.service.name | initials }}-pprof"
+      {{- if .Values.initBlochain  }}
       initContainers:
       - name: "init-{{ .Values.service.name }}"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -61,6 +62,7 @@ spec:
         volumeMounts:
           - mountPath: "/home/tendermint/.medichain"
             name: config
+      {{- end }}
       volumes:
         - name: config
           persistentVolumeClaim:
