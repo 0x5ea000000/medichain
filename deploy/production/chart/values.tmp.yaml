@@ -16,7 +16,7 @@ livenessProbe:
   periodSeconds: 10
 service:
   name: medichain
-initBlochain: ${INIT_BLOCKCHAIN}
+initBlockchain: ${INIT_BLOCKCHAIN}
 services:
   grpcPort: ${GRPC_PORT}
   rpcPort: ${RPC_PORT}
