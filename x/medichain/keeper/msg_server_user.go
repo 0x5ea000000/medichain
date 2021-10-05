@@ -55,7 +55,7 @@ func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (
 
 	// Checks if the the msg sender is the same as the current owner
 	if msg.Creator != valFound.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		//return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
 	var user = types.User{
@@ -86,7 +86,7 @@ func (k msgServer) DeleteUser(goCtx context.Context, msg *types.MsgDeleteUser) (
 
 	// Checks if the the msg sender is the same as the current owner
 	if msg.Creator != valFound.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		//return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
 	k.RemoveUser(ctx, msg.Index)

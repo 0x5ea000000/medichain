@@ -57,7 +57,7 @@ func (k msgServer) UpdateSharing(goCtx context.Context, msg *types.MsgUpdateShar
 
 	// Checks if the the msg sender is the same as the current owner
 	if msg.Creator != valFound.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		//return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
 	var sharing = types.Sharing{
@@ -90,7 +90,7 @@ func (k msgServer) DeleteSharing(goCtx context.Context, msg *types.MsgDeleteShar
 
 	// Checks if the the msg sender is the same as the current owner
 	if msg.Creator != valFound.Creator {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		//return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
 	k.RemoveSharing(ctx, msg.Index)
