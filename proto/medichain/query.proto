@@ -4,6 +4,7 @@ package sota.medichain.medichain;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "medichain/admin.proto";
 import "medichain/sharing.proto";
 import "medichain/service_user.proto";
 import "medichain/service.proto";
@@ -14,6 +15,17 @@ option go_package = "github.com/sota/medichain/x/medichain/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a admin by id.
+	rpc Admin(QueryGetAdminRequest) returns (QueryGetAdminResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/admin/{id}";
+	}
+
+	// Queries a list of admin items.
+	rpc AdminAll(QueryAllAdminRequest) returns (QueryAllAdminResponse) {
+		option (google.api.http).get = "/sota/medichain/medichain/admin";
+	}
+
 
 	// Queries a list of userService items.
 	rpc UserService(QueryUserServiceRequest) returns (QueryUserServiceResponse) {
@@ -79,6 +91,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetAdminRequest {
+	uint64 id = 1;
+}
+
+message QueryGetAdminResponse {
+	Admin Admin = 1;
+}
+
+message QueryAllAdminRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAdminResponse {
+	repeated Admin Admin = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryUserServiceRequest {
   string userId = 1;
 }

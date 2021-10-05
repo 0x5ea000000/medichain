@@ -40,3 +40,8 @@ const (
 const (
 	SharingKey = "Sharing-value-"
 )
+
+const (
+	AdminKey      = "Admin-value-"
+	AdminCountKey = "Admin-count-"
+)

@@ -1,11 +1,242 @@
 /* eslint-disable */
-import { Reader, Writer } from 'protobufjs/minimal';
+import { Reader, util, configure, Writer } from 'protobufjs/minimal';
+import * as Long from 'long';
+import { Admin } from '../medichain/admin';
+import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { ServiceUser } from '../medichain/service_user';
 import { Sharing } from '../medichain/sharing';
-import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
+const baseQueryGetAdminRequest = { id: 0 };
+export const QueryGetAdminRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetAdminRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetAdminRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetAdminRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseQueryGetAdminResponse = {};
+export const QueryGetAdminResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.Admin !== undefined) {
+            Admin.encode(message.Admin, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetAdminResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Admin = Admin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetAdminResponse };
+        if (object.Admin !== undefined && object.Admin !== null) {
+            message.Admin = Admin.fromJSON(object.Admin);
+        }
+        else {
+            message.Admin = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.Admin !== undefined && (obj.Admin = message.Admin ? Admin.toJSON(message.Admin) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetAdminResponse };
+        if (object.Admin !== undefined && object.Admin !== null) {
+            message.Admin = Admin.fromPartial(object.Admin);
+        }
+        else {
+            message.Admin = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllAdminRequest = {};
+export const QueryAllAdminRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllAdminRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllAdminRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllAdminRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllAdminResponse = {};
+export const QueryAllAdminResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.Admin) {
+            Admin.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllAdminResponse };
+        message.Admin = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.Admin.push(Admin.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllAdminResponse };
+        message.Admin = [];
+        if (object.Admin !== undefined && object.Admin !== null) {
+            for (const e of object.Admin) {
+                message.Admin.push(Admin.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.Admin) {
+            obj.Admin = message.Admin.map((e) => (e ? Admin.toJSON(e) : undefined));
+        }
+        else {
+            obj.Admin = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllAdminResponse };
+        message.Admin = [];
+        if (object.Admin !== undefined && object.Admin !== null) {
+            for (const e of object.Admin) {
+                message.Admin.push(Admin.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
 const baseQueryUserServiceRequest = { userId: '' };
 export const QueryUserServiceRequest = {
     encode(message, writer = Writer.create()) {
@@ -1295,6 +1526,16 @@ export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
     }
+    Admin(request) {
+        const data = QueryGetAdminRequest.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Query', 'Admin', data);
+        return promise.then((data) => QueryGetAdminResponse.decode(new Reader(data)));
+    }
+    AdminAll(request) {
+        const data = QueryAllAdminRequest.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Query', 'AdminAll', data);
+        return promise.then((data) => QueryAllAdminResponse.decode(new Reader(data)));
+    }
     UserService(request) {
         const data = QueryUserServiceRequest.encode(request).finish();
         const promise = this.rpc.request('sota.medichain.medichain.Query', 'UserService', data);
@@ -1350,4 +1591,25 @@ export class QueryClientImpl {
         const promise = this.rpc.request('sota.medichain.medichain.Query', 'UserAll', data);
         return promise.then((data) => QueryAllUserResponse.decode(new Reader(data)));
     }
+}
+var globalThis = (() => {
+    if (typeof globalThis !== 'undefined')
+        return globalThis;
+    if (typeof self !== 'undefined')
+        return self;
+    if (typeof window !== 'undefined')
+        return window;
+    if (typeof global !== 'undefined')
+        return global;
+    throw 'Unable to locate global object';
+})();
+function longToNumber(long) {
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
+    }
+    return long.toNumber();
+}
+if (util.Long !== Long) {
+    util.Long = Long;
+    configure();
 }

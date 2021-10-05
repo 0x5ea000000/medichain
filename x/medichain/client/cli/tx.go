@@ -30,6 +30,12 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	// this line is used by starport scaffolding # 1
+	cmd.AddCommand(CmdCreateSharingBatch())
+
+	cmd.AddCommand(CmdCreateAdmin())
+	cmd.AddCommand(CmdUpdateAdmin())
+	cmd.AddCommand(CmdDeleteAdmin())
+
 	cmd.AddCommand(CmdRejectSharing())
 
 	cmd.AddCommand(CmdAcceptSharing())

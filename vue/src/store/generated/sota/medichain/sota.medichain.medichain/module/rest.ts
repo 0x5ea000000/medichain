@@ -9,7 +9,20 @@
  * ---------------------------------------------------------------
  */
 
+export interface MedichainAdmin {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  pubKey?: string;
+}
+
 export type MedichainMsgAcceptSharingResponse = object;
+
+export interface MedichainMsgCreateAdminResponse {
+  /** @format uint64 */
+  id?: string;
+}
 
 export interface MedichainMsgCreateServiceResponse {
   Service?: MedichainService;
@@ -19,6 +32,8 @@ export interface MedichainMsgCreateServiceUserResponse {
   ServiceUser?: MedichainServiceUser;
 }
 
+export type MedichainMsgCreateSharingBatchResponse = object;
+
 export interface MedichainMsgCreateSharingResponse {
   Sharing?: MedichainSharing;
 }
@@ -26,6 +41,8 @@ export interface MedichainMsgCreateSharingResponse {
 export interface MedichainMsgCreateUserResponse {
   User?: MedichainUser;
 }
+
+export type MedichainMsgDeleteAdminResponse = object;
 
 export type MedichainMsgDeleteServiceResponse = object;
 
@@ -36,6 +53,8 @@ export type MedichainMsgDeleteSharingResponse = object;
 export type MedichainMsgDeleteUserResponse = object;
 
 export type MedichainMsgRejectSharingResponse = object;
+
+export type MedichainMsgUpdateAdminResponse = object;
 
 export interface MedichainMsgUpdateServiceResponse {
   Service?: MedichainService;
@@ -51,6 +70,21 @@ export interface MedichainMsgUpdateSharingResponse {
 
 export interface MedichainMsgUpdateUserResponse {
   User?: MedichainUser;
+}
+
+export interface MedichainQueryAllAdminResponse {
+  Admin?: MedichainAdmin[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface MedichainQueryAllServiceResponse {
@@ -120,6 +154,10 @@ export interface MedichainQueryCheckServiceUserResponse {
 export interface MedichainQueryCheckSharingResponse {
   Sharing?: MedichainSharing;
   Owner?: MedichainServiceUser;
+}
+
+export interface MedichainQueryGetAdminResponse {
+  Admin?: MedichainAdmin;
 }
 
 export interface MedichainQueryGetServiceResponse {
@@ -434,10 +472,51 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title medichain/genesis.proto
+ * @title medichain/admin.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryAdminAll
+   * @summary Queries a list of admin items.
+   * @request GET:/sota/medichain/medichain/admin
+   */
+  queryAdminAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<MedichainQueryAllAdminResponse, RpcStatus>({
+      path: `/sota/medichain/medichain/admin`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryAdmin
+   * @summary Queries a admin by id.
+   * @request GET:/sota/medichain/medichain/admin/{id}
+   */
+  queryAdmin = (id: string, params: RequestParams = {}) =>
+    this.request<MedichainQueryGetAdminResponse, RpcStatus>({
+      path: `/sota/medichain/medichain/admin/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *

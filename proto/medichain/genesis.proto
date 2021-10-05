@@ -2,6 +2,7 @@ syntax = "proto3";
 package sota.medichain.medichain;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "medichain/admin.proto";
 import "medichain/sharing.proto";
 import "medichain/service_user.proto";
 import "medichain/service.proto";
@@ -12,6 +13,8 @@ option go_package = "github.com/sota/medichain/x/medichain/types";
 // GenesisState defines the medichain module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated Admin adminList = 5; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 adminCount = 6; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Sharing sharingList = 4; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated ServiceUser serviceUserList = 3; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated Service serviceList = 2; // this line is used by starport scaffolding # genesis/proto/stateField

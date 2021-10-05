@@ -1,12 +1,17 @@
+import { Writer, Reader } from 'protobufjs/minimal';
+import { Admin } from '../medichain/admin';
 import { Sharing } from '../medichain/sharing';
 import { ServiceUser } from '../medichain/service_user';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
-import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** GenesisState defines the medichain module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
+    adminList: Admin[];
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
+    adminCount: number;
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
     sharingList: Sharing[];
     /** this line is used by starport scaffolding # genesis/proto/stateField */
     serviceUserList: ServiceUser[];

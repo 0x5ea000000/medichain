@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the admin
+	for _, elem := range genState.AdminList {
+		k.SetAdmin(ctx, *elem)
+	}
+
+	// Set admin count
+	k.SetAdminCount(ctx, genState.AdminCount)
+
 	// Set all the sharing
 	for _, elem := range genState.SharingList {
 		k.SetSharing(ctx, *elem)
@@ -38,6 +46,16 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all admin
+	adminList := k.GetAllAdmin(ctx)
+	for _, elem := range adminList {
+		elem := elem
+		genesis.AdminList = append(genesis.AdminList, &elem)
+	}
+
+	// Set the current count
+	genesis.AdminCount = k.GetAdminCount(ctx)
+
 	// Get all sharing
 	sharingList := k.GetAllSharing(ctx)
 	for _, elem := range sharingList {

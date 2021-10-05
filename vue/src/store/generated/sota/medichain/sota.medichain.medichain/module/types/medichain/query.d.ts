@@ -1,11 +1,25 @@
 import { Reader, Writer } from 'protobufjs/minimal';
+import { Admin } from '../medichain/admin';
+import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { ServiceUser } from '../medichain/service_user';
 import { Sharing } from '../medichain/sharing';
-import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetAdminRequest {
+    id: number;
+}
+export interface QueryGetAdminResponse {
+    Admin: Admin | undefined;
+}
+export interface QueryAllAdminRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllAdminResponse {
+    Admin: Admin[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryUserServiceRequest {
     userId: string;
 }
@@ -79,6 +93,34 @@ export interface QueryAllUserResponse {
     User: User[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetAdminRequest: {
+    encode(message: QueryGetAdminRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetAdminRequest;
+    fromJSON(object: any): QueryGetAdminRequest;
+    toJSON(message: QueryGetAdminRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetAdminRequest>): QueryGetAdminRequest;
+};
+export declare const QueryGetAdminResponse: {
+    encode(message: QueryGetAdminResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetAdminResponse;
+    fromJSON(object: any): QueryGetAdminResponse;
+    toJSON(message: QueryGetAdminResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetAdminResponse>): QueryGetAdminResponse;
+};
+export declare const QueryAllAdminRequest: {
+    encode(message: QueryAllAdminRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllAdminRequest;
+    fromJSON(object: any): QueryAllAdminRequest;
+    toJSON(message: QueryAllAdminRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllAdminRequest>): QueryAllAdminRequest;
+};
+export declare const QueryAllAdminResponse: {
+    encode(message: QueryAllAdminResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllAdminResponse;
+    fromJSON(object: any): QueryAllAdminResponse;
+    toJSON(message: QueryAllAdminResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllAdminResponse>): QueryAllAdminResponse;
+};
 export declare const QueryUserServiceRequest: {
     encode(message: QueryUserServiceRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryUserServiceRequest;
@@ -235,6 +277,10 @@ export declare const QueryAllUserResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a admin by id. */
+    Admin(request: QueryGetAdminRequest): Promise<QueryGetAdminResponse>;
+    /** Queries a list of admin items. */
+    AdminAll(request: QueryAllAdminRequest): Promise<QueryAllAdminResponse>;
     /** Queries a list of userService items. */
     UserService(request: QueryUserServiceRequest): Promise<QueryUserServiceResponse>;
     /** Queries a list of checkServiceUser items. */
@@ -261,6 +307,8 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    Admin(request: QueryGetAdminRequest): Promise<QueryGetAdminResponse>;
+    AdminAll(request: QueryAllAdminRequest): Promise<QueryAllAdminResponse>;
     UserService(request: QueryUserServiceRequest): Promise<QueryUserServiceResponse>;
     CheckServiceUser(request: QueryCheckServiceUserRequest): Promise<QueryCheckServiceUserResponse>;
     CheckSharing(request: QueryCheckSharingRequest): Promise<QueryCheckSharingResponse>;

@@ -2,6 +2,7 @@ syntax = "proto3";
 package sota.medichain.medichain;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "medichain/admin.proto";
 import "medichain/sharing.proto";
 import "medichain/service_user.proto";
 import "medichain/service.proto";
@@ -12,6 +13,10 @@ option go_package = "github.com/sota/medichain/x/medichain/types";
 // Msg defines the Msg service.
 service Msg {
   // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateSharingBatch(MsgCreateSharingBatch) returns (MsgCreateSharingBatchResponse);
+  rpc CreateAdmin(MsgCreateAdmin) returns (MsgCreateAdminResponse);
+  rpc UpdateAdmin(MsgUpdateAdmin) returns (MsgUpdateAdminResponse);
+  rpc DeleteAdmin(MsgDeleteAdmin) returns (MsgDeleteAdminResponse);
   rpc RejectSharing(MsgRejectSharing) returns (MsgRejectSharingResponse);
   rpc AcceptSharing(MsgAcceptSharing) returns (MsgAcceptSharingResponse);
   rpc CreateSharing(MsgCreateSharing) returns (MsgCreateSharingResponse);
@@ -29,6 +34,39 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateSharingBatch {
+  string creator = 1;
+  string viewerId = 2;
+  repeated string ownerIds = 3;
+}
+
+message MsgCreateSharingBatchResponse {
+}
+
+message MsgCreateAdmin {
+  string creator = 1;
+  string pubKey = 2;
+}
+
+message MsgCreateAdminResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateAdmin {
+  string creator = 1;
+  uint64 id = 2;
+  string pubKey = 3;
+}
+
+message MsgUpdateAdminResponse { }
+
+message MsgDeleteAdmin {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteAdminResponse { }
+
 message MsgRejectSharing {
   string creator = 1;
   string sharingId = 2;

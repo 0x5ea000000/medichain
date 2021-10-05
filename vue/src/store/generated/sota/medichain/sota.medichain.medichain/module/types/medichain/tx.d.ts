@@ -5,6 +5,33 @@ import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateSharingBatch {
+    creator: string;
+    viewerId: string;
+    ownerIds: string[];
+}
+export interface MsgCreateSharingBatchResponse {
+}
+export interface MsgCreateAdmin {
+    creator: string;
+    pubKey: string;
+}
+export interface MsgCreateAdminResponse {
+    id: number;
+}
+export interface MsgUpdateAdmin {
+    creator: string;
+    id: number;
+    pubKey: string;
+}
+export interface MsgUpdateAdminResponse {
+}
+export interface MsgDeleteAdmin {
+    creator: string;
+    id: number;
+}
+export interface MsgDeleteAdminResponse {
+}
 export interface MsgRejectSharing {
     creator: string;
     sharingId: string;
@@ -119,6 +146,62 @@ export interface MsgDeleteUser {
 }
 export interface MsgDeleteUserResponse {
 }
+export declare const MsgCreateSharingBatch: {
+    encode(message: MsgCreateSharingBatch, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateSharingBatch;
+    fromJSON(object: any): MsgCreateSharingBatch;
+    toJSON(message: MsgCreateSharingBatch): unknown;
+    fromPartial(object: DeepPartial<MsgCreateSharingBatch>): MsgCreateSharingBatch;
+};
+export declare const MsgCreateSharingBatchResponse: {
+    encode(_: MsgCreateSharingBatchResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateSharingBatchResponse;
+    fromJSON(_: any): MsgCreateSharingBatchResponse;
+    toJSON(_: MsgCreateSharingBatchResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreateSharingBatchResponse>): MsgCreateSharingBatchResponse;
+};
+export declare const MsgCreateAdmin: {
+    encode(message: MsgCreateAdmin, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateAdmin;
+    fromJSON(object: any): MsgCreateAdmin;
+    toJSON(message: MsgCreateAdmin): unknown;
+    fromPartial(object: DeepPartial<MsgCreateAdmin>): MsgCreateAdmin;
+};
+export declare const MsgCreateAdminResponse: {
+    encode(message: MsgCreateAdminResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateAdminResponse;
+    fromJSON(object: any): MsgCreateAdminResponse;
+    toJSON(message: MsgCreateAdminResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateAdminResponse>): MsgCreateAdminResponse;
+};
+export declare const MsgUpdateAdmin: {
+    encode(message: MsgUpdateAdmin, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateAdmin;
+    fromJSON(object: any): MsgUpdateAdmin;
+    toJSON(message: MsgUpdateAdmin): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateAdmin>): MsgUpdateAdmin;
+};
+export declare const MsgUpdateAdminResponse: {
+    encode(_: MsgUpdateAdminResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateAdminResponse;
+    fromJSON(_: any): MsgUpdateAdminResponse;
+    toJSON(_: MsgUpdateAdminResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateAdminResponse>): MsgUpdateAdminResponse;
+};
+export declare const MsgDeleteAdmin: {
+    encode(message: MsgDeleteAdmin, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteAdmin;
+    fromJSON(object: any): MsgDeleteAdmin;
+    toJSON(message: MsgDeleteAdmin): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteAdmin>): MsgDeleteAdmin;
+};
+export declare const MsgDeleteAdminResponse: {
+    encode(_: MsgDeleteAdminResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteAdminResponse;
+    fromJSON(_: any): MsgDeleteAdminResponse;
+    toJSON(_: MsgDeleteAdminResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteAdminResponse>): MsgDeleteAdminResponse;
+};
 export declare const MsgRejectSharing: {
     encode(message: MsgRejectSharing, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgRejectSharing;
@@ -318,6 +401,10 @@ export declare const MsgDeleteUserResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse>;
+    CreateAdmin(request: MsgCreateAdmin): Promise<MsgCreateAdminResponse>;
+    UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
+    DeleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse>;
     RejectSharing(request: MsgRejectSharing): Promise<MsgRejectSharingResponse>;
     AcceptSharing(request: MsgAcceptSharing): Promise<MsgAcceptSharingResponse>;
     CreateSharing(request: MsgCreateSharing): Promise<MsgCreateSharingResponse>;
@@ -336,6 +423,10 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse>;
+    CreateAdmin(request: MsgCreateAdmin): Promise<MsgCreateAdminResponse>;
+    UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
+    DeleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse>;
     RejectSharing(request: MsgRejectSharing): Promise<MsgRejectSharingResponse>;
     AcceptSharing(request: MsgAcceptSharing): Promise<MsgAcceptSharingResponse>;
     CreateSharing(request: MsgCreateSharing): Promise<MsgCreateSharingResponse>;

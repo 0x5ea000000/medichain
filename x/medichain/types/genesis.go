@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		AdminList:       []*Admin{},
 		SharingList:     []*Sharing{},
 		ServiceUserList: []*ServiceUser{},
 		ServiceList:     []*Service{},
@@ -26,6 +27,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in admin
+	adminIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.AdminList {
+		if _, ok := adminIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for admin")
+		}
+		adminIdMap[elem.Id] = true
+	}
 	// Check for duplicated index in sharing
 	sharingIndexMap := make(map[string]bool)
 

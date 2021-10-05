@@ -130,12 +130,41 @@ export class HttpClient {
     }
 }
 /**
- * @title medichain/genesis.proto
+ * @title medichain/admin.proto
  * @version version not set
  */
 export class Api extends HttpClient {
     constructor() {
         super(...arguments);
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryAdminAll
+         * @summary Queries a list of admin items.
+         * @request GET:/sota/medichain/medichain/admin
+         */
+        this.queryAdminAll = (query, params = {}) => this.request({
+            path: `/sota/medichain/medichain/admin`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryAdmin
+         * @summary Queries a admin by id.
+         * @request GET:/sota/medichain/medichain/admin/{id}
+         */
+        this.queryAdmin = (id, params = {}) => this.request({
+            path: `/sota/medichain/medichain/admin/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
         /**
          * No description
          *

@@ -1,14 +1,33 @@
 /* eslint-disable */
-import { Reader, Writer } from 'protobufjs/minimal'
+import { Reader, util, configure, Writer } from 'protobufjs/minimal'
+import * as Long from 'long'
+import { Admin } from '../medichain/admin'
+import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
 import { ServiceUser } from '../medichain/service_user'
 import { Sharing } from '../medichain/sharing'
-import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
 import { Service } from '../medichain/service'
 import { User } from '../medichain/user'
 
 export const protobufPackage = 'sota.medichain.medichain'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetAdminRequest {
+  id: number
+}
+
+export interface QueryGetAdminResponse {
+  Admin: Admin | undefined
+}
+
+export interface QueryAllAdminRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllAdminResponse {
+  Admin: Admin[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryUserServiceRequest {
   userId: string
 }
@@ -102,6 +121,250 @@ export interface QueryAllUserRequest {
 export interface QueryAllUserResponse {
   User: User[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetAdminRequest: object = { id: 0 }
+
+export const QueryGetAdminRequest = {
+  encode(message: QueryGetAdminRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetAdminRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetAdminRequest } as QueryGetAdminRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetAdminRequest {
+    const message = { ...baseQueryGetAdminRequest } as QueryGetAdminRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetAdminRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetAdminRequest>): QueryGetAdminRequest {
+    const message = { ...baseQueryGetAdminRequest } as QueryGetAdminRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetAdminResponse: object = {}
+
+export const QueryGetAdminResponse = {
+  encode(message: QueryGetAdminResponse, writer: Writer = Writer.create()): Writer {
+    if (message.Admin !== undefined) {
+      Admin.encode(message.Admin, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetAdminResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetAdminResponse } as QueryGetAdminResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Admin = Admin.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetAdminResponse {
+    const message = { ...baseQueryGetAdminResponse } as QueryGetAdminResponse
+    if (object.Admin !== undefined && object.Admin !== null) {
+      message.Admin = Admin.fromJSON(object.Admin)
+    } else {
+      message.Admin = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetAdminResponse): unknown {
+    const obj: any = {}
+    message.Admin !== undefined && (obj.Admin = message.Admin ? Admin.toJSON(message.Admin) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetAdminResponse>): QueryGetAdminResponse {
+    const message = { ...baseQueryGetAdminResponse } as QueryGetAdminResponse
+    if (object.Admin !== undefined && object.Admin !== null) {
+      message.Admin = Admin.fromPartial(object.Admin)
+    } else {
+      message.Admin = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllAdminRequest: object = {}
+
+export const QueryAllAdminRequest = {
+  encode(message: QueryAllAdminRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllAdminRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllAdminRequest } as QueryAllAdminRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllAdminRequest {
+    const message = { ...baseQueryAllAdminRequest } as QueryAllAdminRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllAdminRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllAdminRequest>): QueryAllAdminRequest {
+    const message = { ...baseQueryAllAdminRequest } as QueryAllAdminRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllAdminResponse: object = {}
+
+export const QueryAllAdminResponse = {
+  encode(message: QueryAllAdminResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.Admin) {
+      Admin.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllAdminResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllAdminResponse } as QueryAllAdminResponse
+    message.Admin = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.Admin.push(Admin.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllAdminResponse {
+    const message = { ...baseQueryAllAdminResponse } as QueryAllAdminResponse
+    message.Admin = []
+    if (object.Admin !== undefined && object.Admin !== null) {
+      for (const e of object.Admin) {
+        message.Admin.push(Admin.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllAdminResponse): unknown {
+    const obj: any = {}
+    if (message.Admin) {
+      obj.Admin = message.Admin.map((e) => (e ? Admin.toJSON(e) : undefined))
+    } else {
+      obj.Admin = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllAdminResponse>): QueryAllAdminResponse {
+    const message = { ...baseQueryAllAdminResponse } as QueryAllAdminResponse
+    message.Admin = []
+    if (object.Admin !== undefined && object.Admin !== null) {
+      for (const e of object.Admin) {
+        message.Admin.push(Admin.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryUserServiceRequest: object = { userId: '' }
@@ -1470,6 +1733,10 @@ export const QueryAllUserResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a admin by id. */
+  Admin(request: QueryGetAdminRequest): Promise<QueryGetAdminResponse>
+  /** Queries a list of admin items. */
+  AdminAll(request: QueryAllAdminRequest): Promise<QueryAllAdminResponse>
   /** Queries a list of userService items. */
   UserService(request: QueryUserServiceRequest): Promise<QueryUserServiceResponse>
   /** Queries a list of checkServiceUser items. */
@@ -1499,6 +1766,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  Admin(request: QueryGetAdminRequest): Promise<QueryGetAdminResponse> {
+    const data = QueryGetAdminRequest.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Query', 'Admin', data)
+    return promise.then((data) => QueryGetAdminResponse.decode(new Reader(data)))
+  }
+
+  AdminAll(request: QueryAllAdminRequest): Promise<QueryAllAdminResponse> {
+    const data = QueryAllAdminRequest.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Query', 'AdminAll', data)
+    return promise.then((data) => QueryAllAdminResponse.decode(new Reader(data)))
+  }
+
   UserService(request: QueryUserServiceRequest): Promise<QueryUserServiceResponse> {
     const data = QueryUserServiceRequest.encode(request).finish()
     const promise = this.rpc.request('sota.medichain.medichain.Query', 'UserService', data)
@@ -1570,6 +1849,16 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
 }
 
+declare var self: any | undefined
+declare var window: any | undefined
+var globalThis: any = (() => {
+  if (typeof globalThis !== 'undefined') return globalThis
+  if (typeof self !== 'undefined') return self
+  if (typeof window !== 'undefined') return window
+  if (typeof global !== 'undefined') return global
+  throw 'Unable to locate global object'
+})()
+
 type Builtin = Date | Function | Uint8Array | string | number | undefined
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -1580,3 +1869,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER')
+  }
+  return long.toNumber()
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any
+  configure()
+}

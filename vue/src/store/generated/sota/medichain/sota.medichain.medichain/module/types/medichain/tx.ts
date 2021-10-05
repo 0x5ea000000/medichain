@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Reader, Writer } from 'protobufjs/minimal'
+import { Reader, util, configure, Writer } from 'protobufjs/minimal'
+import * as Long from 'long'
 import { Sharing } from '../medichain/sharing'
 import { ServiceUser } from '../medichain/service_user'
 import { Service } from '../medichain/service'
@@ -8,6 +9,38 @@ import { User } from '../medichain/user'
 export const protobufPackage = 'sota.medichain.medichain'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateSharingBatch {
+  creator: string
+  viewerId: string
+  ownerIds: string[]
+}
+
+export interface MsgCreateSharingBatchResponse {}
+
+export interface MsgCreateAdmin {
+  creator: string
+  pubKey: string
+}
+
+export interface MsgCreateAdminResponse {
+  id: number
+}
+
+export interface MsgUpdateAdmin {
+  creator: string
+  id: number
+  pubKey: string
+}
+
+export interface MsgUpdateAdminResponse {}
+
+export interface MsgDeleteAdmin {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteAdminResponse {}
+
 export interface MsgRejectSharing {
   creator: string
   sharingId: string
@@ -143,6 +176,504 @@ export interface MsgDeleteUser {
 }
 
 export interface MsgDeleteUserResponse {}
+
+const baseMsgCreateSharingBatch: object = { creator: '', viewerId: '', ownerIds: '' }
+
+export const MsgCreateSharingBatch = {
+  encode(message: MsgCreateSharingBatch, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.viewerId !== '') {
+      writer.uint32(18).string(message.viewerId)
+    }
+    for (const v of message.ownerIds) {
+      writer.uint32(26).string(v!)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateSharingBatch {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateSharingBatch } as MsgCreateSharingBatch
+    message.ownerIds = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.viewerId = reader.string()
+          break
+        case 3:
+          message.ownerIds.push(reader.string())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateSharingBatch {
+    const message = { ...baseMsgCreateSharingBatch } as MsgCreateSharingBatch
+    message.ownerIds = []
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.viewerId !== undefined && object.viewerId !== null) {
+      message.viewerId = String(object.viewerId)
+    } else {
+      message.viewerId = ''
+    }
+    if (object.ownerIds !== undefined && object.ownerIds !== null) {
+      for (const e of object.ownerIds) {
+        message.ownerIds.push(String(e))
+      }
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateSharingBatch): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.viewerId !== undefined && (obj.viewerId = message.viewerId)
+    if (message.ownerIds) {
+      obj.ownerIds = message.ownerIds.map((e) => e)
+    } else {
+      obj.ownerIds = []
+    }
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateSharingBatch>): MsgCreateSharingBatch {
+    const message = { ...baseMsgCreateSharingBatch } as MsgCreateSharingBatch
+    message.ownerIds = []
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.viewerId !== undefined && object.viewerId !== null) {
+      message.viewerId = object.viewerId
+    } else {
+      message.viewerId = ''
+    }
+    if (object.ownerIds !== undefined && object.ownerIds !== null) {
+      for (const e of object.ownerIds) {
+        message.ownerIds.push(e)
+      }
+    }
+    return message
+  }
+}
+
+const baseMsgCreateSharingBatchResponse: object = {}
+
+export const MsgCreateSharingBatchResponse = {
+  encode(_: MsgCreateSharingBatchResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateSharingBatchResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateSharingBatchResponse } as MsgCreateSharingBatchResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgCreateSharingBatchResponse {
+    const message = { ...baseMsgCreateSharingBatchResponse } as MsgCreateSharingBatchResponse
+    return message
+  },
+
+  toJSON(_: MsgCreateSharingBatchResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgCreateSharingBatchResponse>): MsgCreateSharingBatchResponse {
+    const message = { ...baseMsgCreateSharingBatchResponse } as MsgCreateSharingBatchResponse
+    return message
+  }
+}
+
+const baseMsgCreateAdmin: object = { creator: '', pubKey: '' }
+
+export const MsgCreateAdmin = {
+  encode(message: MsgCreateAdmin, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.pubKey !== '') {
+      writer.uint32(18).string(message.pubKey)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateAdmin {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateAdmin } as MsgCreateAdmin
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.pubKey = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateAdmin {
+    const message = { ...baseMsgCreateAdmin } as MsgCreateAdmin
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = String(object.pubKey)
+    } else {
+      message.pubKey = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateAdmin): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateAdmin>): MsgCreateAdmin {
+    const message = { ...baseMsgCreateAdmin } as MsgCreateAdmin
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = object.pubKey
+    } else {
+      message.pubKey = ''
+    }
+    return message
+  }
+}
+
+const baseMsgCreateAdminResponse: object = { id: 0 }
+
+export const MsgCreateAdminResponse = {
+  encode(message: MsgCreateAdminResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateAdminResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateAdminResponse } as MsgCreateAdminResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateAdminResponse {
+    const message = { ...baseMsgCreateAdminResponse } as MsgCreateAdminResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateAdminResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateAdminResponse>): MsgCreateAdminResponse {
+    const message = { ...baseMsgCreateAdminResponse } as MsgCreateAdminResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateAdmin: object = { creator: '', id: 0, pubKey: '' }
+
+export const MsgUpdateAdmin = {
+  encode(message: MsgUpdateAdmin, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.pubKey !== '') {
+      writer.uint32(26).string(message.pubKey)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateAdmin {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateAdmin } as MsgUpdateAdmin
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.pubKey = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateAdmin {
+    const message = { ...baseMsgUpdateAdmin } as MsgUpdateAdmin
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = String(object.pubKey)
+    } else {
+      message.pubKey = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateAdmin): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateAdmin>): MsgUpdateAdmin {
+    const message = { ...baseMsgUpdateAdmin } as MsgUpdateAdmin
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.pubKey !== undefined && object.pubKey !== null) {
+      message.pubKey = object.pubKey
+    } else {
+      message.pubKey = ''
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateAdminResponse: object = {}
+
+export const MsgUpdateAdminResponse = {
+  encode(_: MsgUpdateAdminResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateAdminResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateAdminResponse } as MsgUpdateAdminResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateAdminResponse {
+    const message = { ...baseMsgUpdateAdminResponse } as MsgUpdateAdminResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateAdminResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateAdminResponse>): MsgUpdateAdminResponse {
+    const message = { ...baseMsgUpdateAdminResponse } as MsgUpdateAdminResponse
+    return message
+  }
+}
+
+const baseMsgDeleteAdmin: object = { creator: '', id: 0 }
+
+export const MsgDeleteAdmin = {
+  encode(message: MsgDeleteAdmin, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteAdmin {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteAdmin } as MsgDeleteAdmin
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteAdmin {
+    const message = { ...baseMsgDeleteAdmin } as MsgDeleteAdmin
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteAdmin): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteAdmin>): MsgDeleteAdmin {
+    const message = { ...baseMsgDeleteAdmin } as MsgDeleteAdmin
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteAdminResponse: object = {}
+
+export const MsgDeleteAdminResponse = {
+  encode(_: MsgDeleteAdminResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteAdminResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteAdminResponse } as MsgDeleteAdminResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteAdminResponse {
+    const message = { ...baseMsgDeleteAdminResponse } as MsgDeleteAdminResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteAdminResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteAdminResponse>): MsgDeleteAdminResponse {
+    const message = { ...baseMsgDeleteAdminResponse } as MsgDeleteAdminResponse
+    return message
+  }
+}
 
 const baseMsgRejectSharing: object = { creator: '', sharingId: '' }
 
@@ -2197,6 +2728,10 @@ export const MsgDeleteUserResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse>
+  CreateAdmin(request: MsgCreateAdmin): Promise<MsgCreateAdminResponse>
+  UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>
+  DeleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse>
   RejectSharing(request: MsgRejectSharing): Promise<MsgRejectSharingResponse>
   AcceptSharing(request: MsgAcceptSharing): Promise<MsgAcceptSharingResponse>
   CreateSharing(request: MsgCreateSharing): Promise<MsgCreateSharingResponse>
@@ -2218,6 +2753,30 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse> {
+    const data = MsgCreateSharingBatch.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Msg', 'CreateSharingBatch', data)
+    return promise.then((data) => MsgCreateSharingBatchResponse.decode(new Reader(data)))
+  }
+
+  CreateAdmin(request: MsgCreateAdmin): Promise<MsgCreateAdminResponse> {
+    const data = MsgCreateAdmin.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Msg', 'CreateAdmin', data)
+    return promise.then((data) => MsgCreateAdminResponse.decode(new Reader(data)))
+  }
+
+  UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse> {
+    const data = MsgUpdateAdmin.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Msg', 'UpdateAdmin', data)
+    return promise.then((data) => MsgUpdateAdminResponse.decode(new Reader(data)))
+  }
+
+  DeleteAdmin(request: MsgDeleteAdmin): Promise<MsgDeleteAdminResponse> {
+    const data = MsgDeleteAdmin.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Msg', 'DeleteAdmin', data)
+    return promise.then((data) => MsgDeleteAdminResponse.decode(new Reader(data)))
+  }
+
   RejectSharing(request: MsgRejectSharing): Promise<MsgRejectSharingResponse> {
     const data = MsgRejectSharing.encode(request).finish()
     const promise = this.rpc.request('sota.medichain.medichain.Msg', 'RejectSharing', data)
@@ -2307,6 +2866,16 @@ interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>
 }
 
+declare var self: any | undefined
+declare var window: any | undefined
+var globalThis: any = (() => {
+  if (typeof globalThis !== 'undefined') return globalThis
+  if (typeof self !== 'undefined') return self
+  if (typeof window !== 'undefined') return window
+  if (typeof global !== 'undefined') return global
+  throw 'Unable to locate global object'
+})()
+
 type Builtin = Date | Function | Uint8Array | string | number | undefined
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -2317,3 +2886,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER')
+  }
+  return long.toNumber()
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any
+  configure()
+}

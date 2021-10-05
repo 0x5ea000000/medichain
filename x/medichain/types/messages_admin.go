@@ -7,126 +7,24 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-var _ sdk.Msg = &MsgCreateUser{}
+var _ sdk.Msg = &MsgCreateAdmin{}
 
-func NewMsgCreateUser(creator string, pubKey string, isActive bool) *MsgCreateUser {
-	return &MsgCreateUser{
-		Creator:  creator,
-		PubKey:   pubKey,
-		IsActive: isActive,
-	}
-}
-
-func (msg *MsgCreateUser) Route() string {
-	return RouterKey
-}
-
-func (msg *MsgCreateUser) Type() string {
-	return "CreateUser"
-}
-
-func (msg *MsgCreateUser) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		panic(err)
-	}
-	return []sdk.AccAddress{creator}
-}
-
-func (msg *MsgCreateUser) GetSignBytes() []byte {
-	bz := ModuleCdc.MustMarshalJSON(msg)
-	return sdk.MustSortJSON(bz)
-}
-
-func (msg *MsgCreateUser) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
-	}
-
-	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
-	}
-
-	pubKey := secp256k1.PubKey{Key: pubKeyBz}
-	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
-	}
-
-	return nil
-}
-
-var _ sdk.Msg = &MsgUpdateUser{}
-
-func NewMsgUpdateUser(creator string, index string, pubKey string, isActive bool) *MsgUpdateUser {
-	return &MsgUpdateUser{
-		Creator:  creator,
-		Index:    index,
-		PubKey:   pubKey,
-		IsActive: isActive,
-	}
-}
-
-func (msg *MsgUpdateUser) Route() string {
-	return RouterKey
-}
-
-func (msg *MsgUpdateUser) Type() string {
-	return "UpdateUser"
-}
-
-func (msg *MsgUpdateUser) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		panic(err)
-	}
-	return []sdk.AccAddress{creator}
-}
-
-func (msg *MsgUpdateUser) GetSignBytes() []byte {
-	bz := ModuleCdc.MustMarshalJSON(msg)
-	return sdk.MustSortJSON(bz)
-}
-
-func (msg *MsgUpdateUser) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
-	}
-
-	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
-	}
-
-	pubKey := secp256k1.PubKey{Key: pubKeyBz}
-	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
-	}
-
-	return nil
-}
-
-var _ sdk.Msg = &MsgDeleteUser{}
-
-func NewMsgDeleteUser(creator string, index string) *MsgDeleteUser {
-	return &MsgDeleteUser{
+func NewMsgCreateAdmin(creator string, pubKey string) *MsgCreateAdmin {
+	return &MsgCreateAdmin{
 		Creator: creator,
-		Index:   index,
+		PubKey:  pubKey,
 	}
 }
-func (msg *MsgDeleteUser) Route() string {
+
+func (msg *MsgCreateAdmin) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgDeleteUser) Type() string {
-	return "DeleteUser"
+func (msg *MsgCreateAdmin) Type() string {
+	return "CreateAdmin"
 }
 
-func (msg *MsgDeleteUser) GetSigners() []sdk.AccAddress {
+func (msg *MsgCreateAdmin) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -134,12 +32,112 @@ func (msg *MsgDeleteUser) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgDeleteUser) GetSignBytes() []byte {
+func (msg *MsgCreateAdmin) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgDeleteUser) ValidateBasic() error {
+func (msg *MsgCreateAdmin) ValidateBasic() error {
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+
+	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
+	}
+
+	pubKey := secp256k1.PubKey{Key: pubKeyBz}
+	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
+	}
+
+	return nil
+}
+
+var _ sdk.Msg = &MsgUpdateAdmin{}
+
+func NewMsgUpdateAdmin(creator string, id uint64, pubKey string) *MsgUpdateAdmin {
+	return &MsgUpdateAdmin{
+		Id:      id,
+		Creator: creator,
+		PubKey:  pubKey,
+	}
+}
+
+func (msg *MsgUpdateAdmin) Route() string {
+	return RouterKey
+}
+
+func (msg *MsgUpdateAdmin) Type() string {
+	return "UpdateAdmin"
+}
+
+func (msg *MsgUpdateAdmin) GetSigners() []sdk.AccAddress {
+	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{creator}
+}
+
+func (msg *MsgUpdateAdmin) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(msg)
+	return sdk.MustSortJSON(bz)
+}
+
+func (msg *MsgUpdateAdmin) ValidateBasic() error {
+	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+	}
+
+	pubKeyBz, err := base64.StdEncoding.DecodeString(msg.PubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
+	}
+
+	pubKey := secp256k1.PubKey{Key: pubKeyBz}
+	_, err = sdk.Bech32ifyPubKey(sdk.Bech32PubKeyTypeAccPub, &pubKey)
+	if err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidPubKey, "cannot decode pubKey (%s)", err)
+	}
+
+	return nil
+}
+
+var _ sdk.Msg = &MsgDeleteAdmin{}
+
+func NewMsgDeleteAdmin(creator string, id uint64) *MsgDeleteAdmin {
+	return &MsgDeleteAdmin{
+		Id:      id,
+		Creator: creator,
+	}
+}
+func (msg *MsgDeleteAdmin) Route() string {
+	return RouterKey
+}
+
+func (msg *MsgDeleteAdmin) Type() string {
+	return "DeleteAdmin"
+}
+
+func (msg *MsgDeleteAdmin) GetSigners() []sdk.AccAddress {
+	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{creator}
+}
+
+func (msg *MsgDeleteAdmin) GetSignBytes() []byte {
+	bz := ModuleCdc.MustMarshalJSON(msg)
+	return sdk.MustSortJSON(bz)
+}
+
+func (msg *MsgDeleteAdmin) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

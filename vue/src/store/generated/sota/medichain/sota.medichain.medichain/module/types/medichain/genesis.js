@@ -1,13 +1,21 @@
 /* eslint-disable */
+import * as Long from 'long';
+import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { Admin } from '../medichain/admin';
 import { Sharing } from '../medichain/sharing';
 import { ServiceUser } from '../medichain/service_user';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
-import { Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'sota.medichain.medichain';
-const baseGenesisState = {};
+const baseGenesisState = { adminCount: 0 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
+        for (const v of message.adminList) {
+            Admin.encode(v, writer.uint32(42).fork()).ldelim();
+        }
+        if (message.adminCount !== 0) {
+            writer.uint32(48).uint64(message.adminCount);
+        }
         for (const v of message.sharingList) {
             Sharing.encode(v, writer.uint32(34).fork()).ldelim();
         }
@@ -26,6 +34,7 @@ export const GenesisState = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
+        message.adminList = [];
         message.sharingList = [];
         message.serviceUserList = [];
         message.serviceList = [];
@@ -33,6 +42,12 @@ export const GenesisState = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 5:
+                    message.adminList.push(Admin.decode(reader, reader.uint32()));
+                    break;
+                case 6:
+                    message.adminCount = longToNumber(reader.uint64());
+                    break;
                 case 4:
                     message.sharingList.push(Sharing.decode(reader, reader.uint32()));
                     break;
@@ -54,10 +69,22 @@ export const GenesisState = {
     },
     fromJSON(object) {
         const message = { ...baseGenesisState };
+        message.adminList = [];
         message.sharingList = [];
         message.serviceUserList = [];
         message.serviceList = [];
         message.userList = [];
+        if (object.adminList !== undefined && object.adminList !== null) {
+            for (const e of object.adminList) {
+                message.adminList.push(Admin.fromJSON(e));
+            }
+        }
+        if (object.adminCount !== undefined && object.adminCount !== null) {
+            message.adminCount = Number(object.adminCount);
+        }
+        else {
+            message.adminCount = 0;
+        }
         if (object.sharingList !== undefined && object.sharingList !== null) {
             for (const e of object.sharingList) {
                 message.sharingList.push(Sharing.fromJSON(e));
@@ -82,6 +109,13 @@ export const GenesisState = {
     },
     toJSON(message) {
         const obj = {};
+        if (message.adminList) {
+            obj.adminList = message.adminList.map((e) => (e ? Admin.toJSON(e) : undefined));
+        }
+        else {
+            obj.adminList = [];
+        }
+        message.adminCount !== undefined && (obj.adminCount = message.adminCount);
         if (message.sharingList) {
             obj.sharingList = message.sharingList.map((e) => (e ? Sharing.toJSON(e) : undefined));
         }
@@ -110,10 +144,22 @@ export const GenesisState = {
     },
     fromPartial(object) {
         const message = { ...baseGenesisState };
+        message.adminList = [];
         message.sharingList = [];
         message.serviceUserList = [];
         message.serviceList = [];
         message.userList = [];
+        if (object.adminList !== undefined && object.adminList !== null) {
+            for (const e of object.adminList) {
+                message.adminList.push(Admin.fromPartial(e));
+            }
+        }
+        if (object.adminCount !== undefined && object.adminCount !== null) {
+            message.adminCount = object.adminCount;
+        }
+        else {
+            message.adminCount = 0;
+        }
         if (object.sharingList !== undefined && object.sharingList !== null) {
             for (const e of object.sharingList) {
                 message.sharingList.push(Sharing.fromPartial(e));
@@ -137,3 +183,24 @@ export const GenesisState = {
         return message;
     }
 };
+var globalThis = (() => {
+    if (typeof globalThis !== 'undefined')
+        return globalThis;
+    if (typeof self !== 'undefined')
+        return self;
+    if (typeof window !== 'undefined')
+        return window;
+    if (typeof global !== 'undefined')
+        return global;
+    throw 'Unable to locate global object';
+})();
+function longToNumber(long) {
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
+    }
+    return long.toNumber();
+}
+if (util.Long !== Long) {
+    util.Long = Long;
+    configure();
+}
