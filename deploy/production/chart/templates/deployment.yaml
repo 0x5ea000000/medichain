@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Values.service.name }}-deployment
   labels:
+    app: {{ .Values.service.name }}-selector
     chart: {{ .Values.service.name }}
 spec:
   replicas: {{ .Values.replicaCount | default 1 }}
@@ -21,7 +22,8 @@ spec:
         command: ["/bin/sh"]
         args: 
           - "-c"
-          - "medichaind start --rpc.laddr tcp://127.0.0.1:{{ .Values.services.rpcPort }} --rpc.pprof_laddr tcp://127.0.0.1:{{ .Values.services.pprofPort }} --grpc.address 0.0.0.0:{{ .Values.services.grpcPort }}"
+          - "(sleep 10 && medichaind tx medichain create-admin {{ .Values.services.adminPubKey }} --from {{ .Values.services.genesis.account }} --chain-id {{ .Values.services.node.chainID }} -y) | 
+          medichaind start --rpc.laddr tcp://127.0.0.1:{{ .Values.services.rpcPort }} --rpc.pprof_laddr tcp://127.0.0.1:{{ .Values.services.pprofPort }} --grpc.address 0.0.0.0:{{ .Values.services.grpcPort }}"
         volumeMounts:
           - mountPath: "/home/tendermint/.medichain"
             name: config

@@ -22,6 +22,7 @@ services:
   rpcPort: ${RPC_PORT}
   pprofPort: ${PPROF_PORT}
   httpPort: ${HTTP_PORT}
+  adminPubKey: ${ADMIN_PUB_KEY}
   node:
     moniker: ${MONIKER}
     chainID: ${CHAIN_ID}
