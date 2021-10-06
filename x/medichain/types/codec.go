@@ -9,6 +9,10 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgDeleteSharingBatch{}, "medichain/DeleteSharingBatch", nil)
+
+	cdc.RegisterConcrete(&MsgUpdateSharingStatusBatch{}, "medichain/UpdateSharingStatusBatch", nil)
+
 	cdc.RegisterConcrete(&MsgCreateSharingBatch{}, "medichain/CreateSharingBatch", nil)
 
 	cdc.RegisterConcrete(&MsgCreateAdmin{}, "medichain/CreateAdmin", nil)
@@ -39,6 +43,12 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgDeleteSharingBatch{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUpdateSharingStatusBatch{},
+	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateSharingBatch{},
 	)

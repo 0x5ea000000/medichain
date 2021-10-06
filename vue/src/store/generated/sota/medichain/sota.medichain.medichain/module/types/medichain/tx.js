@@ -6,7 +6,242 @@ import { ServiceUser } from '../medichain/service_user';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
-const baseMsgCreateSharingBatch = { creator: '', viewerId: '', ownerIds: '' };
+const baseMsgDeleteSharingBatch = { creator: '', indexs: '' };
+export const MsgDeleteSharingBatch = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        for (const v of message.indexs) {
+            writer.uint32(18).string(v);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteSharingBatch };
+        message.indexs = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.indexs.push(reader.string());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteSharingBatch };
+        message.indexs = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.indexs !== undefined && object.indexs !== null) {
+            for (const e of object.indexs) {
+                message.indexs.push(String(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        if (message.indexs) {
+            obj.indexs = message.indexs.map((e) => e);
+        }
+        else {
+            obj.indexs = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteSharingBatch };
+        message.indexs = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.indexs !== undefined && object.indexs !== null) {
+            for (const e of object.indexs) {
+                message.indexs.push(e);
+            }
+        }
+        return message;
+    }
+};
+const baseMsgDeleteSharingBatchResponse = {};
+export const MsgDeleteSharingBatchResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteSharingBatchResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgDeleteSharingBatchResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgDeleteSharingBatchResponse };
+        return message;
+    }
+};
+const baseMsgUpdateSharingStatusBatch = { creator: '', indexs: '', status: '' };
+export const MsgUpdateSharingStatusBatch = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        for (const v of message.indexs) {
+            writer.uint32(18).string(v);
+        }
+        if (message.status !== '') {
+            writer.uint32(26).string(message.status);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateSharingStatusBatch };
+        message.indexs = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.indexs.push(reader.string());
+                    break;
+                case 3:
+                    message.status = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdateSharingStatusBatch };
+        message.indexs = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.indexs !== undefined && object.indexs !== null) {
+            for (const e of object.indexs) {
+                message.indexs.push(String(e));
+            }
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = String(object.status);
+        }
+        else {
+            message.status = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        if (message.indexs) {
+            obj.indexs = message.indexs.map((e) => e);
+        }
+        else {
+            obj.indexs = [];
+        }
+        message.status !== undefined && (obj.status = message.status);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdateSharingStatusBatch };
+        message.indexs = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.indexs !== undefined && object.indexs !== null) {
+            for (const e of object.indexs) {
+                message.indexs.push(e);
+            }
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = object.status;
+        }
+        else {
+            message.status = '';
+        }
+        return message;
+    }
+};
+const baseMsgUpdateSharingStatusBatchResponse = {};
+export const MsgUpdateSharingStatusBatchResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateSharingStatusBatchResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgUpdateSharingStatusBatchResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgUpdateSharingStatusBatchResponse };
+        return message;
+    }
+};
+const baseMsgCreateSharingBatch = { creator: '', viewerId: '', status: '', ownerIds: '' };
 export const MsgCreateSharingBatch = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -15,8 +250,11 @@ export const MsgCreateSharingBatch = {
         if (message.viewerId !== '') {
             writer.uint32(18).string(message.viewerId);
         }
+        if (message.status !== '') {
+            writer.uint32(26).string(message.status);
+        }
         for (const v of message.ownerIds) {
-            writer.uint32(26).string(v);
+            writer.uint32(34).string(v);
         }
         return writer;
     },
@@ -35,6 +273,9 @@ export const MsgCreateSharingBatch = {
                     message.viewerId = reader.string();
                     break;
                 case 3:
+                    message.status = reader.string();
+                    break;
+                case 4:
                     message.ownerIds.push(reader.string());
                     break;
                 default:
@@ -59,6 +300,12 @@ export const MsgCreateSharingBatch = {
         else {
             message.viewerId = '';
         }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = String(object.status);
+        }
+        else {
+            message.status = '';
+        }
         if (object.ownerIds !== undefined && object.ownerIds !== null) {
             for (const e of object.ownerIds) {
                 message.ownerIds.push(String(e));
@@ -70,6 +317,7 @@ export const MsgCreateSharingBatch = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.viewerId !== undefined && (obj.viewerId = message.viewerId);
+        message.status !== undefined && (obj.status = message.status);
         if (message.ownerIds) {
             obj.ownerIds = message.ownerIds.map((e) => e);
         }
@@ -92,6 +340,12 @@ export const MsgCreateSharingBatch = {
         }
         else {
             message.viewerId = '';
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = object.status;
+        }
+        else {
+            message.status = '';
         }
         if (object.ownerIds !== undefined && object.ownerIds !== null) {
             for (const e of object.ownerIds) {
@@ -2478,6 +2732,16 @@ export const MsgDeleteUserResponse = {
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    DeleteSharingBatch(request) {
+        const data = MsgDeleteSharingBatch.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Msg', 'DeleteSharingBatch', data);
+        return promise.then((data) => MsgDeleteSharingBatchResponse.decode(new Reader(data)));
+    }
+    UpdateSharingStatusBatch(request) {
+        const data = MsgUpdateSharingStatusBatch.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Msg', 'UpdateSharingStatusBatch', data);
+        return promise.then((data) => MsgUpdateSharingStatusBatchResponse.decode(new Reader(data)));
     }
     CreateSharingBatch(request) {
         const data = MsgCreateSharingBatch.encode(request).finish();

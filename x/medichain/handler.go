@@ -18,6 +18,14 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 
 		switch msg := msg.(type) {
 		// this line is used by starport scaffolding # 1
+		case *types.MsgDeleteSharingBatch:
+			res, err := msgServer.DeleteSharingBatch(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
+		case *types.MsgUpdateSharingStatusBatch:
+			res, err := msgServer.UpdateSharingStatusBatch(sdk.WrapSDKContext(ctx), msg)
+			return sdk.WrapServiceResult(ctx, res, err)
+
 		case *types.MsgCreateSharingBatch:
 			res, err := msgServer.CreateSharingBatch(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)

@@ -6,26 +6,25 @@ import (
 	"github.com/google/uuid"
 )
 
-var _ sdk.Msg = &MsgCreateSharingBatch{}
+var _ sdk.Msg = &MsgUpdateSharingStatusBatch{}
 
-func NewMsgCreateSharingBatch(creator string, viewerId string, ownerIds []string, status string) *MsgCreateSharingBatch {
-	return &MsgCreateSharingBatch{
-		Creator:  creator,
-		ViewerId: viewerId,
-		OwnerIds: ownerIds,
-		Status: status,
+func NewMsgUpdateSharingStatusBatch(creator string, indexs []string, status string) *MsgUpdateSharingStatusBatch {
+	return &MsgUpdateSharingStatusBatch{
+		Creator: creator,
+		Indexs:  indexs,
+		Status:  status,
 	}
 }
 
-func (msg *MsgCreateSharingBatch) Route() string {
+func (msg *MsgUpdateSharingStatusBatch) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgCreateSharingBatch) Type() string {
-	return "CreateSharingBatch"
+func (msg *MsgUpdateSharingStatusBatch) Type() string {
+	return "UpdateSharingStatusBatch"
 }
 
-func (msg *MsgCreateSharingBatch) GetSigners() []sdk.AccAddress {
+func (msg *MsgUpdateSharingStatusBatch) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -33,23 +32,18 @@ func (msg *MsgCreateSharingBatch) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgCreateSharingBatch) GetSignBytes() []byte {
+func (msg *MsgUpdateSharingStatusBatch) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgCreateSharingBatch) ValidateBasic() error {
+func (msg *MsgUpdateSharingStatusBatch) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
 
-	_, err = uuid.Parse(msg.ViewerId)
-	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid viewerId id (%s)", msg.ViewerId)
-	}
-
-	for _, v := range msg.OwnerIds {
+	for _, v := range msg.Indexs {
 		_, err = uuid.Parse(v)
 		if err != nil {
 			return sdkerrors.Wrapf(sdkerrors.ErrInvalidRequest, "invalid ownerId id (%s)", v)

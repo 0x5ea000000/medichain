@@ -30367,6 +30367,8 @@ definitions:
     type: object
   sota.medichain.medichain.MsgDeleteServiceUserResponse:
     type: object
+  sota.medichain.medichain.MsgDeleteSharingBatchResponse:
+    type: object
   sota.medichain.medichain.MsgDeleteSharingResponse:
     type: object
   sota.medichain.medichain.MsgDeleteUserResponse:
@@ -30427,6 +30429,8 @@ definitions:
             type: string
           status:
             type: string
+  sota.medichain.medichain.MsgUpdateSharingStatusBatchResponse:
+    type: object
   sota.medichain.medichain.MsgUpdateUserResponse:
     type: object
     properties:

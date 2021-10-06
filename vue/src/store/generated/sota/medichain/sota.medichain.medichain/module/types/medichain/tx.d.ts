@@ -5,9 +5,23 @@ import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgDeleteSharingBatch {
+    creator: string;
+    indexs: string[];
+}
+export interface MsgDeleteSharingBatchResponse {
+}
+export interface MsgUpdateSharingStatusBatch {
+    creator: string;
+    indexs: string[];
+    status: string;
+}
+export interface MsgUpdateSharingStatusBatchResponse {
+}
 export interface MsgCreateSharingBatch {
     creator: string;
     viewerId: string;
+    status: string;
     ownerIds: string[];
 }
 export interface MsgCreateSharingBatchResponse {
@@ -146,6 +160,34 @@ export interface MsgDeleteUser {
 }
 export interface MsgDeleteUserResponse {
 }
+export declare const MsgDeleteSharingBatch: {
+    encode(message: MsgDeleteSharingBatch, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteSharingBatch;
+    fromJSON(object: any): MsgDeleteSharingBatch;
+    toJSON(message: MsgDeleteSharingBatch): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteSharingBatch>): MsgDeleteSharingBatch;
+};
+export declare const MsgDeleteSharingBatchResponse: {
+    encode(_: MsgDeleteSharingBatchResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteSharingBatchResponse;
+    fromJSON(_: any): MsgDeleteSharingBatchResponse;
+    toJSON(_: MsgDeleteSharingBatchResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteSharingBatchResponse>): MsgDeleteSharingBatchResponse;
+};
+export declare const MsgUpdateSharingStatusBatch: {
+    encode(message: MsgUpdateSharingStatusBatch, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateSharingStatusBatch;
+    fromJSON(object: any): MsgUpdateSharingStatusBatch;
+    toJSON(message: MsgUpdateSharingStatusBatch): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateSharingStatusBatch>): MsgUpdateSharingStatusBatch;
+};
+export declare const MsgUpdateSharingStatusBatchResponse: {
+    encode(_: MsgUpdateSharingStatusBatchResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateSharingStatusBatchResponse;
+    fromJSON(_: any): MsgUpdateSharingStatusBatchResponse;
+    toJSON(_: MsgUpdateSharingStatusBatchResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateSharingStatusBatchResponse>): MsgUpdateSharingStatusBatchResponse;
+};
 export declare const MsgCreateSharingBatch: {
     encode(message: MsgCreateSharingBatch, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateSharingBatch;
@@ -401,6 +443,8 @@ export declare const MsgDeleteUserResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse>;
+    UpdateSharingStatusBatch(request: MsgUpdateSharingStatusBatch): Promise<MsgUpdateSharingStatusBatchResponse>;
     CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse>;
     CreateAdmin(request: MsgCreateAdmin): Promise<MsgCreateAdminResponse>;
     UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;
@@ -423,6 +467,8 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse>;
+    UpdateSharingStatusBatch(request: MsgUpdateSharingStatusBatch): Promise<MsgUpdateSharingStatusBatchResponse>;
     CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse>;
     CreateAdmin(request: MsgCreateAdmin): Promise<MsgCreateAdminResponse>;
     UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>;

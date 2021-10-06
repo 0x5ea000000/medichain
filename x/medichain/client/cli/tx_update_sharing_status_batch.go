@@ -12,22 +12,21 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdCreateSharingBatch() *cobra.Command {
+func CmdUpdateSharingStatusBatch() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-sharing-batch [viewerIds] [ownerId] [status]",
-		Short: "Broadcast message create-sharing-batch",
-		Args:  cobra.MinimumNArgs(3),
+		Use:   "update-sharing-status-batch [indexs] [status]",
+		Short: "Broadcast message update-sharing-status-batch",
+		Args:  cobra.MinimumNArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsViewerId := string(args[0])
-			argsOwnerId := args[1:len(args)-1]
-			argsStatus := string(args[len(args)-1])
+			argsIndexs := args[0:len(args)-1]
+			argsStatus := string(args[1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateSharingBatch(clientCtx.GetFromAddress().String(), string(argsViewerId), argsOwnerId, argsStatus)
+			msg := types.NewMsgUpdateSharingStatusBatch(clientCtx.GetFromAddress().String(), argsIndexs, string(argsStatus))
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

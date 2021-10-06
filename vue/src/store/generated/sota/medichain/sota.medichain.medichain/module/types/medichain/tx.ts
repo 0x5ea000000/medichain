@@ -9,9 +9,25 @@ import { User } from '../medichain/user'
 export const protobufPackage = 'sota.medichain.medichain'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgDeleteSharingBatch {
+  creator: string
+  indexs: string[]
+}
+
+export interface MsgDeleteSharingBatchResponse {}
+
+export interface MsgUpdateSharingStatusBatch {
+  creator: string
+  indexs: string[]
+  status: string
+}
+
+export interface MsgUpdateSharingStatusBatchResponse {}
+
 export interface MsgCreateSharingBatch {
   creator: string
   viewerId: string
+  status: string
   ownerIds: string[]
 }
 
@@ -177,7 +193,258 @@ export interface MsgDeleteUser {
 
 export interface MsgDeleteUserResponse {}
 
-const baseMsgCreateSharingBatch: object = { creator: '', viewerId: '', ownerIds: '' }
+const baseMsgDeleteSharingBatch: object = { creator: '', indexs: '' }
+
+export const MsgDeleteSharingBatch = {
+  encode(message: MsgDeleteSharingBatch, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    for (const v of message.indexs) {
+      writer.uint32(18).string(v!)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteSharingBatch {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteSharingBatch } as MsgDeleteSharingBatch
+    message.indexs = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.indexs.push(reader.string())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteSharingBatch {
+    const message = { ...baseMsgDeleteSharingBatch } as MsgDeleteSharingBatch
+    message.indexs = []
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.indexs !== undefined && object.indexs !== null) {
+      for (const e of object.indexs) {
+        message.indexs.push(String(e))
+      }
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteSharingBatch): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    if (message.indexs) {
+      obj.indexs = message.indexs.map((e) => e)
+    } else {
+      obj.indexs = []
+    }
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteSharingBatch>): MsgDeleteSharingBatch {
+    const message = { ...baseMsgDeleteSharingBatch } as MsgDeleteSharingBatch
+    message.indexs = []
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.indexs !== undefined && object.indexs !== null) {
+      for (const e of object.indexs) {
+        message.indexs.push(e)
+      }
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteSharingBatchResponse: object = {}
+
+export const MsgDeleteSharingBatchResponse = {
+  encode(_: MsgDeleteSharingBatchResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteSharingBatchResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteSharingBatchResponse } as MsgDeleteSharingBatchResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteSharingBatchResponse {
+    const message = { ...baseMsgDeleteSharingBatchResponse } as MsgDeleteSharingBatchResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteSharingBatchResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteSharingBatchResponse>): MsgDeleteSharingBatchResponse {
+    const message = { ...baseMsgDeleteSharingBatchResponse } as MsgDeleteSharingBatchResponse
+    return message
+  }
+}
+
+const baseMsgUpdateSharingStatusBatch: object = { creator: '', indexs: '', status: '' }
+
+export const MsgUpdateSharingStatusBatch = {
+  encode(message: MsgUpdateSharingStatusBatch, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    for (const v of message.indexs) {
+      writer.uint32(18).string(v!)
+    }
+    if (message.status !== '') {
+      writer.uint32(26).string(message.status)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateSharingStatusBatch {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateSharingStatusBatch } as MsgUpdateSharingStatusBatch
+    message.indexs = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.indexs.push(reader.string())
+          break
+        case 3:
+          message.status = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateSharingStatusBatch {
+    const message = { ...baseMsgUpdateSharingStatusBatch } as MsgUpdateSharingStatusBatch
+    message.indexs = []
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.indexs !== undefined && object.indexs !== null) {
+      for (const e of object.indexs) {
+        message.indexs.push(String(e))
+      }
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = String(object.status)
+    } else {
+      message.status = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateSharingStatusBatch): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    if (message.indexs) {
+      obj.indexs = message.indexs.map((e) => e)
+    } else {
+      obj.indexs = []
+    }
+    message.status !== undefined && (obj.status = message.status)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateSharingStatusBatch>): MsgUpdateSharingStatusBatch {
+    const message = { ...baseMsgUpdateSharingStatusBatch } as MsgUpdateSharingStatusBatch
+    message.indexs = []
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.indexs !== undefined && object.indexs !== null) {
+      for (const e of object.indexs) {
+        message.indexs.push(e)
+      }
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status
+    } else {
+      message.status = ''
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateSharingStatusBatchResponse: object = {}
+
+export const MsgUpdateSharingStatusBatchResponse = {
+  encode(_: MsgUpdateSharingStatusBatchResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateSharingStatusBatchResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateSharingStatusBatchResponse } as MsgUpdateSharingStatusBatchResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateSharingStatusBatchResponse {
+    const message = { ...baseMsgUpdateSharingStatusBatchResponse } as MsgUpdateSharingStatusBatchResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateSharingStatusBatchResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateSharingStatusBatchResponse>): MsgUpdateSharingStatusBatchResponse {
+    const message = { ...baseMsgUpdateSharingStatusBatchResponse } as MsgUpdateSharingStatusBatchResponse
+    return message
+  }
+}
+
+const baseMsgCreateSharingBatch: object = { creator: '', viewerId: '', status: '', ownerIds: '' }
 
 export const MsgCreateSharingBatch = {
   encode(message: MsgCreateSharingBatch, writer: Writer = Writer.create()): Writer {
@@ -187,8 +454,11 @@ export const MsgCreateSharingBatch = {
     if (message.viewerId !== '') {
       writer.uint32(18).string(message.viewerId)
     }
+    if (message.status !== '') {
+      writer.uint32(26).string(message.status)
+    }
     for (const v of message.ownerIds) {
-      writer.uint32(26).string(v!)
+      writer.uint32(34).string(v!)
     }
     return writer
   },
@@ -208,6 +478,9 @@ export const MsgCreateSharingBatch = {
           message.viewerId = reader.string()
           break
         case 3:
+          message.status = reader.string()
+          break
+        case 4:
           message.ownerIds.push(reader.string())
           break
         default:
@@ -231,6 +504,11 @@ export const MsgCreateSharingBatch = {
     } else {
       message.viewerId = ''
     }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = String(object.status)
+    } else {
+      message.status = ''
+    }
     if (object.ownerIds !== undefined && object.ownerIds !== null) {
       for (const e of object.ownerIds) {
         message.ownerIds.push(String(e))
@@ -243,6 +521,7 @@ export const MsgCreateSharingBatch = {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
     message.viewerId !== undefined && (obj.viewerId = message.viewerId)
+    message.status !== undefined && (obj.status = message.status)
     if (message.ownerIds) {
       obj.ownerIds = message.ownerIds.map((e) => e)
     } else {
@@ -263,6 +542,11 @@ export const MsgCreateSharingBatch = {
       message.viewerId = object.viewerId
     } else {
       message.viewerId = ''
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status
+    } else {
+      message.status = ''
     }
     if (object.ownerIds !== undefined && object.ownerIds !== null) {
       for (const e of object.ownerIds) {
@@ -2728,6 +3012,8 @@ export const MsgDeleteUserResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse>
+  UpdateSharingStatusBatch(request: MsgUpdateSharingStatusBatch): Promise<MsgUpdateSharingStatusBatchResponse>
   CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse>
   CreateAdmin(request: MsgCreateAdmin): Promise<MsgCreateAdminResponse>
   UpdateAdmin(request: MsgUpdateAdmin): Promise<MsgUpdateAdminResponse>
@@ -2753,6 +3039,18 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse> {
+    const data = MsgDeleteSharingBatch.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Msg', 'DeleteSharingBatch', data)
+    return promise.then((data) => MsgDeleteSharingBatchResponse.decode(new Reader(data)))
+  }
+
+  UpdateSharingStatusBatch(request: MsgUpdateSharingStatusBatch): Promise<MsgUpdateSharingStatusBatchResponse> {
+    const data = MsgUpdateSharingStatusBatch.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Msg', 'UpdateSharingStatusBatch', data)
+    return promise.then((data) => MsgUpdateSharingStatusBatchResponse.decode(new Reader(data)))
+  }
+
   CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse> {
     const data = MsgCreateSharingBatch.encode(request).finish()
     const promise = this.rpc.request('sota.medichain.medichain.Msg', 'CreateSharingBatch', data)

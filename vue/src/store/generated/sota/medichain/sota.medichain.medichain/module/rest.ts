@@ -48,6 +48,8 @@ export type MedichainMsgDeleteServiceResponse = object;
 
 export type MedichainMsgDeleteServiceUserResponse = object;
 
+export type MedichainMsgDeleteSharingBatchResponse = object;
+
 export type MedichainMsgDeleteSharingResponse = object;
 
 export type MedichainMsgDeleteUserResponse = object;
@@ -67,6 +69,8 @@ export interface MedichainMsgUpdateServiceUserResponse {
 export interface MedichainMsgUpdateSharingResponse {
   Sharing?: MedichainSharing;
 }
+
+export type MedichainMsgUpdateSharingStatusBatchResponse = object;
 
 export interface MedichainMsgUpdateUserResponse {
   User?: MedichainUser;
