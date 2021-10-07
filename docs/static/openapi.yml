@@ -30287,6 +30287,8 @@ definitions:
         type: string
   sota.medichain.medichain.MsgAcceptSharingResponse:
     type: object
+  sota.medichain.medichain.MsgBanUserResponse:
+    type: object
   sota.medichain.medichain.MsgCreateAdminResponse:
     type: object
     properties:

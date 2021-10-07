@@ -28,6 +28,94 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # proto/tx/message
+type MsgBanUser struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	UserId  string `protobuf:"bytes,2,opt,name=UserId,proto3" json:"UserId,omitempty"`
+}
+
+func (m *MsgBanUser) Reset()         { *m = MsgBanUser{} }
+func (m *MsgBanUser) String() string { return proto.CompactTextString(m) }
+func (*MsgBanUser) ProtoMessage()    {}
+func (*MsgBanUser) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cac46a8524c2c843, []int{0}
+}
+func (m *MsgBanUser) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgBanUser) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgBanUser.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgBanUser) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBanUser.Merge(m, src)
+}
+func (m *MsgBanUser) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgBanUser) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBanUser.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgBanUser proto.InternalMessageInfo
+
+func (m *MsgBanUser) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgBanUser) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+type MsgBanUserResponse struct {
+}
+
+func (m *MsgBanUserResponse) Reset()         { *m = MsgBanUserResponse{} }
+func (m *MsgBanUserResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgBanUserResponse) ProtoMessage()    {}
+func (*MsgBanUserResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_cac46a8524c2c843, []int{1}
+}
+func (m *MsgBanUserResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgBanUserResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgBanUserResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgBanUserResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBanUserResponse.Merge(m, src)
+}
+func (m *MsgBanUserResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgBanUserResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBanUserResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgBanUserResponse proto.InternalMessageInfo
+
 type MsgDeleteSharingBatch struct {
 	Creator string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Indexs  []string `protobuf:"bytes,2,rep,name=indexs,proto3" json:"indexs,omitempty"`
@@ -37,7 +125,7 @@ func (m *MsgDeleteSharingBatch) Reset()         { *m = MsgDeleteSharingBatch{} }
 func (m *MsgDeleteSharingBatch) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteSharingBatch) ProtoMessage()    {}
 func (*MsgDeleteSharingBatch) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{0}
+	return fileDescriptor_cac46a8524c2c843, []int{2}
 }
 func (m *MsgDeleteSharingBatch) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -87,7 +175,7 @@ func (m *MsgDeleteSharingBatchResponse) Reset()         { *m = MsgDeleteSharingB
 func (m *MsgDeleteSharingBatchResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteSharingBatchResponse) ProtoMessage()    {}
 func (*MsgDeleteSharingBatchResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{1}
+	return fileDescriptor_cac46a8524c2c843, []int{3}
 }
 func (m *MsgDeleteSharingBatchResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -126,7 +214,7 @@ func (m *MsgUpdateSharingStatusBatch) Reset()         { *m = MsgUpdateSharingSta
 func (m *MsgUpdateSharingStatusBatch) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateSharingStatusBatch) ProtoMessage()    {}
 func (*MsgUpdateSharingStatusBatch) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{2}
+	return fileDescriptor_cac46a8524c2c843, []int{4}
 }
 func (m *MsgUpdateSharingStatusBatch) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -183,7 +271,7 @@ func (m *MsgUpdateSharingStatusBatchResponse) Reset()         { *m = MsgUpdateSh
 func (m *MsgUpdateSharingStatusBatchResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateSharingStatusBatchResponse) ProtoMessage()    {}
 func (*MsgUpdateSharingStatusBatchResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{3}
+	return fileDescriptor_cac46a8524c2c843, []int{5}
 }
 func (m *MsgUpdateSharingStatusBatchResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -223,7 +311,7 @@ func (m *MsgCreateSharingBatch) Reset()         { *m = MsgCreateSharingBatch{} }
 func (m *MsgCreateSharingBatch) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateSharingBatch) ProtoMessage()    {}
 func (*MsgCreateSharingBatch) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{4}
+	return fileDescriptor_cac46a8524c2c843, []int{6}
 }
 func (m *MsgCreateSharingBatch) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -287,7 +375,7 @@ func (m *MsgCreateSharingBatchResponse) Reset()         { *m = MsgCreateSharingB
 func (m *MsgCreateSharingBatchResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateSharingBatchResponse) ProtoMessage()    {}
 func (*MsgCreateSharingBatchResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{5}
+	return fileDescriptor_cac46a8524c2c843, []int{7}
 }
 func (m *MsgCreateSharingBatchResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -325,7 +413,7 @@ func (m *MsgCreateAdmin) Reset()         { *m = MsgCreateAdmin{} }
 func (m *MsgCreateAdmin) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateAdmin) ProtoMessage()    {}
 func (*MsgCreateAdmin) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{6}
+	return fileDescriptor_cac46a8524c2c843, []int{8}
 }
 func (m *MsgCreateAdmin) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -376,7 +464,7 @@ func (m *MsgCreateAdminResponse) Reset()         { *m = MsgCreateAdminResponse{}
 func (m *MsgCreateAdminResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateAdminResponse) ProtoMessage()    {}
 func (*MsgCreateAdminResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{7}
+	return fileDescriptor_cac46a8524c2c843, []int{9}
 }
 func (m *MsgCreateAdminResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -422,7 +510,7 @@ func (m *MsgUpdateAdmin) Reset()         { *m = MsgUpdateAdmin{} }
 func (m *MsgUpdateAdmin) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateAdmin) ProtoMessage()    {}
 func (*MsgUpdateAdmin) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{8}
+	return fileDescriptor_cac46a8524c2c843, []int{10}
 }
 func (m *MsgUpdateAdmin) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -479,7 +567,7 @@ func (m *MsgUpdateAdminResponse) Reset()         { *m = MsgUpdateAdminResponse{}
 func (m *MsgUpdateAdminResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateAdminResponse) ProtoMessage()    {}
 func (*MsgUpdateAdminResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{9}
+	return fileDescriptor_cac46a8524c2c843, []int{11}
 }
 func (m *MsgUpdateAdminResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -517,7 +605,7 @@ func (m *MsgDeleteAdmin) Reset()         { *m = MsgDeleteAdmin{} }
 func (m *MsgDeleteAdmin) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteAdmin) ProtoMessage()    {}
 func (*MsgDeleteAdmin) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{10}
+	return fileDescriptor_cac46a8524c2c843, []int{12}
 }
 func (m *MsgDeleteAdmin) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -567,7 +655,7 @@ func (m *MsgDeleteAdminResponse) Reset()         { *m = MsgDeleteAdminResponse{}
 func (m *MsgDeleteAdminResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteAdminResponse) ProtoMessage()    {}
 func (*MsgDeleteAdminResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{11}
+	return fileDescriptor_cac46a8524c2c843, []int{13}
 }
 func (m *MsgDeleteAdminResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -605,7 +693,7 @@ func (m *MsgRejectSharing) Reset()         { *m = MsgRejectSharing{} }
 func (m *MsgRejectSharing) String() string { return proto.CompactTextString(m) }
 func (*MsgRejectSharing) ProtoMessage()    {}
 func (*MsgRejectSharing) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{12}
+	return fileDescriptor_cac46a8524c2c843, []int{14}
 }
 func (m *MsgRejectSharing) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -655,7 +743,7 @@ func (m *MsgRejectSharingResponse) Reset()         { *m = MsgRejectSharingRespon
 func (m *MsgRejectSharingResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgRejectSharingResponse) ProtoMessage()    {}
 func (*MsgRejectSharingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{13}
+	return fileDescriptor_cac46a8524c2c843, []int{15}
 }
 func (m *MsgRejectSharingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -693,7 +781,7 @@ func (m *MsgAcceptSharing) Reset()         { *m = MsgAcceptSharing{} }
 func (m *MsgAcceptSharing) String() string { return proto.CompactTextString(m) }
 func (*MsgAcceptSharing) ProtoMessage()    {}
 func (*MsgAcceptSharing) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{14}
+	return fileDescriptor_cac46a8524c2c843, []int{16}
 }
 func (m *MsgAcceptSharing) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -743,7 +831,7 @@ func (m *MsgAcceptSharingResponse) Reset()         { *m = MsgAcceptSharingRespon
 func (m *MsgAcceptSharingResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgAcceptSharingResponse) ProtoMessage()    {}
 func (*MsgAcceptSharingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{15}
+	return fileDescriptor_cac46a8524c2c843, []int{17}
 }
 func (m *MsgAcceptSharingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -783,7 +871,7 @@ func (m *MsgCreateSharing) Reset()         { *m = MsgCreateSharing{} }
 func (m *MsgCreateSharing) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateSharing) ProtoMessage()    {}
 func (*MsgCreateSharing) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{16}
+	return fileDescriptor_cac46a8524c2c843, []int{18}
 }
 func (m *MsgCreateSharing) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -848,7 +936,7 @@ func (m *MsgCreateSharingResponse) Reset()         { *m = MsgCreateSharingRespon
 func (m *MsgCreateSharingResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateSharingResponse) ProtoMessage()    {}
 func (*MsgCreateSharingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{17}
+	return fileDescriptor_cac46a8524c2c843, []int{19}
 }
 func (m *MsgCreateSharingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -896,7 +984,7 @@ func (m *MsgUpdateSharing) Reset()         { *m = MsgUpdateSharing{} }
 func (m *MsgUpdateSharing) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateSharing) ProtoMessage()    {}
 func (*MsgUpdateSharing) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{18}
+	return fileDescriptor_cac46a8524c2c843, []int{20}
 }
 func (m *MsgUpdateSharing) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -968,7 +1056,7 @@ func (m *MsgUpdateSharingResponse) Reset()         { *m = MsgUpdateSharingRespon
 func (m *MsgUpdateSharingResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateSharingResponse) ProtoMessage()    {}
 func (*MsgUpdateSharingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{19}
+	return fileDescriptor_cac46a8524c2c843, []int{21}
 }
 func (m *MsgUpdateSharingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1013,7 +1101,7 @@ func (m *MsgDeleteSharing) Reset()         { *m = MsgDeleteSharing{} }
 func (m *MsgDeleteSharing) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteSharing) ProtoMessage()    {}
 func (*MsgDeleteSharing) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{20}
+	return fileDescriptor_cac46a8524c2c843, []int{22}
 }
 func (m *MsgDeleteSharing) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1063,7 +1151,7 @@ func (m *MsgDeleteSharingResponse) Reset()         { *m = MsgDeleteSharingRespon
 func (m *MsgDeleteSharingResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteSharingResponse) ProtoMessage()    {}
 func (*MsgDeleteSharingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{21}
+	return fileDescriptor_cac46a8524c2c843, []int{23}
 }
 func (m *MsgDeleteSharingResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1104,7 +1192,7 @@ func (m *MsgCreateServiceUser) Reset()         { *m = MsgCreateServiceUser{} }
 func (m *MsgCreateServiceUser) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateServiceUser) ProtoMessage()    {}
 func (*MsgCreateServiceUser) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{22}
+	return fileDescriptor_cac46a8524c2c843, []int{24}
 }
 func (m *MsgCreateServiceUser) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1176,7 +1264,7 @@ func (m *MsgCreateServiceUserResponse) Reset()         { *m = MsgCreateServiceUs
 func (m *MsgCreateServiceUserResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateServiceUserResponse) ProtoMessage()    {}
 func (*MsgCreateServiceUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{23}
+	return fileDescriptor_cac46a8524c2c843, []int{25}
 }
 func (m *MsgCreateServiceUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1225,7 +1313,7 @@ func (m *MsgUpdateServiceUser) Reset()         { *m = MsgUpdateServiceUser{} }
 func (m *MsgUpdateServiceUser) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateServiceUser) ProtoMessage()    {}
 func (*MsgUpdateServiceUser) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{24}
+	return fileDescriptor_cac46a8524c2c843, []int{26}
 }
 func (m *MsgUpdateServiceUser) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1304,7 +1392,7 @@ func (m *MsgUpdateServiceUserResponse) Reset()         { *m = MsgUpdateServiceUs
 func (m *MsgUpdateServiceUserResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateServiceUserResponse) ProtoMessage()    {}
 func (*MsgUpdateServiceUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{25}
+	return fileDescriptor_cac46a8524c2c843, []int{27}
 }
 func (m *MsgUpdateServiceUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1349,7 +1437,7 @@ func (m *MsgDeleteServiceUser) Reset()         { *m = MsgDeleteServiceUser{} }
 func (m *MsgDeleteServiceUser) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteServiceUser) ProtoMessage()    {}
 func (*MsgDeleteServiceUser) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{26}
+	return fileDescriptor_cac46a8524c2c843, []int{28}
 }
 func (m *MsgDeleteServiceUser) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1399,7 +1487,7 @@ func (m *MsgDeleteServiceUserResponse) Reset()         { *m = MsgDeleteServiceUs
 func (m *MsgDeleteServiceUserResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteServiceUserResponse) ProtoMessage()    {}
 func (*MsgDeleteServiceUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{27}
+	return fileDescriptor_cac46a8524c2c843, []int{29}
 }
 func (m *MsgDeleteServiceUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1440,7 +1528,7 @@ func (m *MsgCreateService) Reset()         { *m = MsgCreateService{} }
 func (m *MsgCreateService) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateService) ProtoMessage()    {}
 func (*MsgCreateService) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{28}
+	return fileDescriptor_cac46a8524c2c843, []int{30}
 }
 func (m *MsgCreateService) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1512,7 +1600,7 @@ func (m *MsgCreateServiceResponse) Reset()         { *m = MsgCreateServiceRespon
 func (m *MsgCreateServiceResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateServiceResponse) ProtoMessage()    {}
 func (*MsgCreateServiceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{29}
+	return fileDescriptor_cac46a8524c2c843, []int{31}
 }
 func (m *MsgCreateServiceResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1561,7 +1649,7 @@ func (m *MsgUpdateService) Reset()         { *m = MsgUpdateService{} }
 func (m *MsgUpdateService) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateService) ProtoMessage()    {}
 func (*MsgUpdateService) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{30}
+	return fileDescriptor_cac46a8524c2c843, []int{32}
 }
 func (m *MsgUpdateService) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1640,7 +1728,7 @@ func (m *MsgUpdateServiceResponse) Reset()         { *m = MsgUpdateServiceRespon
 func (m *MsgUpdateServiceResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateServiceResponse) ProtoMessage()    {}
 func (*MsgUpdateServiceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{31}
+	return fileDescriptor_cac46a8524c2c843, []int{33}
 }
 func (m *MsgUpdateServiceResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1685,7 +1773,7 @@ func (m *MsgDeleteService) Reset()         { *m = MsgDeleteService{} }
 func (m *MsgDeleteService) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteService) ProtoMessage()    {}
 func (*MsgDeleteService) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{32}
+	return fileDescriptor_cac46a8524c2c843, []int{34}
 }
 func (m *MsgDeleteService) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1735,7 +1823,7 @@ func (m *MsgDeleteServiceResponse) Reset()         { *m = MsgDeleteServiceRespon
 func (m *MsgDeleteServiceResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteServiceResponse) ProtoMessage()    {}
 func (*MsgDeleteServiceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{33}
+	return fileDescriptor_cac46a8524c2c843, []int{35}
 }
 func (m *MsgDeleteServiceResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1774,7 +1862,7 @@ func (m *MsgCreateUser) Reset()         { *m = MsgCreateUser{} }
 func (m *MsgCreateUser) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateUser) ProtoMessage()    {}
 func (*MsgCreateUser) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{34}
+	return fileDescriptor_cac46a8524c2c843, []int{36}
 }
 func (m *MsgCreateUser) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1832,7 +1920,7 @@ func (m *MsgCreateUserResponse) Reset()         { *m = MsgCreateUserResponse{} }
 func (m *MsgCreateUserResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateUserResponse) ProtoMessage()    {}
 func (*MsgCreateUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{35}
+	return fileDescriptor_cac46a8524c2c843, []int{37}
 }
 func (m *MsgCreateUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1879,7 +1967,7 @@ func (m *MsgUpdateUser) Reset()         { *m = MsgUpdateUser{} }
 func (m *MsgUpdateUser) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateUser) ProtoMessage()    {}
 func (*MsgUpdateUser) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{36}
+	return fileDescriptor_cac46a8524c2c843, []int{38}
 }
 func (m *MsgUpdateUser) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1944,7 +2032,7 @@ func (m *MsgUpdateUserResponse) Reset()         { *m = MsgUpdateUserResponse{} }
 func (m *MsgUpdateUserResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateUserResponse) ProtoMessage()    {}
 func (*MsgUpdateUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{37}
+	return fileDescriptor_cac46a8524c2c843, []int{39}
 }
 func (m *MsgUpdateUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1989,7 +2077,7 @@ func (m *MsgDeleteUser) Reset()         { *m = MsgDeleteUser{} }
 func (m *MsgDeleteUser) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteUser) ProtoMessage()    {}
 func (*MsgDeleteUser) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{38}
+	return fileDescriptor_cac46a8524c2c843, []int{40}
 }
 func (m *MsgDeleteUser) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2039,7 +2127,7 @@ func (m *MsgDeleteUserResponse) Reset()         { *m = MsgDeleteUserResponse{} }
 func (m *MsgDeleteUserResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteUserResponse) ProtoMessage()    {}
 func (*MsgDeleteUserResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac46a8524c2c843, []int{39}
+	return fileDescriptor_cac46a8524c2c843, []int{41}
 }
 func (m *MsgDeleteUserResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -2069,6 +2157,8 @@ func (m *MsgDeleteUserResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgDeleteUserResponse proto.InternalMessageInfo
 
 func init() {
+	proto.RegisterType((*MsgBanUser)(nil), "sota.medichain.medichain.MsgBanUser")
+	proto.RegisterType((*MsgBanUserResponse)(nil), "sota.medichain.medichain.MsgBanUserResponse")
 	proto.RegisterType((*MsgDeleteSharingBatch)(nil), "sota.medichain.medichain.MsgDeleteSharingBatch")
 	proto.RegisterType((*MsgDeleteSharingBatchResponse)(nil), "sota.medichain.medichain.MsgDeleteSharingBatchResponse")
 	proto.RegisterType((*MsgUpdateSharingStatusBatch)(nil), "sota.medichain.medichain.MsgUpdateSharingStatusBatch")
@@ -2114,75 +2204,78 @@ func init() {
 func init() { proto.RegisterFile("medichain/tx.proto", fileDescriptor_cac46a8524c2c843) }
 
 var fileDescriptor_cac46a8524c2c843 = []byte{
-	// 1085 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x58, 0x5f, 0x6f, 0xe3, 0x44,
-	0x10, 0xaf, 0x93, 0xb4, 0xbd, 0x4e, 0x95, 0xd3, 0x9d, 0xd5, 0xbb, 0xb3, 0x4c, 0x31, 0xc5, 0x70,
-	0x6a, 0x14, 0x24, 0x07, 0x05, 0x01, 0x12, 0x08, 0xa1, 0x86, 0x7f, 0x2a, 0xa7, 0xbc, 0xe4, 0x74,
-	0x42, 0x42, 0x42, 0xc8, 0xb5, 0xf7, 0x1c, 0xa3, 0x26, 0x8e, 0xbc, 0x4e, 0xff, 0x50, 0xa9, 0x12,
-	0x2f, 0x3c, 0xe7, 0x03, 0xf0, 0x01, 0xf8, 0x14, 0x3c, 0xf3, 0xd8, 0x47, 0x1e, 0x51, 0xfb, 0x45,
-	0x90, 0xd7, 0x9b, 0xf5, 0x6e, 0xfc, 0x6f, 0x13, 0x52, 0xdd, 0x9b, 0x77, 0x77, 0x66, 0x7e, 0x33,
-	0xbf, 0x9d, 0x9d, 0xcc, 0x04, 0xd4, 0x11, 0x72, 0x7d, 0x67, 0x68, 0xfb, 0xe3, 0x4e, 0x74, 0x61,
-	0x4d, 0xc2, 0x20, 0x0a, 0x54, 0x0d, 0x07, 0x91, 0x6d, 0xb1, 0x83, 0xf4, 0x4b, 0x7f, 0x92, 0x4a,
-	0xdb, 0xee, 0xc8, 0x1f, 0x27, 0x0a, 0xfa, 0xb3, 0x74, 0x1b, 0x0f, 0xed, 0xd0, 0x1f, 0x7b, 0xf4,
-	0x60, 0x9f, 0x3b, 0x40, 0xe1, 0x99, 0xef, 0xa0, 0x9f, 0xa7, 0x18, 0x85, 0x39, 0x6a, 0xc9, 0x29,
-	0x3d, 0xd8, 0x4b, 0x0f, 0x52, 0x71, 0xf3, 0x18, 0x9e, 0xf4, 0xb1, 0xf7, 0x35, 0x3a, 0x45, 0x11,
-	0x7a, 0x99, 0xc0, 0xf4, 0xec, 0xc8, 0x19, 0xaa, 0x1a, 0x6c, 0x3b, 0x21, 0xb2, 0xa3, 0x20, 0xd4,
-	0x94, 0x03, 0xa5, 0xb5, 0x33, 0x98, 0x2f, 0xd5, 0xa7, 0xb0, 0xe5, 0x8f, 0x5d, 0x74, 0x81, 0xb5,
-	0xda, 0x41, 0xbd, 0xb5, 0x33, 0xa0, 0x2b, 0xf3, 0x1d, 0x78, 0x3b, 0xd7, 0xd4, 0x00, 0xe1, 0x49,
-	0x30, 0xc6, 0xc8, 0xf4, 0xe0, 0xad, 0x3e, 0xf6, 0x5e, 0x4d, 0x5c, 0x9b, 0x09, 0xbc, 0x8c, 0xec,
-	0x68, 0x8a, 0x57, 0x44, 0x8c, 0xf7, 0x31, 0x31, 0xa0, 0xd5, 0x89, 0x02, 0x5d, 0x99, 0xcf, 0xe1,
-	0xbd, 0x12, 0x20, 0xe6, 0xcf, 0x6f, 0x0a, 0x09, 0xfe, 0xab, 0x18, 0x45, 0x36, 0x78, 0x1d, 0x1e,
-	0x9c, 0xf9, 0xe8, 0x1c, 0x85, 0xc7, 0xae, 0x56, 0x23, 0x47, 0x6c, 0x5d, 0xe4, 0x4e, 0xac, 0x13,
-	0x9c, 0x8f, 0x63, 0x11, 0xac, 0x35, 0x48, 0x00, 0x6c, 0x4d, 0x49, 0xcb, 0xba, 0xc0, 0x9c, 0xec,
-	0xc1, 0x43, 0x26, 0x70, 0x14, 0xa7, 0x47, 0x39, 0x4f, 0x93, 0xe9, 0xc9, 0x0b, 0x74, 0x49, 0x5d,
-	0xa3, 0x2b, 0xb3, 0x05, 0x4f, 0x45, 0x1b, 0x73, 0xeb, 0xea, 0x43, 0xa8, 0xf9, 0x2e, 0x31, 0xd3,
-	0x18, 0xd4, 0x7c, 0xd7, 0x1c, 0x10, 0xb4, 0x84, 0xb9, 0x2a, 0xb4, 0x44, 0xb7, 0x36, 0xd7, 0xe5,
-	0xd0, 0xeb, 0x02, 0xba, 0x46, 0xd0, 0x39, 0x9b, 0x2c, 0xb6, 0xcf, 0x08, 0x5a, 0x92, 0x31, 0x4b,
-	0xa2, 0x51, 0xab, 0x9c, 0x2e, 0xb3, 0xfa, 0x3d, 0x3c, 0xea, 0x63, 0x6f, 0x80, 0x7e, 0x41, 0x4e,
-	0x44, 0x29, 0x2d, 0xb1, 0xbb, 0x0f, 0x3b, 0xf4, 0x79, 0xb1, 0x1b, 0x4d, 0x37, 0x4c, 0x1d, 0xb4,
-	0x45, 0x5b, 0x0b, 0x38, 0x47, 0x8e, 0x83, 0x26, 0x6b, 0xc2, 0x11, 0x6c, 0x31, 0x9c, 0x5f, 0x09,
-	0x8e, 0x90, 0x22, 0x25, 0x38, 0x1a, 0x6c, 0xd3, 0xe4, 0xa2, 0xd7, 0x30, 0x5f, 0x0a, 0xa9, 0xdb,
-	0x28, 0x4c, 0xdd, 0x4d, 0xe1, 0x25, 0xfd, 0x40, 0xfc, 0x12, 0xb0, 0x59, 0xee, 0x7c, 0x0e, 0xdb,
-	0x74, 0x8b, 0xf8, 0xb0, 0xdb, 0x7d, 0xd7, 0x2a, 0xaa, 0x71, 0xd6, 0x5c, 0x77, 0xae, 0x61, 0xce,
-	0x14, 0x12, 0x95, 0xf0, 0x46, 0x4b, 0xa2, 0xda, 0x83, 0x4d, 0xf2, 0xe6, 0x29, 0x73, 0xc9, 0xe2,
-	0x5e, 0x62, 0x15, 0x3c, 0x5a, 0x4f, 0xac, 0x3d, 0x12, 0xaa, 0x50, 0x18, 0x97, 0x0d, 0x95, 0x26,
-	0x88, 0x60, 0x83, 0x25, 0xc8, 0x9f, 0x0a, 0xec, 0xa5, 0xb7, 0x94, 0x14, 0xfd, 0x57, 0x18, 0x85,
-	0x15, 0xd9, 0x98, 0x08, 0x32, 0xee, 0xd2, 0x8d, 0x98, 0xa1, 0xf8, 0x27, 0x82, 0x71, 0x47, 0x57,
-	0xea, 0xfb, 0xd0, 0xc4, 0xa9, 0xf9, 0x63, 0x97, 0x12, 0x28, 0x6e, 0xc6, 0xdc, 0xfb, 0xf8, 0xc8,
-	0x89, 0xfc, 0x33, 0xa4, 0x6d, 0x1d, 0x28, 0xad, 0x07, 0x03, 0xb6, 0x36, 0x3d, 0xd8, 0xcf, 0xf3,
-	0x94, 0xf1, 0xfc, 0x1d, 0xec, 0x72, 0xdb, 0x94, 0xeb, 0xe7, 0x25, 0x5c, 0x73, 0x36, 0x78, 0x4d,
-	0xf3, 0xaf, 0x84, 0x13, 0x7a, 0x9b, 0x52, 0x9c, 0xe4, 0xe7, 0xd8, 0x9b, 0x65, 0x2a, 0xe3, 0xff,
-	0xfa, 0x99, 0xfa, 0x96, 0x10, 0x45, 0x33, 0x6b, 0x75, 0xa2, 0x4c, 0x83, 0x38, 0x9c, 0xb1, 0xc3,
-	0xb2, 0xf4, 0x77, 0x85, 0xaf, 0x63, 0x89, 0x40, 0x09, 0x88, 0x0a, 0x8d, 0xb1, 0x3d, 0x42, 0x94,
-	0x72, 0xf2, 0xad, 0x3e, 0x82, 0xfa, 0x34, 0x3c, 0xa5, 0x54, 0xc7, 0x9f, 0xdc, 0x6f, 0xce, 0x26,
-	0xff, 0x9b, 0x53, 0xca, 0xac, 0x50, 0xd3, 0x12, 0x3f, 0x84, 0x77, 0x9e, 0x6c, 0x49, 0xbc, 0x73,
-	0xaa, 0x3b, 0xd7, 0x30, 0xff, 0x10, 0x6a, 0x5a, 0x65, 0x84, 0xf9, 0xf9, 0x76, 0xdf, 0x71, 0x0b,
-	0xde, 0xad, 0x27, 0x6e, 0xa1, 0xbe, 0xad, 0x16, 0xb6, 0x58, 0xdf, 0x44, 0xe7, 0xcc, 0x9f, 0xa0,
-	0xc9, 0x2e, 0xac, 0x22, 0x35, 0x0b, 0x7a, 0x10, 0x81, 0x97, 0xc6, 0x02, 0x2f, 0x2f, 0xb8, 0x2e,
-	0x50, 0x78, 0x62, 0x5d, 0x68, 0x70, 0x6f, 0xcb, 0x28, 0x66, 0x84, 0x68, 0x11, 0x59, 0x13, 0x13,
-	0x5f, 0x13, 0x92, 0x57, 0xaa, 0x37, 0xab, 0x47, 0x90, 0x82, 0xfe, 0xaf, 0x08, 0xbe, 0x24, 0x11,
-	0x24, 0x37, 0xb1, 0x52, 0x21, 0x78, 0xc6, 0x8d, 0x14, 0xbc, 0x37, 0xdd, 0x99, 0x0a, 0xf5, 0x3e,
-	0xf6, 0xd4, 0x6b, 0x50, 0x73, 0x06, 0x8e, 0x4e, 0xb1, 0x77, 0xb9, 0x63, 0x85, 0xfe, 0xe9, 0x92,
-	0x0a, 0x8c, 0x95, 0x99, 0x02, 0x5a, 0xe1, 0x14, 0xf2, 0x71, 0xa9, 0xd5, 0x22, 0x35, 0xfd, 0x8b,
-	0x95, 0xd4, 0x98, 0x4b, 0xd7, 0xa0, 0xe6, 0x8c, 0x21, 0xe5, 0x94, 0x64, 0x15, 0x2a, 0x28, 0x29,
-	0x9e, 0x32, 0x54, 0x1f, 0x76, 0xf9, 0x11, 0xa3, 0x25, 0x61, 0x87, 0x48, 0xea, 0x1f, 0xca, 0x4a,
-	0xf2, 0x50, 0xfc, 0x7c, 0xd1, 0x92, 0x20, 0x4e, 0x06, 0x2a, 0x67, 0xbe, 0x88, 0xa1, 0xf8, 0xe1,
-	0xa2, 0x25, 0x91, 0x30, 0x32, 0x50, 0x39, 0x43, 0x87, 0x1a, 0x40, 0x53, 0x9c, 0x38, 0xda, 0xa5,
-	0x26, 0x04, 0x59, 0xbd, 0x2b, 0x2f, 0xcb, 0x03, 0x8a, 0xa3, 0x47, 0x39, 0xa0, 0x20, 0x5b, 0x01,
-	0x98, 0x3b, 0x86, 0xc4, 0x80, 0xe2, 0x0c, 0xd2, 0x96, 0x4f, 0xb6, 0x0a, 0xc0, 0xfc, 0xf9, 0x22,
-	0x80, 0xa6, 0x38, 0x1e, 0xb4, 0xe5, 0xdf, 0x58, 0x05, 0x60, 0x7e, 0x93, 0x1f, 0x40, 0x53, 0x6c,
-	0xd2, 0xdb, 0xf2, 0x15, 0xa6, 0x02, 0x30, 0xb7, 0x71, 0x57, 0xaf, 0xe0, 0x71, 0xb6, 0x69, 0xb7,
-	0x64, 0xa8, 0x4a, 0xe5, 0xf5, 0x4f, 0x96, 0x93, 0xe7, 0xc1, 0xb3, 0xdd, 0xb1, 0x25, 0x43, 0x9b,
-	0x34, 0x78, 0x71, 0xf7, 0x7a, 0x05, 0x8f, 0xb3, 0x1d, 0xa7, 0x25, 0x43, 0xa1, 0x34, 0x78, 0x61,
-	0x27, 0xca, 0x65, 0x32, 0x6d, 0x56, 0xda, 0xf2, 0x14, 0xca, 0x65, 0xf2, 0x42, 0x77, 0x95, 0x66,
-	0xb2, 0x14, 0xa0, 0x20, 0x2b, 0x97, 0xc9, 0x59, 0x40, 0xb1, 0x1d, 0x6b, 0xcb, 0x53, 0x25, 0x97,
-	0xc9, 0x0b, 0x80, 0xaf, 0x01, 0xb8, 0xfe, 0xec, 0x50, 0x82, 0x23, 0x72, 0x83, 0x1d, 0x49, 0x41,
-	0x1e, 0x87, 0xeb, 0xad, 0x0e, 0x25, 0xa8, 0x91, 0xc0, 0xc9, 0x69, 0x9c, 0x5e, 0x03, 0x70, 0x1d,
-	0xd0, 0xa1, 0x04, 0x23, 0x12, 0x38, 0xd9, 0x96, 0xa8, 0xf7, 0xcd, 0xdf, 0xb7, 0x86, 0x72, 0x73,
-	0x6b, 0x28, 0xff, 0xde, 0x1a, 0xca, 0xec, 0xce, 0xd8, 0xb8, 0xb9, 0x33, 0x36, 0xfe, 0xb9, 0x33,
-	0x36, 0x7e, 0xfc, 0xc0, 0xf3, 0xa3, 0xe1, 0xf4, 0xc4, 0x72, 0x82, 0x51, 0x27, 0x36, 0xda, 0x49,
-	0xff, 0xbe, 0xbd, 0xe0, 0xbe, 0xa3, 0xcb, 0x09, 0xc2, 0x27, 0x5b, 0xe4, 0xcf, 0xdc, 0x8f, 0xfe,
-	0x0b, 0x00, 0x00, 0xff, 0xff, 0xaa, 0xa2, 0x78, 0xd2, 0x79, 0x16, 0x00, 0x00,
+	// 1123 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x58, 0x5f, 0x6f, 0xdc, 0x44,
+	0x10, 0x8f, 0xef, 0x2e, 0x49, 0x3b, 0xd1, 0x55, 0xad, 0x95, 0xb6, 0x96, 0x09, 0x26, 0x98, 0x56,
+	0x39, 0x1d, 0xc8, 0x87, 0x82, 0x00, 0x09, 0x04, 0x28, 0xc7, 0x3f, 0x85, 0xea, 0x5e, 0xae, 0xaa,
+	0x90, 0x90, 0x2a, 0xe4, 0xd8, 0x5b, 0xc7, 0xa8, 0xb1, 0x4f, 0x5e, 0x5f, 0x9a, 0x52, 0x09, 0x89,
+	0x17, 0x9e, 0xf3, 0x01, 0xf8, 0x00, 0x7c, 0x0a, 0x9e, 0x79, 0xec, 0x23, 0x8f, 0x28, 0xf9, 0x00,
+	0x7c, 0x05, 0xe4, 0xdd, 0xf5, 0x7a, 0xf7, 0xfc, 0x6f, 0x73, 0x5c, 0xd5, 0xb7, 0x9b, 0xdd, 0x99,
+	0xf9, 0xcd, 0xfc, 0x76, 0x76, 0x3d, 0x73, 0xa0, 0x9f, 0x20, 0x3f, 0xf4, 0x8e, 0xdd, 0x30, 0x1a,
+	0xa5, 0x67, 0xce, 0x2c, 0x89, 0xd3, 0x58, 0x37, 0x70, 0x9c, 0xba, 0x0e, 0xdf, 0x28, 0x7e, 0x99,
+	0xb7, 0x0b, 0x6d, 0xd7, 0x3f, 0x09, 0x23, 0x6a, 0x60, 0xde, 0x2d, 0x96, 0xf1, 0xb1, 0x9b, 0x84,
+	0x51, 0xc0, 0x36, 0x76, 0x84, 0x0d, 0x94, 0x9c, 0x86, 0x1e, 0xfa, 0x71, 0x8e, 0x51, 0x52, 0x61,
+	0x46, 0x77, 0xd9, 0xc6, 0x76, 0xb1, 0x51, 0xa8, 0xdb, 0x9f, 0x03, 0x4c, 0x70, 0x30, 0x76, 0xa3,
+	0x47, 0x18, 0x25, 0xba, 0x01, 0x9b, 0x5e, 0x82, 0xdc, 0x34, 0x4e, 0x0c, 0x6d, 0x57, 0x1b, 0x5c,
+	0x9f, 0xe6, 0xa2, 0x7e, 0x07, 0x36, 0x32, 0x8d, 0x43, 0xdf, 0xe8, 0x90, 0x0d, 0x26, 0xd9, 0xdb,
+	0xa0, 0x17, 0xf6, 0x53, 0x84, 0x67, 0x71, 0x84, 0x91, 0x7d, 0x08, 0xb7, 0x27, 0x38, 0xf8, 0x0a,
+	0x3d, 0x45, 0x29, 0x7a, 0x48, 0x83, 0x1f, 0xbb, 0xa9, 0x77, 0xdc, 0x0c, 0x10, 0x46, 0x3e, 0x3a,
+	0xc3, 0x46, 0x67, 0xb7, 0x9b, 0x01, 0x50, 0xc9, 0x7e, 0x0b, 0xde, 0xac, 0x74, 0xc5, 0xb1, 0x02,
+	0x78, 0x63, 0x82, 0x83, 0x47, 0x33, 0xdf, 0xe5, 0x0a, 0x0f, 0x53, 0x37, 0x9d, 0xe3, 0x25, 0x11,
+	0xb3, 0x75, 0x4c, 0x1c, 0x18, 0x5d, 0x9a, 0x2a, 0x95, 0xec, 0xfb, 0xf0, 0x4e, 0x03, 0x10, 0x8f,
+	0xe7, 0x57, 0x8d, 0x24, 0xff, 0x65, 0x86, 0xa2, 0x9a, 0xbc, 0x09, 0xd7, 0x4e, 0x43, 0xf4, 0x4c,
+	0xe0, 0x97, 0xcb, 0x75, 0xe1, 0x64, 0x36, 0xf1, 0xb3, 0x28, 0x53, 0xc1, 0x46, 0x8f, 0x24, 0xc0,
+	0x65, 0x46, 0x5a, 0x39, 0x04, 0x1e, 0xe4, 0x18, 0x6e, 0x70, 0x85, 0x83, 0xac, 0xe8, 0x9a, 0x79,
+	0x9a, 0xcd, 0x8f, 0x1e, 0xa0, 0xe7, 0xf9, 0xd1, 0x53, 0xc9, 0x1e, 0xc0, 0x1d, 0xd9, 0x47, 0xee,
+	0x5d, 0xbf, 0x01, 0x9d, 0xd0, 0x27, 0x6e, 0x7a, 0xd3, 0x4e, 0xe8, 0xdb, 0x53, 0x82, 0x46, 0x99,
+	0x6b, 0x43, 0xa3, 0xb6, 0x9d, 0xdc, 0x56, 0x40, 0xef, 0x4a, 0xe8, 0x06, 0x41, 0x17, 0x7c, 0xf2,
+	0xdc, 0x3e, 0x21, 0x68, 0xb4, 0x62, 0xae, 0x88, 0xc6, 0xbc, 0x0a, 0xb6, 0xdc, 0xeb, 0x77, 0x70,
+	0x73, 0x82, 0x83, 0x29, 0xfa, 0x09, 0x79, 0x29, 0xa3, 0xb4, 0xc1, 0xef, 0x0e, 0x5c, 0x67, 0x97,
+	0x96, 0x9f, 0x68, 0xb1, 0x60, 0x9b, 0x60, 0x2c, 0xfa, 0x5a, 0xc0, 0x39, 0xf0, 0x3c, 0x34, 0x5b,
+	0x11, 0x8e, 0xe4, 0x8b, 0xe3, 0xfc, 0x4c, 0x70, 0xa4, 0x12, 0x69, 0xc0, 0x31, 0x60, 0x93, 0x15,
+	0x17, 0x3b, 0x86, 0x5c, 0x94, 0x4a, 0xb7, 0x57, 0x5b, 0xba, 0xeb, 0xd2, 0x4d, 0xfa, 0x9e, 0xc4,
+	0x25, 0x61, 0xf3, 0xda, 0xf9, 0x14, 0x36, 0xd9, 0x12, 0x89, 0x61, 0x6b, 0xff, 0x6d, 0xa7, 0xee,
+	0xe5, 0x74, 0x72, 0xdb, 0xdc, 0xc2, 0x3e, 0xd7, 0x48, 0x56, 0xd2, 0x1d, 0x6d, 0xc8, 0x6a, 0x1b,
+	0xd6, 0xc9, 0x9d, 0x67, 0xcc, 0x51, 0xe1, 0x95, 0xe4, 0x2a, 0x45, 0xb4, 0x9a, 0x5c, 0xc7, 0x24,
+	0x55, 0xe9, 0x61, 0xbc, 0x6a, 0xaa, 0xac, 0x40, 0x24, 0x1f, 0xbc, 0x40, 0xfe, 0xd0, 0x60, 0xbb,
+	0x38, 0x25, 0xfa, 0x29, 0x69, 0xf9, 0x48, 0x64, 0xd5, 0x48, 0x15, 0x39, 0x77, 0xc5, 0x42, 0xc6,
+	0xd0, 0x1c, 0x0b, 0xdc, 0x31, 0x49, 0xbf, 0x07, 0x7d, 0x5c, 0xb8, 0x3f, 0xf4, 0x19, 0x81, 0xf2,
+	0x62, 0xc6, 0x7d, 0x88, 0x0f, 0xbc, 0x34, 0x3c, 0x45, 0xc6, 0xc6, 0xae, 0x36, 0xb8, 0x36, 0xe5,
+	0xb2, 0x1d, 0xc0, 0x4e, 0x55, 0xa4, 0x9c, 0xe7, 0x6f, 0x61, 0x4b, 0x58, 0x66, 0x5c, 0xdf, 0x6f,
+	0xe0, 0x5a, 0xf0, 0x21, 0x5a, 0xda, 0x7f, 0x52, 0x4e, 0xd8, 0x69, 0x2a, 0x71, 0x52, 0x5d, 0x63,
+	0xaf, 0x97, 0xa9, 0x52, 0xfc, 0xab, 0x67, 0xea, 0x1b, 0x42, 0x14, 0xab, 0xac, 0xe5, 0x89, 0xb2,
+	0x2d, 0x12, 0x70, 0xc9, 0x0f, 0xaf, 0xd2, 0xdf, 0x34, 0xf1, 0x1d, 0xa3, 0x0a, 0x0d, 0x20, 0x3a,
+	0xf4, 0x22, 0xf7, 0x04, 0x31, 0xca, 0xc9, 0x6f, 0xfd, 0x26, 0x74, 0xe7, 0xc9, 0x53, 0x46, 0x75,
+	0xf6, 0x53, 0xf8, 0xe6, 0xac, 0x8b, 0xdf, 0x9c, 0x46, 0x66, 0xa5, 0x37, 0x8d, 0xc6, 0x21, 0xdd,
+	0x73, 0xba, 0xa4, 0x70, 0xcf, 0x99, 0x6d, 0x6e, 0x61, 0xff, 0x2e, 0xbd, 0x69, 0xad, 0x19, 0x56,
+	0xd7, 0xdb, 0xab, 0xce, 0x5b, 0x8a, 0x6e, 0x35, 0x79, 0x4b, 0xef, 0xdb, 0x72, 0x69, 0xcb, 0xef,
+	0x9b, 0x1c, 0x9c, 0xfd, 0x18, 0xfa, 0xfc, 0xc0, 0xda, 0x9b, 0xdf, 0xaa, 0x1e, 0x44, 0xe2, 0xa5,
+	0xb7, 0xc0, 0xcb, 0x03, 0xa1, 0x0b, 0x94, 0xae, 0xd8, 0x3e, 0xf4, 0x84, 0xbb, 0x65, 0xd5, 0x33,
+	0x42, 0xac, 0x88, 0xae, 0x8d, 0x49, 0xac, 0x94, 0xe4, 0xa5, 0xde, 0x9b, 0xe5, 0x33, 0x28, 0x40,
+	0xff, 0x57, 0x06, 0x5f, 0x90, 0x0c, 0xe8, 0x49, 0x2c, 0xf5, 0x10, 0xdc, 0x15, 0x46, 0x0a, 0x31,
+	0x9a, 0xfd, 0x7f, 0x75, 0xe8, 0x4e, 0x70, 0xa0, 0x3f, 0x86, 0xcd, 0x7c, 0x8c, 0xb9, 0x57, 0x1f,
+	0x52, 0x31, 0xac, 0x98, 0xef, 0xa9, 0x68, 0xf1, 0xa4, 0x7f, 0x01, 0xbd, 0x62, 0x9e, 0x19, 0x35,
+	0xfa, 0x28, 0x1b, 0x98, 0x1f, 0x5f, 0xd1, 0x80, 0xe3, 0x9f, 0x6b, 0x60, 0xd4, 0x0e, 0x39, 0x1f,
+	0x36, 0x7a, 0xad, 0x33, 0x33, 0x3f, 0x5b, 0xca, 0x4c, 0xa4, 0xa4, 0x62, 0xca, 0x69, 0xa6, 0xa4,
+	0x6c, 0xd0, 0x42, 0x49, 0xfd, 0x10, 0xa3, 0x87, 0xb0, 0x25, 0x4e, 0x30, 0x03, 0x05, 0x3f, 0x44,
+	0xd3, 0x7c, 0x5f, 0x55, 0x53, 0x84, 0x12, 0xc7, 0x97, 0x81, 0x02, 0x71, 0x2a, 0x50, 0x15, 0xe3,
+	0x4b, 0x06, 0x25, 0xce, 0x2e, 0x03, 0x85, 0x82, 0x51, 0x81, 0xaa, 0x98, 0x69, 0xf4, 0x18, 0xfa,
+	0xf2, 0x40, 0x33, 0x6c, 0x74, 0x21, 0xe9, 0x9a, 0xfb, 0xea, 0xba, 0x22, 0xa0, 0x3c, 0xd9, 0x34,
+	0x03, 0x4a, 0xba, 0x2d, 0x80, 0x95, 0x53, 0x4e, 0x06, 0x28, 0x8f, 0x38, 0x43, 0xf5, 0x62, 0x6b,
+	0x01, 0xac, 0x1e, 0x5f, 0x62, 0xe8, 0xcb, 0xd3, 0xc7, 0x50, 0xfd, 0x8e, 0xb5, 0x00, 0x56, 0xcf,
+	0x10, 0x31, 0xf4, 0xe5, 0x19, 0x60, 0xa8, 0xfe, 0xc2, 0xb4, 0x00, 0x56, 0xce, 0x05, 0xfa, 0x0b,
+	0xb8, 0x55, 0x9e, 0x09, 0x1c, 0x15, 0xaa, 0x0a, 0x7d, 0xf3, 0xa3, 0xab, 0xe9, 0x8b, 0xe0, 0xe5,
+	0xe6, 0xdb, 0x51, 0xa1, 0x4d, 0x19, 0xbc, 0xbe, 0x39, 0x7e, 0x01, 0xb7, 0xca, 0x0d, 0xad, 0xa3,
+	0x42, 0xa1, 0x32, 0x78, 0x6d, 0xa3, 0x2b, 0x54, 0x32, 0xeb, 0x85, 0x86, 0xea, 0x14, 0xaa, 0x55,
+	0xf2, 0x42, 0xf3, 0x56, 0x54, 0xb2, 0x12, 0xa0, 0xa4, 0xab, 0x56, 0xc9, 0x65, 0x40, 0xb9, 0xdb,
+	0x1b, 0xaa, 0x53, 0xa5, 0x56, 0xc9, 0x0b, 0x80, 0x4f, 0x00, 0x84, 0xf6, 0x6f, 0x4f, 0x81, 0x23,
+	0x72, 0x82, 0x23, 0x45, 0x45, 0x11, 0x47, 0x68, 0xdd, 0xf6, 0x14, 0xa8, 0x51, 0xc0, 0xa9, 0xe8,
+	0xcb, 0x9e, 0x00, 0x08, 0x0d, 0xd6, 0x9e, 0x02, 0x23, 0x0a, 0x38, 0xe5, 0x8e, 0x6b, 0xfc, 0xf5,
+	0x5f, 0x17, 0x96, 0xf6, 0xf2, 0xc2, 0xd2, 0xfe, 0xb9, 0xb0, 0xb4, 0xf3, 0x4b, 0x6b, 0xed, 0xe5,
+	0xa5, 0xb5, 0xf6, 0xf7, 0xa5, 0xb5, 0xf6, 0xc3, 0xbb, 0x41, 0x98, 0x1e, 0xcf, 0x8f, 0x1c, 0x2f,
+	0x3e, 0x19, 0x65, 0x4e, 0x47, 0xc5, 0x7f, 0xce, 0x67, 0xc2, 0xef, 0xf4, 0xf9, 0x0c, 0xe1, 0xa3,
+	0x0d, 0xf2, 0x0f, 0xf4, 0x07, 0xff, 0x05, 0x00, 0x00, 0xff, 0xff, 0x2c, 0xe5, 0xdb, 0x8c, 0x2e,
+	0x17, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -2198,6 +2291,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	// this line is used by starport scaffolding # proto/tx/rpc
+	BanUser(ctx context.Context, in *MsgBanUser, opts ...grpc.CallOption) (*MsgBanUserResponse, error)
 	DeleteSharingBatch(ctx context.Context, in *MsgDeleteSharingBatch, opts ...grpc.CallOption) (*MsgDeleteSharingBatchResponse, error)
 	UpdateSharingStatusBatch(ctx context.Context, in *MsgUpdateSharingStatusBatch, opts ...grpc.CallOption) (*MsgUpdateSharingStatusBatchResponse, error)
 	CreateSharingBatch(ctx context.Context, in *MsgCreateSharingBatch, opts ...grpc.CallOption) (*MsgCreateSharingBatchResponse, error)
@@ -2226,6 +2320,15 @@ type msgClient struct {
 
 func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
+}
+
+func (c *msgClient) BanUser(ctx context.Context, in *MsgBanUser, opts ...grpc.CallOption) (*MsgBanUserResponse, error) {
+	out := new(MsgBanUserResponse)
+	err := c.cc.Invoke(ctx, "/sota.medichain.medichain.Msg/BanUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *msgClient) DeleteSharingBatch(ctx context.Context, in *MsgDeleteSharingBatch, opts ...grpc.CallOption) (*MsgDeleteSharingBatchResponse, error) {
@@ -2411,6 +2514,7 @@ func (c *msgClient) DeleteUser(ctx context.Context, in *MsgDeleteUser, opts ...g
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// this line is used by starport scaffolding # proto/tx/rpc
+	BanUser(context.Context, *MsgBanUser) (*MsgBanUserResponse, error)
 	DeleteSharingBatch(context.Context, *MsgDeleteSharingBatch) (*MsgDeleteSharingBatchResponse, error)
 	UpdateSharingStatusBatch(context.Context, *MsgUpdateSharingStatusBatch) (*MsgUpdateSharingStatusBatchResponse, error)
 	CreateSharingBatch(context.Context, *MsgCreateSharingBatch) (*MsgCreateSharingBatchResponse, error)
@@ -2437,6 +2541,9 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
+func (*UnimplementedMsgServer) BanUser(ctx context.Context, req *MsgBanUser) (*MsgBanUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BanUser not implemented")
+}
 func (*UnimplementedMsgServer) DeleteSharingBatch(ctx context.Context, req *MsgDeleteSharingBatch) (*MsgDeleteSharingBatchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSharingBatch not implemented")
 }
@@ -2500,6 +2607,24 @@ func (*UnimplementedMsgServer) DeleteUser(ctx context.Context, req *MsgDeleteUse
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
+}
+
+func _Msg_BanUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBanUser)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).BanUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/sota.medichain.medichain.Msg/BanUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).BanUser(ctx, req.(*MsgBanUser))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Msg_DeleteSharingBatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -2867,6 +2992,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "BanUser",
+			Handler:    _Msg_BanUser_Handler,
+		},
+		{
 			MethodName: "DeleteSharingBatch",
 			Handler:    _Msg_DeleteSharingBatch_Handler,
 		},
@@ -2949,6 +3078,66 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "medichain/tx.proto",
+}
+
+func (m *MsgBanUser) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgBanUser) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgBanUser) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgBanUserResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgBanUserResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgBanUserResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
 }
 
 func (m *MsgDeleteSharingBatch) Marshal() (dAtA []byte, err error) {
@@ -4465,6 +4654,32 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *MsgBanUser) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgBanUserResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
 func (m *MsgDeleteSharingBatch) Size() (n int) {
 	if m == nil {
 		return 0
@@ -5127,6 +5342,170 @@ func sovTx(x uint64) (n int) {
 }
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *MsgBanUser) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBanUser: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBanUser: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgBanUserResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgBanUserResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgBanUserResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *MsgDeleteSharingBatch) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

@@ -10,8 +10,8 @@ func (k msgServer) DeleteSharingBatch(goCtx context.Context, msg *types.MsgDelet
 
 	for _, v := range msg.Indexs {
 		m := types.MsgDeleteSharing{
-			Creator:  msg.Creator,
-			Index: v,
+			Creator: msg.Creator,
+			Index:   v,
 		}
 		_, err := k.DeleteSharing(goCtx, &m)
 		if err != nil {

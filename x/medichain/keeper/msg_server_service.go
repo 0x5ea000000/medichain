@@ -43,6 +43,16 @@ func (k msgServer) CreateService(goCtx context.Context, msg *types.MsgCreateServ
 		ctx,
 		service,
 	)
+
+	//initCoin, err := sdk.ParseCoinsNormalized("1stake")
+	//if err != nil {
+	//	return nil, err
+	//}
+	//
+	//if err := k.bankKeeper.MintCoins(ctx, creatorAddress, moduleAcct, ); err != nil {
+	//	return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "created but cannot generate blockchain address")
+	//}
+
 	return &types.MsgCreateServiceResponse{Service: &service}, nil
 }
 

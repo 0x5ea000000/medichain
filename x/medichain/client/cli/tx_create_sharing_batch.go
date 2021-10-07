@@ -19,7 +19,7 @@ func CmdCreateSharingBatch() *cobra.Command {
 		Args:  cobra.MinimumNArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsViewerId := string(args[0])
-			argsOwnerId := args[1:len(args)-1]
+			argsOwnerId := args[1 : len(args)-1]
 			argsStatus := string(args[len(args)-1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)

@@ -5,6 +5,7 @@ export interface MedichainAdmin {
     pubKey?: string;
 }
 export declare type MedichainMsgAcceptSharingResponse = object;
+export declare type MedichainMsgBanUserResponse = object;
 export interface MedichainMsgCreateAdminResponse {
     /** @format uint64 */
     id?: string;

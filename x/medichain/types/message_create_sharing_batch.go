@@ -13,7 +13,7 @@ func NewMsgCreateSharingBatch(creator string, viewerId string, ownerIds []string
 		Creator:  creator,
 		ViewerId: viewerId,
 		OwnerIds: ownerIds,
-		Status: status,
+		Status:   status,
 	}
 }
 

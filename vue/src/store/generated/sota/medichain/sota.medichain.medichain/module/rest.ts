@@ -19,6 +19,8 @@ export interface MedichainAdmin {
 
 export type MedichainMsgAcceptSharingResponse = object;
 
+export type MedichainMsgBanUserResponse = object;
+
 export interface MedichainMsgCreateAdminResponse {
   /** @format uint64 */
   id?: string;

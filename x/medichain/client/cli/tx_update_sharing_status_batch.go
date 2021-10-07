@@ -18,7 +18,7 @@ func CmdUpdateSharingStatusBatch() *cobra.Command {
 		Short: "Broadcast message update-sharing-status-batch",
 		Args:  cobra.MinimumNArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsIndexs := args[0:len(args)-1]
+			argsIndexs := args[0 : len(args)-1]
 			argsStatus := string(args[1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)

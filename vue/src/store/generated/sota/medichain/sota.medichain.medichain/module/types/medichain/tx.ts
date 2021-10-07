@@ -9,6 +9,13 @@ import { User } from '../medichain/user'
 export const protobufPackage = 'sota.medichain.medichain'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgBanUser {
+  creator: string
+  UserId: string
+}
+
+export interface MsgBanUserResponse {}
+
 export interface MsgDeleteSharingBatch {
   creator: string
   indexs: string[]
@@ -192,6 +199,116 @@ export interface MsgDeleteUser {
 }
 
 export interface MsgDeleteUserResponse {}
+
+const baseMsgBanUser: object = { creator: '', UserId: '' }
+
+export const MsgBanUser = {
+  encode(message: MsgBanUser, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.UserId !== '') {
+      writer.uint32(18).string(message.UserId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgBanUser {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgBanUser } as MsgBanUser
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.UserId = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgBanUser {
+    const message = { ...baseMsgBanUser } as MsgBanUser
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.UserId !== undefined && object.UserId !== null) {
+      message.UserId = String(object.UserId)
+    } else {
+      message.UserId = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgBanUser): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.UserId !== undefined && (obj.UserId = message.UserId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgBanUser>): MsgBanUser {
+    const message = { ...baseMsgBanUser } as MsgBanUser
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.UserId !== undefined && object.UserId !== null) {
+      message.UserId = object.UserId
+    } else {
+      message.UserId = ''
+    }
+    return message
+  }
+}
+
+const baseMsgBanUserResponse: object = {}
+
+export const MsgBanUserResponse = {
+  encode(_: MsgBanUserResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgBanUserResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgBanUserResponse } as MsgBanUserResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgBanUserResponse {
+    const message = { ...baseMsgBanUserResponse } as MsgBanUserResponse
+    return message
+  },
+
+  toJSON(_: MsgBanUserResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgBanUserResponse>): MsgBanUserResponse {
+    const message = { ...baseMsgBanUserResponse } as MsgBanUserResponse
+    return message
+  }
+}
 
 const baseMsgDeleteSharingBatch: object = { creator: '', indexs: '' }
 
@@ -3012,6 +3129,7 @@ export const MsgDeleteUserResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  BanUser(request: MsgBanUser): Promise<MsgBanUserResponse>
   DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse>
   UpdateSharingStatusBatch(request: MsgUpdateSharingStatusBatch): Promise<MsgUpdateSharingStatusBatchResponse>
   CreateSharingBatch(request: MsgCreateSharingBatch): Promise<MsgCreateSharingBatchResponse>
@@ -3039,6 +3157,12 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  BanUser(request: MsgBanUser): Promise<MsgBanUserResponse> {
+    const data = MsgBanUser.encode(request).finish()
+    const promise = this.rpc.request('sota.medichain.medichain.Msg', 'BanUser', data)
+    return promise.then((data) => MsgBanUserResponse.decode(new Reader(data)))
+  }
+
   DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse> {
     const data = MsgDeleteSharingBatch.encode(request).finish()
     const promise = this.rpc.request('sota.medichain.medichain.Msg', 'DeleteSharingBatch', data)
