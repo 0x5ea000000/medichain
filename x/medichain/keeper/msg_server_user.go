@@ -41,6 +41,15 @@ func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (
 		ctx,
 		user,
 	)
+
+	err := k.initAcct(ctx, msg.PubKey)
+
+	if err != nil {
+		logger := k.Logger(ctx)
+		logger.Error(err.Error())
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "cannot init address")
+	}
+
 	return &types.MsgCreateUserResponse{User: &user}, nil
 }
 

@@ -3,10 +3,9 @@ package keeper
 import (
 	"context"
 	"fmt"
-	"github.com/google/uuid"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/google/uuid"
 	"github.com/sota/medichain/x/medichain/types"
 )
 
@@ -44,14 +43,13 @@ func (k msgServer) CreateService(goCtx context.Context, msg *types.MsgCreateServ
 		service,
 	)
 
-	//initCoin, err := sdk.ParseCoinsNormalized("1stake")
-	//if err != nil {
-	//	return nil, err
-	//}
-	//
-	//if err := k.bankKeeper.MintCoins(ctx, creatorAddress, moduleAcct, ); err != nil {
-	//	return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "created but cannot generate blockchain address")
-	//}
+	err := k.initAcct(ctx, msg.PubKey)
+
+	if err != nil {
+		logger := k.Logger(ctx)
+		logger.Error(err.Error())
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "cannot init address")
+	}
 
 	return &types.MsgCreateServiceResponse{Service: &service}, nil
 }
