@@ -13,6 +13,11 @@ import (
 func (k msgServer) CreateSharing(goCtx context.Context, msg *types.MsgCreateSharing) (*types.MsgCreateSharingResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
+
 	var indexStr string
 
 	// Check if the id value already exists
@@ -49,6 +54,11 @@ func (k msgServer) CreateSharing(goCtx context.Context, msg *types.MsgCreateShar
 func (k msgServer) UpdateSharing(goCtx context.Context, msg *types.MsgUpdateSharing) (*types.MsgUpdateSharingResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
+
 	// Check if the value exists
 	valFound, isFound := k.GetSharing(ctx, msg.Index)
 	if !isFound {
@@ -81,6 +91,11 @@ func (k msgServer) UpdateSharing(goCtx context.Context, msg *types.MsgUpdateShar
 
 func (k msgServer) DeleteSharing(goCtx context.Context, msg *types.MsgDeleteSharing) (*types.MsgDeleteSharingResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
 
 	// Check if the value exists
 	valFound, isFound := k.GetSharing(ctx, msg.Index)

@@ -12,6 +12,11 @@ import (
 func (k msgServer) CreateService(goCtx context.Context, msg *types.MsgCreateService) (*types.MsgCreateServiceResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
+
 	var indexStr string
 
 	// Check if the id value already exists
@@ -57,6 +62,11 @@ func (k msgServer) CreateService(goCtx context.Context, msg *types.MsgCreateServ
 func (k msgServer) UpdateService(goCtx context.Context, msg *types.MsgUpdateService) (*types.MsgUpdateServiceResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
+
 	// Check if the value exists
 	valFound, isFound := k.GetService(ctx, msg.Index)
 	if !isFound {
@@ -89,6 +99,11 @@ func (k msgServer) UpdateService(goCtx context.Context, msg *types.MsgUpdateServ
 
 func (k msgServer) DeleteService(goCtx context.Context, msg *types.MsgDeleteService) (*types.MsgDeleteServiceResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
 
 	// Check if the value exists
 	valFound, isFound := k.GetService(ctx, msg.Index)

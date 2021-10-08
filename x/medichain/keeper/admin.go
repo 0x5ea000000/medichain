@@ -2,8 +2,10 @@ package keeper
 
 import (
 	"encoding/binary"
+	"fmt"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/sota/medichain/x/medichain/types"
 	"strconv"
 )
@@ -116,4 +118,19 @@ func GetAdminIDBytes(id uint64) []byte {
 // GetAdminIDFromBytes returns ID in uint64 format from a byte array
 func GetAdminIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
+}
+
+func (k Keeper)CheckAdmin(ctx sdk.Context, addr string) error {
+	//validate creator
+	admin := k.GetAdmin(ctx, 0)
+
+	adminAddr, err := types.DecodeAddressFromPubKey(admin.PubKey)
+	if err != nil {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("incorrect creator , %v", err.Error()))
+	}
+
+	if addr != *adminAddr {
+		return sdkerrors.Wrap(sdkerrors.ErrUnauthorized, fmt.Sprintf("incorrect creator , %v", err.Error()))
+	}
+	return nil
 }

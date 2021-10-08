@@ -81,6 +81,11 @@ func (k msgServer) CreateServiceUser(goCtx context.Context, msg *types.MsgCreate
 func (k msgServer) UpdateServiceUser(goCtx context.Context, msg *types.MsgUpdateServiceUser) (*types.MsgUpdateServiceUserResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
+
 	// Check if the value exists
 	valFound, isFound := k.GetServiceUser(ctx, msg.Index)
 	if !isFound {
@@ -108,6 +113,11 @@ func (k msgServer) UpdateServiceUser(goCtx context.Context, msg *types.MsgUpdate
 
 func (k msgServer) DeleteServiceUser(goCtx context.Context, msg *types.MsgDeleteServiceUser) (*types.MsgDeleteServiceUserResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
 
 	// Check if the value exists
 	valFound, isFound := k.GetServiceUser(ctx, msg.Index)

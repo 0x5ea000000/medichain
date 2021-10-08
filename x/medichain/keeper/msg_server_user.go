@@ -13,6 +13,11 @@ import (
 func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (*types.MsgCreateUserResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
+
 	var indexStr string
 
 	// Check if the id value already exists
@@ -56,6 +61,11 @@ func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (
 func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (*types.MsgUpdateUserResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
+
 	// Check if the value exists
 	valFound, isFound := k.GetUser(ctx, msg.Index)
 	if !isFound {
@@ -86,6 +96,11 @@ func (k msgServer) UpdateUser(goCtx context.Context, msg *types.MsgUpdateUser) (
 
 func (k msgServer) DeleteUser(goCtx context.Context, msg *types.MsgDeleteUser) (*types.MsgDeleteUserResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	//validate creator
+	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {
+		return nil, err
+	}
 
 	// Check if the value exists
 	valFound, isFound := k.GetUser(ctx, msg.Index)
