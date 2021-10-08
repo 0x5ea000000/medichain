@@ -58,6 +58,8 @@ export type MedichainMsgDeleteUserResponse = object;
 
 export type MedichainMsgRejectSharingResponse = object;
 
+export type MedichainMsgUnbanUserResponse = object;
+
 export type MedichainMsgUpdateAdminResponse = object;
 
 export interface MedichainMsgUpdateServiceResponse {

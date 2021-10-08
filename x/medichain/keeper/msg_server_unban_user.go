@@ -9,7 +9,7 @@ import (
 	"github.com/sota/medichain/x/medichain/types"
 )
 
-func (k msgServer) BanUser(goCtx context.Context, msg *types.MsgBanUser) (*types.MsgBanUserResponse, error) {
+func (k msgServer) UnbanUser(goCtx context.Context, msg *types.MsgUnbanUser) (*types.MsgUnbanUserResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	user, found := k.GetUser(ctx, msg.UserId)
@@ -17,15 +17,9 @@ func (k msgServer) BanUser(goCtx context.Context, msg *types.MsgBanUser) (*types
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user %v not found", msg.UserId))
 	}
 
-	user.IsActive = false
-
-	serviceUsers := k.GetUserServiceLinked(ctx, msg.UserId)
-
-	for _, v := range serviceUsers {
-		k.RemoveServiceUser(ctx, v.Index)
-	}
+	user.IsActive = true
 
 	k.SetUser(ctx, user)
 
-	return &types.MsgBanUserResponse{}, nil
+	return &types.MsgUnbanUserResponse{}, nil
 }

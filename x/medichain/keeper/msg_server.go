@@ -20,7 +20,7 @@ func NewMsgServerImpl(keeper Keeper) types.MsgServer {
 
 var _ types.MsgServer = msgServer{}
 
-func (k Keeper)initAcct(ctx sdk.Context, desPubKey string) error {
+func (k Keeper) initAcct(ctx sdk.Context, desPubKey string) error {
 	initCoin, err := sdk.ParseCoinsNormalized("1token")
 	if err != nil {
 		return err
@@ -30,7 +30,7 @@ func (k Keeper)initAcct(ctx sdk.Context, desPubKey string) error {
 
 	logger.Info("dcm")
 
-	if err := k.bankKeeper.MintCoins(ctx, types.ModuleName, initCoin ); err != nil {
+	if err := k.bankKeeper.MintCoins(ctx, types.ModuleName, initCoin); err != nil {
 		return err
 	}
 

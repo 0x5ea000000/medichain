@@ -5,9 +5,15 @@ import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export declare const protobufPackage = "sota.medichain.medichain";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgUnbanUser {
+    creator: string;
+    userId: string;
+}
+export interface MsgUnbanUserResponse {
+}
 export interface MsgBanUser {
     creator: string;
-    UserId: string;
+    userId: string;
 }
 export interface MsgBanUserResponse {
 }
@@ -166,6 +172,20 @@ export interface MsgDeleteUser {
 }
 export interface MsgDeleteUserResponse {
 }
+export declare const MsgUnbanUser: {
+    encode(message: MsgUnbanUser, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUnbanUser;
+    fromJSON(object: any): MsgUnbanUser;
+    toJSON(message: MsgUnbanUser): unknown;
+    fromPartial(object: DeepPartial<MsgUnbanUser>): MsgUnbanUser;
+};
+export declare const MsgUnbanUserResponse: {
+    encode(_: MsgUnbanUserResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUnbanUserResponse;
+    fromJSON(_: any): MsgUnbanUserResponse;
+    toJSON(_: MsgUnbanUserResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUnbanUserResponse>): MsgUnbanUserResponse;
+};
 export declare const MsgBanUser: {
     encode(message: MsgBanUser, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgBanUser;
@@ -463,6 +483,7 @@ export declare const MsgDeleteUserResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    UnbanUser(request: MsgUnbanUser): Promise<MsgUnbanUserResponse>;
     BanUser(request: MsgBanUser): Promise<MsgBanUserResponse>;
     DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse>;
     UpdateSharingStatusBatch(request: MsgUpdateSharingStatusBatch): Promise<MsgUpdateSharingStatusBatchResponse>;
@@ -488,6 +509,7 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    UnbanUser(request: MsgUnbanUser): Promise<MsgUnbanUserResponse>;
     BanUser(request: MsgBanUser): Promise<MsgBanUserResponse>;
     DeleteSharingBatch(request: MsgDeleteSharingBatch): Promise<MsgDeleteSharingBatchResponse>;
     UpdateSharingStatusBatch(request: MsgUpdateSharingStatusBatch): Promise<MsgUpdateSharingStatusBatchResponse>;

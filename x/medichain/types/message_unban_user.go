@@ -5,24 +5,24 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-var _ sdk.Msg = &MsgBanUser{}
+var _ sdk.Msg = &MsgUnbanUser{}
 
-func NewMsgBanUser(creator string, index string) *MsgBanUser {
-	return &MsgBanUser{
+func NewMsgUnbanUser(creator string, index string) *MsgUnbanUser {
+	return &MsgUnbanUser{
 		Creator: creator,
-		UserId:  index,
+		UserId:   index,
 	}
 }
 
-func (msg *MsgBanUser) Route() string {
+func (msg *MsgUnbanUser) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgBanUser) Type() string {
-	return "BanUser"
+func (msg *MsgUnbanUser) Type() string {
+	return "UnbanUser"
 }
 
-func (msg *MsgBanUser) GetSigners() []sdk.AccAddress {
+func (msg *MsgUnbanUser) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -30,12 +30,12 @@ func (msg *MsgBanUser) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgBanUser) GetSignBytes() []byte {
+func (msg *MsgUnbanUser) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgBanUser) ValidateBasic() error {
+func (msg *MsgUnbanUser) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

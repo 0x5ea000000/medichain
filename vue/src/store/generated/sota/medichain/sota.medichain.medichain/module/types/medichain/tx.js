@@ -6,14 +6,116 @@ import { ServiceUser } from '../medichain/service_user';
 import { Service } from '../medichain/service';
 import { User } from '../medichain/user';
 export const protobufPackage = 'sota.medichain.medichain';
-const baseMsgBanUser = { creator: '', UserId: '' };
+const baseMsgUnbanUser = { creator: '', userId: '' };
+export const MsgUnbanUser = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.userId !== '') {
+            writer.uint32(18).string(message.userId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUnbanUser };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.userId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUnbanUser };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = String(object.userId);
+        }
+        else {
+            message.userId = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.userId !== undefined && (obj.userId = message.userId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUnbanUser };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = object.userId;
+        }
+        else {
+            message.userId = '';
+        }
+        return message;
+    }
+};
+const baseMsgUnbanUserResponse = {};
+export const MsgUnbanUserResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUnbanUserResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgUnbanUserResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgUnbanUserResponse };
+        return message;
+    }
+};
+const baseMsgBanUser = { creator: '', userId: '' };
 export const MsgBanUser = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
-        if (message.UserId !== '') {
-            writer.uint32(18).string(message.UserId);
+        if (message.userId !== '') {
+            writer.uint32(18).string(message.userId);
         }
         return writer;
     },
@@ -28,7 +130,7 @@ export const MsgBanUser = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.UserId = reader.string();
+                    message.userId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -45,18 +147,18 @@ export const MsgBanUser = {
         else {
             message.creator = '';
         }
-        if (object.UserId !== undefined && object.UserId !== null) {
-            message.UserId = String(object.UserId);
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = String(object.userId);
         }
         else {
-            message.UserId = '';
+            message.userId = '';
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
-        message.UserId !== undefined && (obj.UserId = message.UserId);
+        message.userId !== undefined && (obj.userId = message.userId);
         return obj;
     },
     fromPartial(object) {
@@ -67,11 +169,11 @@ export const MsgBanUser = {
         else {
             message.creator = '';
         }
-        if (object.UserId !== undefined && object.UserId !== null) {
-            message.UserId = object.UserId;
+        if (object.userId !== undefined && object.userId !== null) {
+            message.userId = object.userId;
         }
         else {
-            message.UserId = '';
+            message.userId = '';
         }
         return message;
     }
@@ -2834,6 +2936,11 @@ export const MsgDeleteUserResponse = {
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    UnbanUser(request) {
+        const data = MsgUnbanUser.encode(request).finish();
+        const promise = this.rpc.request('sota.medichain.medichain.Msg', 'UnbanUser', data);
+        return promise.then((data) => MsgUnbanUserResponse.decode(new Reader(data)));
     }
     BanUser(request) {
         const data = MsgBanUser.encode(request).finish();

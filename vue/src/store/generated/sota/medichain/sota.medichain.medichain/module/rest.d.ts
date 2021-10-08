@@ -30,6 +30,7 @@ export declare type MedichainMsgDeleteSharingBatchResponse = object;
 export declare type MedichainMsgDeleteSharingResponse = object;
 export declare type MedichainMsgDeleteUserResponse = object;
 export declare type MedichainMsgRejectSharingResponse = object;
+export declare type MedichainMsgUnbanUserResponse = object;
 export declare type MedichainMsgUpdateAdminResponse = object;
 export interface MedichainMsgUpdateServiceResponse {
     Service?: MedichainService;
