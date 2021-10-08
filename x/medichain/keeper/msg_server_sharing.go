@@ -15,7 +15,7 @@ func (k msgServer) CreateSharing(goCtx context.Context, msg *types.MsgCreateShar
 
 	var indexStr string
 
-	// Check if the value already exists
+	// Check if the id value already exists
 	for indexStr == "" {
 		index, err := uuid.NewUUID()
 

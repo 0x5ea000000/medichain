@@ -13,9 +13,34 @@ import (
 func (k msgServer) CreateServiceUser(goCtx context.Context, msg *types.MsgCreateServiceUser) (*types.MsgCreateServiceUserResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	//validate creator
+	admin := k.GetAdmin(ctx, 0)
+
+	adminAddr, err := types.DecodeAddressFromPubKey(admin.PubKey)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("incorrect creator , %v", err.Error()))
+	}
+
+	if msg.Creator == *adminAddr {
+		msg.IsActive = false
+	} else {
+		service, found := k.GetService(ctx, msg.ServiceId)
+		if !found {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("incorrect creator , %v", err.Error()))
+		}
+
+		serviceAddr, err := types.DecodeAddressFromPubKey(service.PubKey)
+		if err != nil {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("incorrect creator , %v", err.Error()))
+		}
+		if msg.Creator != *serviceAddr {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, fmt.Sprintf("incorrect creator"))
+		}
+	}
+
 	var indexStr string
 
-	// Check if the value already exists
+	// Check if the id value already exists
 	for indexStr == "" {
 		index, err := uuid.NewUUID()
 
@@ -34,10 +59,16 @@ func (k msgServer) CreateServiceUser(goCtx context.Context, msg *types.MsgCreate
 		IsActive:      msg.IsActive,
 	}
 
-	err := k.ValidateServiceUser(ctx, &serviceUser)
-
-	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, err.Error())
+	val, isFound := k.GetServiceUserIfLinked(ctx, serviceUser)
+	if isFound {
+		serviceUser = val
+		serviceUser.ServiceUserId = msg.ServiceUserId
+		serviceUser.IsActive = msg.IsActive
+	} else {
+		err := k.ValidateServiceUser(ctx, &serviceUser)
+		if err != nil {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, err.Error())
+		}
 	}
 
 	k.SetServiceUser(

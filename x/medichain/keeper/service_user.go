@@ -92,9 +92,5 @@ func (k Keeper) ValidateServiceUser(ctx sdk.Context, serviceUser *types.ServiceU
 		return errors.New(fmt.Sprintf("service id not found %s", serviceUser.ServiceId))
 	}
 
-	_, isFound = k.GetServiceUserIfLinked(ctx, *serviceUser)
-	if isFound {
-		return errors.New("service and user linked")
-	}
 	return nil
 }

@@ -14,7 +14,7 @@ func (k msgServer) CreateService(goCtx context.Context, msg *types.MsgCreateServ
 
 	var indexStr string
 
-	// Check if the value already exists
+	// Check if the id value already exists
 	for indexStr == "" {
 		index, err := uuid.NewUUID()
 

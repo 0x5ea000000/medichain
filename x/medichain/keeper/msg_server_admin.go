@@ -26,6 +26,14 @@ func (k msgServer) CreateAdmin(goCtx context.Context, msg *types.MsgCreateAdmin)
 		admin,
 	)
 
+	err := k.initAcct(ctx, msg.PubKey)
+
+	if err != nil {
+		logger := k.Logger(ctx)
+		logger.Error(err.Error())
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "cannot init address")
+	}
+
 	return &types.MsgCreateAdminResponse{
 		Id: id,
 	}, nil

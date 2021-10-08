@@ -57,7 +57,7 @@ func (k Keeper) GetSharingIfExisted(ctx sdk.Context, sharing types.Sharing) (val
 
 	for ; iterator.Valid(); iterator.Next() {
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		if val.OwnerId == sharing.OwnerId && val.ViewerId == sharing.ViewerId {
+		if val.OwnerId == sharing.OwnerId && val.ViewerId == sharing.ViewerId && val.Status != types.REJECTED {
 			return val, true
 		}
 	}
