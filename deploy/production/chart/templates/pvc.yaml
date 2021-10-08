@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ .Values.service.name }}-pvc
+  name: {{ .Values.service.name }}-pvc-1
   labels:
     chart: {{ .Values.service.name }}
 spec:
