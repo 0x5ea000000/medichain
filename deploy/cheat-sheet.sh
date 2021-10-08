@@ -10,6 +10,7 @@ medichaind add-genesis-account medichain1knn0gxztj48rx827k6j86mcgqfkruqj4fmdrps 
 medichaind add-genesis-account medichain1dmh86ctqvcprf3zkvguckt7rv2u462jevfawxp 10000000000000token,100000000000stake
 
 
+medichaind tx medichain create-user Ahv5cN3x56UEXYLrWEk40AxS3tvZ0o8w+m/Ec7uK+bYA true --from validator1 --chain-id  test-chain -y
 echo ${MNEMONIC} | medichaind keys add 1231123 --recover --interactive=false 
 
 kubectl create cm --from-file=

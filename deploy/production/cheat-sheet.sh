@@ -5,7 +5,7 @@ minikube addons enable registry
 minikube addons enable ingress
 helm repo add cockroachdb https://charts.cockroachdb.com/
 helm repo update
-PROJECT_NAME=medical-chain-test
+PROJECT_NAME=medichain-test
 kubectl delete ns ${PROJECT_NAME}
 kubectl create ns ${PROJECT_NAME} --dry-run=client -o yaml | kubectl apply -f -
 helm delete cockroach-auth --namespace=${PROJECT_NAME}
@@ -29,7 +29,7 @@ kubectl -n=${PROJECT_NAME} describe pod auth-service
 kubectl  -n=${PROJECT_NAME} get pods,statefulsets,services,ingresses
 kubectl -n=${PROJECT_NAME} logs -l app=auth-service-selector --all-containers=true -f
 kubectl -n=${PROJECT_NAME} logs -l app=auth-service-selector -c init-auth-service  -f
-kubectl -n=${PROJECT_NAME} logs -l app=medicalchain-selector -c init-medicalchain  -f
+kubectl -n=${PROJECT_NAME} logs -l app=medichain-selector -c init-medichain  -f
 
 kubectl  -n=${PROJECT_NAME} get pods,statefulsets,services,ingresses
 #kubectl -n=${PROJECT_NAME} logs -l app=nginx-selector --all-containers=true -f
@@ -64,6 +64,6 @@ helm delete medichain-tunnel --namespace=${PROJECT_NAME}
 helm install medichain-tunnel -f medichain-tunnel.values.yaml --namespace=${PROJECT_NAME} deploy/production/sish-client-chart/
 kubectl -n=${PROJECT_NAME} describe pod medichain-tunnel
 kubectl  -n=${PROJECT_NAME} get pods,statefulsets,services,ingresses
-kubectl -n=${PROJECT_NAME} logs -l app=auth-tunnel-selector --all-containers=true -f
+kubectl -n=${PROJECT_NAME} logs -l app=medichain-selector --all-containers=true -f
 kubectl --namespace=${PROJECT_NAME} exec --stdin --tty medichain-deployment-6d87f99684-r528q -c medichain -- /bin/sh
 medicalchain-deployment-84c4958779-xg79c

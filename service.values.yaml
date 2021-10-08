@@ -16,7 +16,7 @@ livenessProbe:
   periodSeconds: 10
 service:
   name: medichain
-initBlockchain: true
+initBlockchain: false
 services:
   grpcPort: 9090
   rpcPort: 26657
@@ -28,4 +28,4 @@ services:
   genesis:
     account: validator1
     amount: 10000000000000token,100000000000stake
-    mnemonic: hotel
+    mnemonic: hotel sword swarm scissors desk chase illegal idea noise humble track orient spare nurse dad insect agent prison learn polar talk soccer sadness above
