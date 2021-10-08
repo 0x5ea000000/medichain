@@ -16,7 +16,7 @@ livenessProbe:
   periodSeconds: 10
 service:
   name: medichain
-initBlockchain: false
+initBlockchain: true
 services:
   grpcPort: 9090
   rpcPort: 26657

@@ -24,6 +24,7 @@ helm template medichain -f service.values.yaml --namespace=${PROJECT_NAME} deplo
 helm template auth-service -f service.values.yaml --namespace=${PROJECT_NAME} deploy/production/chart/
 helm install medichain --namespace=${PROJECT_NAME} ./deploy/production/chart/ -f service.values.yaml
 helm delete medichain --namespace=${PROJECT_NAME}
+helm template medichain -f service.values.yaml --namespace=${PROJECT_NAME} production/chart/
 
 kubectl -n=${PROJECT_NAME} describe pod auth-service
 kubectl  -n=${PROJECT_NAME} get pods,statefulsets,services,ingresses

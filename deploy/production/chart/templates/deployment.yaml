@@ -44,21 +44,6 @@ spec:
           - containerPort: {{ .Values.services.pprofPort | default "8000" }}
             name: "{{ .Values.service.name | initials }}-pprof"
       initContainers:
-      {{- if .Values.initBlockchain  }}
-      - name: "delete-{{ .Values.service.name }}"
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        command:
-          - "sh"
-          - "-c"
-          - |
-            /bin/sh << 'EOF'
-            rm -Rf ~/.medichain
-            EOF
-        volumeMounts:
-          - mountPath: "/home/tendermint/.medichain"
-            name: config
-      {{- end }}
       - name: "init-{{ .Values.service.name }}"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -67,12 +52,13 @@ spec:
           - "-c"
           - |
             /bin/sh << 'EOF'
-            medichaind init {{ .Values.services.node.moniker | default "first-node" }} --chain-id {{ .Values.services.node.chainID | default "medichain" }} 
+            medichaind init {{ .Values.services.node.moniker | default "first-node" }} --chain-id {{ .Values.services.node.chainID | default "medichain" }} {{ with .Values.initBlockchain }}--overwrite {{ end }}
             echo '{{ .Values.services.genesis.mnemonic }}' | medichaind keys add {{ .Values.services.genesis.account }} --hd-path "m/44'/118'/0'/0" --recover --interactive=false
             medichaind add-genesis-account {{ .Values.services.genesis.account }} {{ .Values.services.genesis.amount }}
             medichaind keys list
             medichaind gentx {{ .Values.services.genesis.account }} 100000000stake --chain-id {{ .Values.services.node.chainID | default "medichain" }}
             medichaind collect-gentxs
+            echo 123
             EOF
         volumeMounts:
           - mountPath: "/home/tendermint/.medichain"
