@@ -30313,6 +30313,8 @@ definitions:
             type: string
           isActive:
             type: boolean
+  sota.medichain.medichain.MsgCreateServiceUserBatchResponse:
+    type: object
   sota.medichain.medichain.MsgCreateServiceUserResponse:
     type: object
     properties:

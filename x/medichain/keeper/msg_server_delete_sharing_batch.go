@@ -8,7 +8,7 @@ import (
 )
 
 func (k msgServer) DeleteSharingBatch(goCtx context.Context, msg *types.MsgDeleteSharingBatch) (*types.MsgDeleteSharingBatchResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx);
+	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	//validate creator
 	if err := k.CheckAdmin(ctx, msg.Creator); err != nil {

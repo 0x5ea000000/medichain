@@ -30,6 +30,8 @@ export interface MedichainMsgCreateServiceResponse {
   Service?: MedichainService;
 }
 
+export type MedichainMsgCreateServiceUserBatchResponse = object;
+
 export interface MedichainMsgCreateServiceUserResponse {
   ServiceUser?: MedichainServiceUser;
 }

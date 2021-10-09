@@ -10,7 +10,7 @@ var _ sdk.Msg = &MsgUnbanUser{}
 func NewMsgUnbanUser(creator string, index string) *MsgUnbanUser {
 	return &MsgUnbanUser{
 		Creator: creator,
-		UserId:   index,
+		UserId:  index,
 	}
 }
 

@@ -13,6 +13,7 @@ option go_package = "github.com/sota/medichain/x/medichain/types";
 // Msg defines the Msg service.
 service Msg {
   // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateServiceUserBatch(MsgCreateServiceUserBatch) returns (MsgCreateServiceUserBatchResponse);
   rpc UnbanUser(MsgUnbanUser) returns (MsgUnbanUserResponse);
   rpc BanUser(MsgBanUser) returns (MsgBanUserResponse);
   rpc DeleteSharingBatch(MsgDeleteSharingBatch) returns (MsgDeleteSharingBatchResponse);
@@ -38,6 +39,15 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateServiceUserBatch {
+  string creator = 1;
+  string userId = 2;
+  repeated string serviceIds = 3;
+}
+
+message MsgCreateServiceUserBatchResponse {
+}
+
 message MsgUnbanUser {
   string creator = 1;
   string userId = 2;

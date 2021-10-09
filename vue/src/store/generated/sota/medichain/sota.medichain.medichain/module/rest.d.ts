@@ -13,6 +13,7 @@ export interface MedichainMsgCreateAdminResponse {
 export interface MedichainMsgCreateServiceResponse {
     Service?: MedichainService;
 }
+export declare type MedichainMsgCreateServiceUserBatchResponse = object;
 export interface MedichainMsgCreateServiceUserResponse {
     ServiceUser?: MedichainServiceUser;
 }

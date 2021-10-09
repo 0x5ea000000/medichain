@@ -120,7 +120,7 @@ func GetAdminIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
-func (k Keeper)CheckAdmin(ctx sdk.Context, addr string) error {
+func (k Keeper) CheckAdmin(ctx sdk.Context, addr string) error {
 	//validate creator
 	admin := k.GetAdmin(ctx, 0)
 

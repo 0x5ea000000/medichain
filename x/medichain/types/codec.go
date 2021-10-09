@@ -9,6 +9,8 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgCreateServiceUserBatch{}, "medichain/CreateServiceUserBatch", nil)
+
 	cdc.RegisterConcrete(&MsgUnbanUser{}, "medichain/UnbanUser", nil)
 
 	cdc.RegisterConcrete(&MsgBanUser{}, "medichain/BanUser", nil)
@@ -47,6 +49,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateServiceUserBatch{},
+	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgUnbanUser{},
 	)
