@@ -69,7 +69,7 @@ func (k msgServer) CreateServiceUser(goCtx context.Context, msg *types.MsgCreate
 		}
 		serviceUser.Index = indexStr
 
-		if !isAdmin{
+		if isAdmin{
 			serviceUser.IsActive = false
 		}
 		err := k.ValidateServiceUser(ctx, &serviceUser)

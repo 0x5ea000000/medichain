@@ -35,6 +35,7 @@ const (
 
 const (
 	ServiceUserKey = "ServiceUser-value-"
+	SharingCount = "Sharing-count-"
 )
 
 const (

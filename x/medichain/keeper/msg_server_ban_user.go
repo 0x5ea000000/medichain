@@ -27,7 +27,17 @@ func (k msgServer) BanUser(goCtx context.Context, msg *types.MsgBanUser) (*types
 	serviceUsers := k.GetUserServiceLinked(ctx, msg.UserId)
 
 	for _, v := range serviceUsers {
-		k.RemoveServiceUser(ctx, v.Index)
+		v.IsActive = false
+		sharings := k.GetSharingByServiceUser(ctx, v.Index)
+		for _, sharingId := range sharings {
+			// no error catching
+			sharing, _ := k.GetSharing(ctx, sharingId)
+			if sharing.Status != types.REJECTED {
+				sharing.Status = types.REJECTED
+				k.SetSharing(ctx, sharing)
+			}
+		}
+		k.SetServiceUser(ctx, *v)
 	}
 
 	k.SetUser(ctx, user)
