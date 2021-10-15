@@ -48,6 +48,7 @@ func (k msgServer) CreateSharing(goCtx context.Context, msg *types.MsgCreateShar
 	if isFound {
 		switch found.Status {
 		case types.PENDING:
+			sharing = found
 			sharing.Status = types.ACCEPTED
 		case types.ACCEPTED:
 			return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, err.Error())
