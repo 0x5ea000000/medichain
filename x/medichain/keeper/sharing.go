@@ -64,7 +64,7 @@ func (k Keeper) GetSharingIfExisted(ctx sdk.Context, sharing types.Sharing) (val
 
 	for ; iterator.Valid(); iterator.Next() {
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		if val.OwnerId == sharing.OwnerId && val.ViewerId == sharing.ViewerId && val.Status != types.REJECTED {
+		if val.OwnerId == sharing.OwnerId && val.ViewerId == sharing.ViewerId {
 			return val, true
 		}
 	}
@@ -82,11 +82,7 @@ func (k Keeper) ValidateSharing(ctx sdk.Context, sharing *types.Sharing) error {
 	if !isFound {
 		return errors.New(fmt.Sprintf("viewer id not found %s", sharing.ViewerId))
 	}
-
-	_, isFound = k.GetSharingIfExisted(ctx, *sharing)
-	if isFound {
-		return errors.New("owner and viewer sharing record found")
-	}
+	
 	return nil
 }
 

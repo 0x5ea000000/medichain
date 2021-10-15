@@ -44,6 +44,18 @@ func (k msgServer) CreateSharing(goCtx context.Context, msg *types.MsgCreateShar
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, err.Error())
 	}
 
+	found, isFound := k.GetSharingIfExisted(ctx, sharing)
+	if isFound {
+		switch found.Status {
+		case types.PENDING:
+			sharing.Status = types.ACCEPTED
+		case types.ACCEPTED:
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, err.Error())
+		case types.REJECTED:
+			sharing.Status = msg.Status
+		}
+	}
+
 	k.SetSharing(
 		ctx,
 		sharing,
@@ -82,6 +94,18 @@ func (k msgServer) UpdateSharing(goCtx context.Context, msg *types.MsgUpdateShar
 
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, err.Error())
+	}
+
+	found, isFound := k.GetSharingIfExisted(ctx, sharing)
+	if isFound {
+		switch found.Status {
+		case types.PENDING:
+			sharing.Status = types.ACCEPTED
+		case types.ACCEPTED:
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, err.Error())
+		case types.REJECTED:
+			sharing.Status = msg.Status
+		}
 	}
 
 	k.SetSharing(ctx, sharing)
