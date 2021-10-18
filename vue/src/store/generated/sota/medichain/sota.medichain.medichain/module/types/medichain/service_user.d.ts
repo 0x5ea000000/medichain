@@ -6,6 +6,7 @@ export interface ServiceUser {
     serviceId: string;
     userId: string;
     serviceUserId: string;
+    connectedAt: number;
     isActive: boolean;
 }
 export declare const ServiceUser: {

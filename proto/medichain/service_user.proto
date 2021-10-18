@@ -10,6 +10,7 @@ message ServiceUser {
   string index = 2;
   string serviceId = 3; 
   string userId = 4; 
-  string serviceUserId = 5; 
-  bool isActive = 6;
+  string serviceUserId = 5;
+  int64 connectedAt = 6;
+  bool isActive = 7;
 }

@@ -19287,6 +19287,9 @@ paths:
                     type: string
                   serviceUserId:
                     type: string
+                  connectedAt:
+                    type: string
+                    format: int64
                   isActive:
                     type: boolean
         default:
@@ -19354,6 +19357,9 @@ paths:
                     type: string
                   serviceUserId:
                     type: string
+                  connectedAt:
+                    type: string
+                    format: int64
                   isActive:
                     type: boolean
         default:
@@ -19581,6 +19587,9 @@ paths:
                       type: string
                     serviceUserId:
                       type: string
+                    connectedAt:
+                      type: string
+                      format: int64
                     isActive:
                       type: boolean
               pagination:
@@ -19700,6 +19709,9 @@ paths:
                     type: string
                   serviceUserId:
                     type: string
+                  connectedAt:
+                    type: string
+                    format: int64
                   isActive:
                     type: boolean
         default:
@@ -20082,6 +20094,9 @@ paths:
                       type: string
                     serviceUserId:
                       type: string
+                    connectedAt:
+                      type: string
+                      format: int64
                     isActive:
                       type: boolean
         default:
@@ -30331,6 +30346,9 @@ definitions:
             type: string
           serviceUserId:
             type: string
+          connectedAt:
+            type: string
+            format: int64
           isActive:
             type: boolean
   sota.medichain.medichain.MsgCreateSharingBatchResponse:
@@ -30417,6 +30435,9 @@ definitions:
             type: string
           serviceUserId:
             type: string
+          connectedAt:
+            type: string
+            format: int64
           isActive:
             type: boolean
   sota.medichain.medichain.MsgUpdateSharingResponse:
@@ -30554,6 +30575,9 @@ definitions:
               type: string
             serviceUserId:
               type: string
+            connectedAt:
+              type: string
+              format: int64
             isActive:
               type: boolean
       pagination:
@@ -30681,6 +30705,9 @@ definitions:
             type: string
           serviceUserId:
             type: string
+          connectedAt:
+            type: string
+            format: int64
           isActive:
             type: boolean
   sota.medichain.medichain.QueryCheckSharingResponse:
@@ -30712,6 +30739,9 @@ definitions:
             type: string
           serviceUserId:
             type: string
+          connectedAt:
+            type: string
+            format: int64
           isActive:
             type: boolean
   sota.medichain.medichain.QueryGetAdminResponse:
@@ -30761,6 +30791,9 @@ definitions:
             type: string
           serviceUserId:
             type: string
+          connectedAt:
+            type: string
+            format: int64
           isActive:
             type: boolean
   sota.medichain.medichain.QueryGetSharingResponse:
@@ -30811,6 +30844,9 @@ definitions:
               type: string
             serviceUserId:
               type: string
+            connectedAt:
+              type: string
+              format: int64
             isActive:
               type: boolean
   sota.medichain.medichain.Service:
@@ -30841,6 +30877,9 @@ definitions:
         type: string
       serviceUserId:
         type: string
+      connectedAt:
+        type: string
+        format: int64
       isActive:
         type: boolean
   sota.medichain.medichain.Sharing:

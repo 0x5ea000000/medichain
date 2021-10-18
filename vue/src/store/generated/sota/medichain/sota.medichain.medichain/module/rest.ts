@@ -205,6 +205,9 @@ export interface MedichainServiceUser {
   serviceId?: string;
   userId?: string;
   serviceUserId?: string;
+
+  /** @format int64 */
+  connectedAt?: string;
   isActive?: boolean;
 }
 

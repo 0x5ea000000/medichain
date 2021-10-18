@@ -6,10 +6,16 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/sota/medichain/x/medichain/types"
+	"time"
 )
 
 // SetServiceUser set a specific serviceUser in the store from its index
 func (k Keeper) SetServiceUser(ctx sdk.Context, serviceUser types.ServiceUser) {
+	if serviceUser.IsActive {
+		serviceUser.ConnectedAt = time.Now().Unix()
+	} else {
+		serviceUser.ConnectedAt = 0
+	}
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ServiceUserKey))
 	b := k.cdc.MustMarshalBinaryBare(&serviceUser)
 	store.Set(types.KeyPrefix(serviceUser.Index), b)

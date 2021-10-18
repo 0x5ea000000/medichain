@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { Writer, Reader } from 'protobufjs/minimal'
+import * as Long from 'long'
+import { util, configure, Writer, Reader } from 'protobufjs/minimal'
 
 export const protobufPackage = 'sota.medichain.medichain'
 
@@ -9,10 +10,11 @@ export interface ServiceUser {
   serviceId: string
   userId: string
   serviceUserId: string
+  connectedAt: number
   isActive: boolean
 }
 
-const baseServiceUser: object = { creator: '', index: '', serviceId: '', userId: '', serviceUserId: '', isActive: false }
+const baseServiceUser: object = { creator: '', index: '', serviceId: '', userId: '', serviceUserId: '', connectedAt: 0, isActive: false }
 
 export const ServiceUser = {
   encode(message: ServiceUser, writer: Writer = Writer.create()): Writer {
@@ -31,8 +33,11 @@ export const ServiceUser = {
     if (message.serviceUserId !== '') {
       writer.uint32(42).string(message.serviceUserId)
     }
+    if (message.connectedAt !== 0) {
+      writer.uint32(48).int64(message.connectedAt)
+    }
     if (message.isActive === true) {
-      writer.uint32(48).bool(message.isActive)
+      writer.uint32(56).bool(message.isActive)
     }
     return writer
   },
@@ -60,6 +65,9 @@ export const ServiceUser = {
           message.serviceUserId = reader.string()
           break
         case 6:
+          message.connectedAt = longToNumber(reader.int64() as Long)
+          break
+        case 7:
           message.isActive = reader.bool()
           break
         default:
@@ -97,6 +105,11 @@ export const ServiceUser = {
     } else {
       message.serviceUserId = ''
     }
+    if (object.connectedAt !== undefined && object.connectedAt !== null) {
+      message.connectedAt = Number(object.connectedAt)
+    } else {
+      message.connectedAt = 0
+    }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = Boolean(object.isActive)
     } else {
@@ -112,6 +125,7 @@ export const ServiceUser = {
     message.serviceId !== undefined && (obj.serviceId = message.serviceId)
     message.userId !== undefined && (obj.userId = message.userId)
     message.serviceUserId !== undefined && (obj.serviceUserId = message.serviceUserId)
+    message.connectedAt !== undefined && (obj.connectedAt = message.connectedAt)
     message.isActive !== undefined && (obj.isActive = message.isActive)
     return obj
   },
@@ -143,6 +157,11 @@ export const ServiceUser = {
     } else {
       message.serviceUserId = ''
     }
+    if (object.connectedAt !== undefined && object.connectedAt !== null) {
+      message.connectedAt = object.connectedAt
+    } else {
+      message.connectedAt = 0
+    }
     if (object.isActive !== undefined && object.isActive !== null) {
       message.isActive = object.isActive
     } else {
@@ -151,6 +170,16 @@ export const ServiceUser = {
     return message
   }
 }
+
+declare var self: any | undefined
+declare var window: any | undefined
+var globalThis: any = (() => {
+  if (typeof globalThis !== 'undefined') return globalThis
+  if (typeof self !== 'undefined') return self
+  if (typeof window !== 'undefined') return window
+  if (typeof global !== 'undefined') return global
+  throw 'Unable to locate global object'
+})()
 
 type Builtin = Date | Function | Uint8Array | string | number | undefined
 export type DeepPartial<T> = T extends Builtin
@@ -162,3 +191,15 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>
+
+function longToNumber(long: Long): number {
+  if (long.gt(Number.MAX_SAFE_INTEGER)) {
+    throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER')
+  }
+  return long.toNumber()
+}
+
+if (util.Long !== Long) {
+  util.Long = Long as any
+  configure()
+}
