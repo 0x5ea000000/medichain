@@ -24,11 +24,11 @@ func (k msgServer) BanUser(goCtx context.Context, msg *types.MsgBanUser) (*types
 
 	user.IsActive = false
 
-	serviceUsers := k.GetUserServiceLinked(ctx, msg.UserId)
+	owners := k.GetUserServiceLinked(ctx, msg.UserId)
 
-	for _, v := range serviceUsers {
+	for _, v := range owners {
 		v.IsActive = false
-		sharings := k.GetSharingByServiceUser(ctx, v.Index)
+		sharings := k.GetSharingByOwner(ctx, v.Index)
 		for _, sharingId := range sharings {
 			// no error catching
 			sharing, _ := k.GetSharing(ctx, sharingId)
@@ -38,6 +38,14 @@ func (k msgServer) BanUser(goCtx context.Context, msg *types.MsgBanUser) (*types
 			}
 		}
 		k.SetServiceUser(ctx, *v)
+	}
+
+	for _, sharingId := range k.GetSharingByViewer(ctx, msg.UserId) {
+		sharing,_ := k.GetSharing(ctx, sharingId)
+		if sharing.Status == types.PENDING {
+			sharing.Status = types.REJECTED
+			k.SetSharing(ctx, sharing)
+		}
 	}
 
 	k.SetUser(ctx, user)

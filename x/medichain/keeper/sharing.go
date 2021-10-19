@@ -16,10 +16,15 @@ func (k Keeper) SetSharing(ctx sdk.Context, sharing types.Sharing) {
 	b := k.cdc.MustMarshalBinaryBare(&sharing)
 	store.Set(types.KeyPrefix(sharing.Index), b)
 
-	serviceUserStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(sharing.OwnerId))
-	count := k.GetSharingCount(ctx, sharing.OwnerId)
-	serviceUserStore.Set(GetSharingCountBytes(count), types.KeyPrefix(sharing.Index))
-	k.SetSharingCount(ctx, sharing.OwnerId, count+1)
+	ownerStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(sharing.OwnerId))
+	count := k.GetOwnerSharingCount(ctx, sharing.OwnerId)
+	ownerStore.Set(GetSharingCountBytes(count), types.KeyPrefix(sharing.Index))
+	k.SetOwnerSharingCount(ctx, sharing.OwnerId, count+1)
+
+	viewerStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(sharing.ViewerId))
+	count = k.GetViewerSharingCount(ctx, sharing.ViewerId)
+	viewerStore.Set(GetSharingCountBytes(count), types.KeyPrefix(sharing.Index))
+	k.SetViewerSharingCount(ctx, sharing.ViewerId, count+1)
 }
 
 // GetSharing returns a sharing from its index
@@ -86,21 +91,21 @@ func (k Keeper) ValidateSharing(ctx sdk.Context, sharing *types.Sharing) error {
 	return nil
 }
 
-// GetSharingByServiceUser get all sharing ids of a ServiceUser
-func (k Keeper) GetSharingByServiceUser(ctx sdk.Context, serviceUserId string) []string {
-	serviceUserStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(serviceUserId))
-	count := k.GetSharingCount(ctx, serviceUserId)
+// GetSharingByOwner get all sharing ids of a ServiceUser
+func (k Keeper) GetSharingByOwner(ctx sdk.Context, ownerId string) []string {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(ownerId))
+	count := k.GetOwnerSharingCount(ctx, ownerId)
 	res := make([]string, 0)
 	for i := uint64(0); i < count; i++ {
-		res = append(res, string(serviceUserStore.Get(GetAdminIDBytes(i))))
+		res = append(res, string(store.Get(GetSharingCountBytes(i))))
 	}
 	return res
 }
 
-// GetSharingCount get the total number of sharing of each ServiceUser
-func (k Keeper) GetSharingCount(ctx sdk.Context, serviceUserId string) uint64 {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SharingCount))
-	byteKey := types.KeyPrefix(serviceUserId)
+// GetOwnerSharingCount get the total number of sharing of each ServiceUser
+func (k Keeper) GetOwnerSharingCount(ctx sdk.Context, ownerId string) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OwnerSharingCount))
+	byteKey := types.KeyPrefix(ownerId)
 	bz := store.Get(byteKey)
 
 	// Count doesn't exist: no element
@@ -118,10 +123,10 @@ func (k Keeper) GetSharingCount(ctx sdk.Context, serviceUserId string) uint64 {
 	return count
 }
 
-// SetSharingCount set the total number of sharing of each ServiceUser
-func (k Keeper) SetSharingCount(ctx sdk.Context, serviceUserId string, count uint64) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SharingCount))
-	byteKey := types.KeyPrefix(serviceUserId)
+// SetOwnerSharingCount set the total number of sharing of each ServiceUser
+func (k Keeper) SetOwnerSharingCount(ctx sdk.Context, ownerId string, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.OwnerSharingCount))
+	byteKey := types.KeyPrefix(ownerId)
 	bz := []byte(strconv.FormatUint(count, 10))
 	store.Set(byteKey, bz)
 }
@@ -130,4 +135,44 @@ func GetSharingCountBytes(id uint64) []byte {
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, id)
 	return bz
+}
+
+// GetSharingByViewer get all sharing ids of a viewer(UserId)
+func (k Keeper) GetSharingByViewer(ctx sdk.Context, viewerId string) []string {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(viewerId))
+	count := k.GetViewerSharingCount(ctx, viewerId)
+	res := make([]string, 0)
+	for i := uint64(0); i < count; i++ {
+		res = append(res, string(store.Get(GetSharingCountBytes(i))))
+	}
+	return res
+}
+
+// GetViewerSharingCount get the total number of sharing of each viewer(UserId)
+func (k Keeper) GetViewerSharingCount(ctx sdk.Context, viewerId string) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ViewerSharingCount))
+	byteKey := types.KeyPrefix(viewerId)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseUint(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to uint64
+		panic("cannot decode count")
+	}
+
+	return count
+}
+
+// SetViewerSharingCount set the total number of sharing of each viewer(UserId)
+func (k Keeper) SetViewerSharingCount(ctx sdk.Context, viewerId string, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ViewerSharingCount))
+	byteKey := types.KeyPrefix(viewerId)
+	bz := []byte(strconv.FormatUint(count, 10))
+	store.Set(byteKey, bz)
 }

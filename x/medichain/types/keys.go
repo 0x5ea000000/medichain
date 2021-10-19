@@ -31,11 +31,12 @@ const (
 
 const (
 	ServiceKey = "Service-value-"
+	ViewerSharingCount = "Viewer-count-"
 )
 
 const (
-	ServiceUserKey = "ServiceUser-value-"
-	SharingCount = "Sharing-count-"
+	ServiceUserKey    = "ServiceUser-value-"
+	OwnerSharingCount = "Owner-count-"
 )
 
 const (
