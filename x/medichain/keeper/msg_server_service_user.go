@@ -112,6 +112,15 @@ func (k msgServer) UpdateServiceUser(goCtx context.Context, msg *types.MsgUpdate
 		ServiceUserId: msg.ServiceUserId,
 		IsActive:      msg.IsActive,
 	}
+	if serviceUser.IsActive == false {
+		for _, sharingId := range k.GetSharingByOwner(ctx, msg.Index) {
+			sharing, _ := k.GetSharing(ctx, sharingId)
+			if sharing.Status == types.ACCEPTED {
+				sharing.Status = types.REJECTED
+				k.SetSharing(ctx, sharing)
+			}
+		}
+	}
 
 	k.SetServiceUser(ctx, serviceUser)
 
