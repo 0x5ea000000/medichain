@@ -62,19 +62,28 @@ func (k Keeper) GetAllSharing(ctx sdk.Context) (list []types.Sharing) {
 	return
 }
 
-func (k Keeper) GetSharingIfExisted(ctx sdk.Context, sharing types.Sharing) (val types.Sharing, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SharingKey))
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
-	defer iterator.Close()
+func (k Keeper) GetSharingIfExisted(ctx sdk.Context, sharing types.Sharing) *types.Sharing {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(sharing.ViewerId))
+	count := k.GetViewerSharingCount(ctx, sharing.ViewerId)
 
-	for ; iterator.Valid(); iterator.Next() {
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+	var res *types.Sharing
+
+	for i := uint64(0); i < count; i++ {
+		val, _ := k.GetSharing(ctx, string(store.Get(GetSharingCountBytes(i))))
 		if val.OwnerId == sharing.OwnerId && val.ViewerId == sharing.ViewerId {
-			return val, true
+			if val.Status != types.REJECTED {
+				return &val
+			} else {
+				res = &val
+			}
 		}
 	}
 
-	return val, false
+	if res != nil {
+		return res
+	}
+
+	return nil
 }
 
 func (k Keeper) ValidateSharing(ctx sdk.Context, sharing *types.Sharing) error {

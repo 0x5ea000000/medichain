@@ -23,8 +23,8 @@ func (k Keeper) CheckSharing(goCtx context.Context, req *types.QueryCheckSharing
 		ViewerId: req.ViewerId,
 		Status:   "",
 	}
-	res, isFound := k.GetSharingIfExisted(ctx, sharing)
-	if !isFound {
+	res := k.GetSharingIfExisted(ctx, sharing)
+	if res == nil {
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
@@ -34,7 +34,7 @@ func (k Keeper) CheckSharing(goCtx context.Context, req *types.QueryCheckSharing
 	}
 
 	return &types.QueryCheckSharingResponse{
-		Sharing: &res,
+		Sharing: res,
 		Owner:   &owner,
 	}, nil
 }
