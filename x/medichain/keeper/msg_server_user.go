@@ -22,10 +22,10 @@ func (k msgServer) CreateUser(goCtx context.Context, msg *types.MsgCreateUser) (
 
 	// Check if the id value already exists
 	for indexStr == "" {
-		index, err := uuid.NewUUID()
+		index := uuid.New()
 
 		_, isFound := k.GetService(ctx, indexStr)
-		if err == nil && !isFound {
+		if !isFound {
 			indexStr = index.String()
 		}
 	}

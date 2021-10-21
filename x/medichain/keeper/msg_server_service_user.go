@@ -46,9 +46,9 @@ func (k msgServer) CreateServiceUser(goCtx context.Context, msg *types.MsgCreate
 		IsActive:      msg.IsActive,
 	}
 
-	val, isFound := k.GetServiceUserIfLinked(ctx, serviceUser)
-	if isFound {
-		serviceUser = val
+	val := k.GetServiceUserIfLinked(ctx, serviceUser)
+	if val != nil {
+		serviceUser = *val
 		if !isAdmin {
 			serviceUser.ServiceUserId = msg.ServiceUserId
 			serviceUser.IsActive = msg.IsActive
@@ -112,6 +112,12 @@ func (k msgServer) UpdateServiceUser(goCtx context.Context, msg *types.MsgUpdate
 		ServiceUserId: msg.ServiceUserId,
 		IsActive:      msg.IsActive,
 	}
+
+	val := k.GetServiceUserIfLinked(ctx, serviceUser)
+	if val != nil && val.Index != msg.Index {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "service user linked")
+	}
+
 	if serviceUser.IsActive == false {
 		for _, sharingId := range k.GetSharingByOwner(ctx, msg.Index) {
 			sharing, _ := k.GetSharing(ctx, sharingId)

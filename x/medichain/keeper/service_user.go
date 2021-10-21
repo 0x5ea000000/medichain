@@ -56,19 +56,20 @@ func (k Keeper) GetAllServiceUser(ctx sdk.Context) (list []types.ServiceUser) {
 	return
 }
 
-func (k Keeper) GetServiceUserIfLinked(ctx sdk.Context, serviceUser types.ServiceUser) (val types.ServiceUser, found bool) {
+func (k Keeper) GetServiceUserIfLinked(ctx sdk.Context, serviceUser types.ServiceUser) (val *types.ServiceUser) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ServiceUserKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		val = &types.ServiceUser{}
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), val)
 		if val.UserId == serviceUser.UserId && val.ServiceId == serviceUser.ServiceId {
-			return val, true
+			return val
 		}
 	}
 
-	return val, false
+	return nil
 }
 
 func (k Keeper) GetUserServiceLinked(ctx sdk.Context, userId string) (list []*types.ServiceUser) {

@@ -20,10 +20,10 @@ func (k Keeper) CheckServiceUser(goCtx context.Context, req *types.QueryCheckSer
 		UserId:    req.UserId,
 		ServiceId: req.ServiceId,
 	}
-	res, isFound := k.GetServiceUserIfLinked(ctx, serviceUser)
-	if !isFound {
+	res  := k.GetServiceUserIfLinked(ctx, serviceUser)
+	if res == nil {
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
-	return &types.QueryCheckServiceUserResponse{ServiceUser: &res}, nil
+	return &types.QueryCheckServiceUserResponse{ServiceUser: res}, nil
 }
