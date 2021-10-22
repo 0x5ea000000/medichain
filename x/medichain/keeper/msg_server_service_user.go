@@ -49,6 +49,9 @@ func (k msgServer) CreateServiceUser(goCtx context.Context, msg *types.MsgCreate
 	val := k.GetServiceUserIfLinked(ctx, serviceUser)
 	if val != nil {
 		serviceUser = *val
+		if serviceUser.IsActive {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "connected")
+		}
 		if !isAdmin {
 			serviceUser.ServiceUserId = msg.ServiceUserId
 			serviceUser.IsActive = msg.IsActive
@@ -60,10 +63,10 @@ func (k msgServer) CreateServiceUser(goCtx context.Context, msg *types.MsgCreate
 		var indexStr string
 		// Check if the id value already exists
 		for indexStr == "" {
-			index, err := uuid.NewUUID()
+			index := uuid.New()
 
 			_, isFound := k.GetService(ctx, indexStr)
-			if err == nil && !isFound {
+			if !isFound {
 				indexStr = index.String()
 			}
 		}
