@@ -12,7 +12,7 @@ import (
 // SetServiceUser set a specific serviceUser in the store from its index
 func (k Keeper) SetServiceUser(ctx sdk.Context, serviceUser types.ServiceUser) {
 	if serviceUser.IsActive {
-		serviceUser.ConnectedAt = time.Now().Unix()
+		serviceUser.ConnectedAt = time.Now().UnixMilli()
 	} else {
 		serviceUser.ConnectedAt = 0
 	}
