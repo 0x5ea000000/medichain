@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM golang:1.16.2-buster as base
+FROM golang:1.17.2-buster as base
 RUN apt update && \
     apt-get install -y \
         build-essential \
