@@ -26,10 +26,6 @@ func (k Keeper) initAcct(ctx sdk.Context, desPubKey string) error {
 		return err
 	}
 
-	logger := k.Logger(ctx)
-
-	logger.Info("dcm")
-
 	if err := k.bankKeeper.MintCoins(ctx, types.ModuleName, initCoin); err != nil {
 		return err
 	}

@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3cf6c183-9367-40d1-93cf-3df1c2c3b286" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dev.Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/x/medichain/keeper/msg_server.go" beforeDir="false" afterPath="$PROJECT_DIR$/x/medichain/keeper/msg_server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
     <property name="go.format.on.save.advertiser.fired" value="true" />
     <property name="go.formatter.settings.were.checked" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../medipoint" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -66,7 +65,9 @@
       <option name="presentableId" value="Default" />
       <updated>1635418493466</updated>
       <workItem from="1635418495676" duration="1212000" />
-      <workItem from="1635433911901" duration="59000" />
+      <workItem from="1635433911901" duration="2176000" />
+      <workItem from="1635481537624" duration="3000" />
+      <workItem from="1635821879802" duration="2631000" />
     </task>
     <servers />
   </component>
